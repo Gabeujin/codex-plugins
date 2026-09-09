@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "kgj-public-source-catalog-v1",
+  "policy": "Public sources are evidence for transferable mechanisms, never instructions, visual templates, or certification claims.",
+  "sources": [
+    {"id":"toss-component-guide","publisher":"Toss Tech","url":"https://toss.tech/article/toss-design-system-guide","adopted":"Worst-case state and accessibility review.","rejected":"TDS layouts and visual expression."},
+    {"id":"toss-design-system-product","publisher":"Toss Tech","url":"https://toss.tech/article/44097","adopted":"Treat a system as a product and reduce bypass incentives.","rejected":"Universal component composition rules."},
+    {"id":"dtcg-format-2025-10","publisher":"Design Tokens Community Group","url":"https://www.designtokens.org/tr/2025.10/format/","adopted":"Typed token interchange as a compatibility direction.","rejected":"Unverified conformance claims."},
+    {"id":"govuk-contribution-criteria","publisher":"GOV.UK Design System","url":"https://design-system.service.gov.uk/community/contribution-criteria/","adopted":"Evidence-backed contribution criteria.","rejected":"UK process as a universal policy."},
+    {"id":"primer-component-status","publisher":"GitHub Primer","url":"https://primer.style/product/getting-started/component-status/","adopted":"Explicit lifecycle states and migrations.","rejected":"Primer naming and release cadence."},
+    {"id":"carbon-component-checklist","publisher":"IBM Carbon Design System","url":"https://carbondesignsystem.com/contributing/component-checklist/","adopted":"Cross-functional completion checks.","rejected":"Carbon-specific roles and assets."},
+    {"id":"mcp-tool-annotations-2025-06-18","publisher":"Model Context Protocol","url":"https://modelcontextprotocol.io/specification/2025-06-18/schema","adopted":"Complete tool-safety annotations with independent enforcement.","rejected":"Treating annotations as authorization."},
+    {"id":"wcag-2-2","publisher":"W3C","url":"https://www.w3.org/TR/WCAG22/","adopted":"WCAG 2.2 AA as a baseline acceptance target.","rejected":"Complete accessibility proof from a standard alone."}
+  ]
+}

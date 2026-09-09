@@ -1,0 +1,4 @@
+interface:
+  display_name: KGJ Design
+  short_description: Route a full product-DNA design engagement.
+  default_prompt: Define this product's DNA, route the right KGJ workflow, and deliver a verified result.

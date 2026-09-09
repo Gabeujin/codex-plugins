@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>{{title}}</title>
+  <style>
+    :root{--canvas:#f3f0e8;--surface:#fff;--ink:#12171c;--muted:#5f6b75;--line:#d8ddd9;--accent:#315cff;--signal:#c9ff6a;--radius:18px;--sans:Inter,Pretendard,"Noto Sans KR",sans-serif;--mono:ui-monospace,SFMono-Regular,Consolas,monospace;color-scheme:light}
+    *{box-sizing:border-box}html{font-family:var(--sans);background:var(--canvas);color:var(--ink);line-height:1.58}body{margin:0}main{width:min(1120px,calc(100% - 40px));margin:auto;padding:72px 0 96px}.eyebrow{font:700 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}h1{font-size:clamp(40px,7vw,84px);line-height:.94;letter-spacing:-.055em;max-width:12ch;margin:18px 0 28px}h2{font-size:clamp(24px,3vw,38px);letter-spacing:-.035em;margin:0 0 20px}.lede{font-size:clamp(18px,2vw,24px);max-width:760px;color:var(--muted)}.decision{border-left:8px solid var(--signal);padding:26px 28px;background:var(--ink);color:#fff;border-radius:0 var(--radius) var(--radius) 0;margin:48px 0}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}.panel{grid-column:span 6;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px}.panel.wide{grid-column:1/-1}.metric{font-size:clamp(32px,5vw,58px);font-weight:780;letter-spacing:-.045em;font-variant-numeric:tabular-nums}.label{color:var(--muted)}table{border-collapse:collapse;width:100%}th,td{text-align:left;border-bottom:1px solid var(--line);padding:14px 8px}th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}code{font-family:var(--mono);font-size:.9em}.lineage{font:12px/1.6 var(--mono);color:var(--muted);margin-top:56px}@media(max-width:700px){main{width:min(100% - 24px,1120px);padding-top:40px}.panel{grid-column:1/-1;padding:22px}.grid{gap:12px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}@media print{body{background:#fff}main{width:100%;padding:0}.panel{break-inside:avoid}.decision{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">{{eyebrow}}</p>
+      <h1>{{title}}</h1>
+      <p class="lede">{{summary}}</p>
+    </header>
+    <section class="decision" aria-labelledby="decision-title">
+      <h2 id="decision-title">결론부터</h2>
+      <p>{{decision}}</p>
+    </section>
+    <div class="grid">
+      <section class="panel"><p class="label">{{metric-1-label}}</p><p class="metric">{{metric-1-value}}</p><p>{{metric-1-meaning}}</p></section>
+      <section class="panel"><p class="label">{{metric-2-label}}</p><p class="metric">{{metric-2-value}}</p><p>{{metric-2-meaning}}</p></section>
+      <section class="panel wide"><h2>{{section-title}}</h2>{{section-body}}</section>
+    </div>
+    <footer class="lineage">DNA {{dna-id}} · Dictionary r{{dictionary-revision}} · Evidence {{evidence-id}} · {{proof-boundary}}</footer>
+  </main>
+</body>
+</html>

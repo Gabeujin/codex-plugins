@@ -1,0 +1,39 @@
+{
+  "name": "canvas-web-experiences",
+  "version": "1.6.0+codex.20260909013051",
+  "description": "Design and build accessible Canvas, WebGL, WebGPU, and hybrid web experiences.",
+  "author": {
+    "name": "Gabeujin"
+  },
+  "license": "MIT",
+  "keywords": [
+    "canvas",
+    "webgl",
+    "webgpu",
+    "html-in-canvas",
+    "2d",
+    "3d",
+    "maps",
+    "games",
+    "design"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Canvas Experiences",
+    "shortDescription": "Build Canvas web experiences.",
+    "longDescription": "Plan, design, implement, and verify accessible Canvas, WebGL, WebGPU, spatial, map, diagram, and game web experiences with DOM fallbacks for experimental browser features.",
+    "developerName": "Gabeujin",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Design",
+      "Code",
+      "Research",
+      "Testing"
+    ],
+    "defaultPrompt": [
+      "Use $canvas-experience-orchestrator to plan and build a Canvas web experience.",
+      "Use $canvas-project-router to choose a Canvas architecture for this product.",
+      "Use $canvas-quality-audit to assess this Canvas experience in a browser."
+    ]
+  }
+}

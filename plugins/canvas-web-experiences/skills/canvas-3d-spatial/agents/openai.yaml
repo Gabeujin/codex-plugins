@@ -1,0 +1,4 @@
+interface:
+  display_name: "Canvas 3D Spatial"
+  short_description: "Build WebGL or WebGPU 3D, games, CAD, BIM, and scenes."
+  default_prompt: "Use $canvas-3d-spatial to implement this 3D spatial experience."

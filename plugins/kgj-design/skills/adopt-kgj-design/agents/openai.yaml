@@ -1,0 +1,7 @@
+interface:
+  display_name: "Adopt KGJ Design"
+  short_description: "Connect a product to governed KGJ Design lineage."
+  brand_color: "#C9FF6A"
+  default_prompt: "Use $adopt-kgj-design to create or inspect this product's KGJ Design contract."
+policy:
+  allow_implicit_invocation: true

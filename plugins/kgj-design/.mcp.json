@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "kgj-design": {
+      "cwd": ".",
+      "command": "node",
+      "args": [
+        "./mcp/server.mjs"
+      ]
+    }
+  }
+}

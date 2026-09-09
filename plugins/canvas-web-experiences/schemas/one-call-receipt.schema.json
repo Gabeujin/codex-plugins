@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.canvas-web-experiences/schemas/one-call-receipt.schema.json",
+  "title": "Fail-closed Canvas one-call receipt",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schemaVersion", "runId", "project", "startedAt", "endedAt", "stages", "commands", "evidence", "claims", "substitutions", "unresolvedRequiredProof", "gate"],
+  "properties": {
+    "schemaVersion": {"const": "one-call-receipt/1.0"},
+    "runId": {"type": "string", "minLength": 1},
+    "project": {"type": "string", "minLength": 1},
+    "startedAt": {"type": "string", "format": "date-time"},
+    "endedAt": {"type": "string", "format": "date-time"},
+    "stages": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["id", "status", "evidenceIds"],
+        "properties": {
+          "id": {"enum": ["plan", "design", "implement", "verify", "package", "learn"]},
+          "status": {"enum": ["passed", "pending"]},
+          "evidenceIds": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    },
+    "commands": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "exitCode", "status"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "label": {"type": "string", "minLength": 1},
+          "exitCode": {"type": "integer"},
+          "status": {"enum": ["passed", "failed"]},
+          "supersededBy": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "level", "commandId", "result", "assertion"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "level": {"enum": ["static", "build", "runtime", "browser", "deployment"]},
+          "commandId": {"type": "string", "minLength": 1},
+          "result": {"const": "passed"},
+          "assertion": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "status", "requiredLevel", "statement", "evidenceIds"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "kind": {"enum": ["core", "advisory"]},
+          "status": {"enum": ["passed", "failed", "bounded"]},
+          "requiredLevel": {"enum": ["static", "build", "runtime", "browser", "deployment"]},
+          "statement": {"type": "string", "minLength": 1},
+          "evidenceIds": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    },
+    "substitutions": {"type": "array"},
+    "unresolvedRequiredProof": {"type": "array"},
+    "gate": {
+      "type": "object",
+      "required": ["rounds", "score", "openP0", "openP1", "status"],
+      "properties": {
+        "rounds": {"type": "array", "minItems": 3, "maxItems": 3},
+        "score": {"type": "number", "minimum": 99},
+        "openP0": {"const": 0},
+        "openP1": {"const": 0},
+        "status": {"enum": ["passed", "failed", "bounded"]}
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "kgj-design",
+  "version": "1.2.4+codex.20260908101117",
+  "description": "A governed product-DNA architecture with project contracts, evidence graphs, lineage locks, migration plans, and a private evolving design dictionary.",
+  "license": "MIT",
+  "author": {
+    "name": "Gabeujin"
+  },
+  "keywords": [
+    "design-system",
+    "product-dna",
+    "ontology",
+    "dictionary",
+    "ui-ux",
+    "html-report",
+    "markdown"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "KGJ Design",
+    "shortDescription": "Inherit product DNA without producing clones.",
+    "longDescription": "KGJ Design separates invariant semantic contracts from product expression, then governs Codex projects through portable contracts, typed evidence, DNA lineage locks, pattern maturity, private dictionary adoption, and evidence-bound release audits.",
+    "developerName": "Gabeujin",
+    "category": "Productivity",
+    "capabilities": [
+      "Design",
+      "Read",
+      "Write",
+      "Interactive"
+    ],
+    "defaultPrompt": [
+      "Define this product's DNA and design its next surface.",
+      "Adopt KGJ Design in this Codex project, define its product DNA, and run the readiness doctor.",
+      "Select evidence-bound experts, cross-review this artifact, and map findings to KGJ quality rounds 1-3."
+    ],
+    "brandColor": "#C9FF6A"
+  }
+}

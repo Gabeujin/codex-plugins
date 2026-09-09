@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.2",
+  "id": "operations-console",
+  "name": "Pulse Operations",
+  "domain": "High-frequency service operations and incident response",
+  "audience": "Experienced operators monitoring several services under time pressure",
+  "jobs": ["Identify abnormal service state", "Act with clear consequence and recovery information"],
+  "character": ["decisive", "compressed", "calm", "legible"],
+  "avoid": ["decorative ambiguity", "color-only status", "hidden destructive consequences"],
+  "traits": {
+    "density": "Dense enough for scanning, with deliberate breathing room around decisions",
+    "hierarchy": "State and consequence precede navigation detail",
+    "typography": "Compact sans roles with monospaced operational identifiers",
+    "motion": "Short state confirmation only; no ambient movement during incidents"
+  },
+  "genome": {
+    "semantics": ["Operational state and consequence precede secondary navigation and decoration."],
+    "behavior": ["A high-impact action previews scope, executes once, and returns a verifiable state receipt."],
+    "accessibility": ["Status is expressed with text and structure as well as color, with complete keyboard operation."],
+    "contentLocale": ["Compact Korean labels and operational identifiers wrap without hiding their meaning."],
+    "dataTruth": ["Visible metrics, chart summaries, timestamps, and health states share one bounded source."],
+    "permissionsPrivacy": ["Controls reveal authority and never imply permission that the operator does not hold."],
+    "recovery": ["Incident actions keep rollback scope, owner, and post-recovery verification visible."]
+  },
+  "tokens": {
+    "foundation": {
+      "color.canvas":{"$type":"color","$value":"#0C1117"},"color.surface":{"$type":"color","$value":"#131B24"},"color.ink":{"$type":"color","$value":"#F4F8FA"},"color.muted":{"$type":"color","$value":"#9AACB9"},"color.line":{"$type":"color","$value":"#273544"},"color.accent":{"$type":"color","$value":"#C9FF6A"},"color.accent-ink":{"$type":"color","$value":"#10150F"},
+      "font.sans":{"$type":"fontFamily","$value":"Inter, Pretendard, sans-serif"},"font.mono":{"$type":"fontFamily","$value":"IBM Plex Mono, Consolas, monospace"},"font.display-weight":{"$type":"fontWeight","$value":760},"font.body-weight":{"$type":"fontWeight","$value":470},"type.base-size":{"$type":"dimension","$value":"15px"},"type.line-height":{"$type":"number","$value":1.48},
+      "space.unit":{"$type":"dimension","$value":"4px"},"space.content-max":{"$type":"dimension","$value":"1480px"},"space.section-gap":{"$type":"dimension","$value":"56px"},"radius.control":{"$type":"dimension","$value":"8px"},"radius.panel":{"$type":"dimension","$value":"14px"},"duration.fast":{"$type":"duration","$value":"100ms"},"duration.standard":{"$type":"duration","$value":"180ms"},"easing.standard":{"$type":"cubicBezier","$value":"cubic-bezier(.2,.8,.2,1)"}
+    },
+    "semantic": {
+      "surface.canvas":{"$type":"color","$value":"{foundation.color.canvas}"},"surface.panel":{"$type":"color","$value":"{foundation.color.surface}"},"text.primary":{"$type":"color","$value":"{foundation.color.ink}"},"text.muted":{"$type":"color","$value":"{foundation.color.muted}"},"border.default":{"$type":"color","$value":"{foundation.color.line}"},"action.accent":{"$type":"color","$value":"{foundation.color.accent}"},"action.on-accent":{"$type":"color","$value":"{foundation.color.accent-ink}"},"type.body":{"$type":"fontFamily","$value":"{foundation.font.sans}"},"type.code":{"$type":"fontFamily","$value":"{foundation.font.mono}"},"space.unit":{"$type":"dimension","$value":"{foundation.space.unit}"},"shape.control":{"$type":"dimension","$value":"{foundation.radius.control}"},"shape.panel":{"$type":"dimension","$value":"{foundation.radius.panel}"},"motion.fast":{"$type":"duration","$value":"{foundation.duration.fast}"},"motion.standard":{"$type":"duration","$value":"{foundation.duration.standard}"},"motion.easing":{"$type":"cubicBezier","$value":"{foundation.easing.standard}"}
+    },
+    "component": {
+      "panel.background":{"$type":"color","$value":"{semantic.surface.panel}"},"panel.border":{"$type":"color","$value":"{semantic.border.default}"},"button.background":{"$type":"color","$value":"{semantic.action.accent}"},"button.text":{"$type":"color","$value":"{semantic.action.on-accent}"},"button.radius":{"$type":"dimension","$value":"{semantic.shape.control}"},"focus.ring":{"$type":"color","$value":"{semantic.action.accent}"},"data.accent":{"$type":"color","$value":"{semantic.action.accent}"}
+    }
+  },
+  "signatureMoment": "A thin lineage pulse connects detected signal, operator decision, and verified outcome.",
+  "evidence": ["domain-risk:high", "frequency:continuous"]
+}

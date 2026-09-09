@@ -8,7 +8,7 @@ const root=fileURLToPath(new URL('../',import.meta.url));
 const plugin=path.join(root,'plugins','k-tech-radar');
 const market=JSON.parse(readFileSync(path.join(root,'.agents','plugins','marketplace.json'),'utf8'));
 assert.equal(market.name,'gabeujin-plugins');
-assert.equal(market.plugins.length,1);
+assert.equal(market.plugins.length,3);
 assert.equal(market.plugins[0].source.path,'./plugins/k-tech-radar');
 const config=JSON.parse(readFileSync(path.join(plugin,'.mcp.json'),'utf8'));
 assert.equal(config.mcpServers['k-tech-radar'].command,'node');

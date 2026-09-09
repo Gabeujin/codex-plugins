@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kgj.design/schemas/product-dna.schema.json",
+  "title": "KGJ product DNA",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "name", "domain", "jobs", "character", "avoid", "traits", "tokens"],
+  "properties": {
+    "schemaVersion": { "enum": ["1.0", "1.1", "1.2"] },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{2,63}$" },
+    "name": { "type": "string", "minLength": 2, "maxLength": 80 },
+    "domain": { "type": "string", "minLength": 2, "maxLength": 120 },
+    "audience": { "type": "string", "maxLength": 240 },
+    "jobs": { "type": "array", "minItems": 1, "maxItems": 8, "items": { "type": "string", "maxLength": 160 } },
+    "character": { "type": "array", "minItems": 2, "maxItems": 6, "items": { "type": "string", "maxLength": 40 } },
+    "avoid": { "type": "array", "minItems": 1, "maxItems": 8, "items": { "type": "string", "maxLength": 100 } },
+    "traits": {
+      "type": "object",
+      "minProperties": 4,
+      "additionalProperties": { "type": "string", "maxLength": 160 }
+    },
+    "genome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantics", "behavior", "accessibility", "contentLocale", "dataTruth", "permissionsPrivacy", "recovery"],
+      "properties": {
+        "semantics": { "$ref": "#/$defs/genomeStatements" },
+        "behavior": { "$ref": "#/$defs/genomeStatements" },
+        "accessibility": { "$ref": "#/$defs/genomeStatements" },
+        "contentLocale": { "$ref": "#/$defs/genomeStatements" },
+        "dataTruth": { "$ref": "#/$defs/genomeStatements" },
+        "permissionsPrivacy": { "$ref": "#/$defs/genomeStatements" },
+        "recovery": { "$ref": "#/$defs/genomeStatements" }
+      }
+    },
+    "tokens": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["foundation", "semantic", "component"],
+      "properties": {
+        "foundation": { "$ref": "#/$defs/tokenLayer" },
+        "semantic": { "$ref": "#/$defs/tokenLayer" },
+        "component": { "$ref": "#/$defs/tokenLayer" }
+      }
+    },
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy", "parents", "allowedOverrides"],
+      "properties": {
+        "policy": { "const": "semantic-contract" },
+        "parents": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "path", "minSchemaVersion"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{2,63}$" },
+              "path": { "type": "string", "pattern": "^(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+\\.json$" },
+              "minSchemaVersion": { "enum": ["1.0", "1.1", "1.2"] }
+            }
+          }
+        },
+        "allowedOverrides": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^(?:foundation|component|traits)\\.(?:\\*|[a-z][a-z0-9.-]*)$|^signatureMoment$" }
+        }
+      }
+    },
+    "signatureMoment": { "type": "string", "maxLength": 240 },
+    "evidence": { "type": "array", "maxItems": 16, "items": { "type": "string", "maxLength": 200 } }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "schemaVersion": { "const": "1.2" } }, "required": ["schemaVersion"] },
+      "then": { "required": ["genome"] },
+      "else": { "not": { "required": ["genome"] } }
+    }
+  ],
+  "$defs": {
+    "genomeStatements": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 3, "maxLength": 200 }
+    },
+    "tokenLayer": {
+      "type": "object",
+      "minProperties": 1,
+      "patternProperties": {
+        "^[a-z][a-z0-9-]*(?:\\.[a-z][a-z0-9-]*)+$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["$type", "$value"],
+          "properties": {
+            "$type": { "enum": ["color", "dimension", "fontFamily", "fontWeight", "number", "duration", "cubicBezier", "string"] },
+            "$value": { "type": ["string", "number"] }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

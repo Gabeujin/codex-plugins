@@ -1,0 +1,4 @@
+interface:
+  display_name: Design Markdown Artifact
+  short_description: Carry KGJ identity through durable plain-text structure.
+  default_prompt: Restructure this Markdown so its hierarchy, voice, evidence, and actions survive any renderer.

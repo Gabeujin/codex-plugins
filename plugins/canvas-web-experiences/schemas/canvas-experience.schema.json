@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.canvas-web-experiences/schemas/canvas-experience.schema.json",
+  "title": "Canvas Experience Work Ontology",
+  "type": "object",
+  "required": ["schemaVersion", "project", "intent", "productDNA", "design", "architecture", "accessibility", "qualityGate", "learnings"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "project": {
+      "type": "object",
+      "required": ["name", "domain", "createdAt"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "domain": { "type": "string", "minLength": 1 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "intent": { "type": "object", "required": ["outcome", "audience", "nonGoals"] },
+    "productDNA": { "type": "object", "required": ["task", "tone", "hostInvariants", "deviceConstraints"] },
+    "design": { "type": "object", "required": ["requestedDirection", "concepts", "selectedConcept", "fidelityLedger"] },
+    "architecture": { "type": "object", "required": ["renderer", "stateOwners", "fallback", "budgets"] },
+    "accessibility": { "type": "object", "required": ["keyboard", "touch", "semantics", "alternative"] },
+    "qualityGate": { "type": "object", "required": ["rounds", "threshold", "openP0", "openP1"] },
+    "learnings": { "type": "array" }
+  }
+}

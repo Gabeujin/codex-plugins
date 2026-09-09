@@ -1,0 +1,4 @@
+interface:
+  display_name: Design Web Experience
+  short_description: Build a distinctive, responsive KGJ web phenotype.
+  default_prompt: Apply the product DNA to this web experience and prove the main flow in a real browser.

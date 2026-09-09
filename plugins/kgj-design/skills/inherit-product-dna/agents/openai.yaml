@@ -1,0 +1,4 @@
+interface:
+  display_name: Inherit Product DNA
+  short_description: Define invariant meaning and product-owned expression.
+  default_prompt: Discover this product's KGJ lineage and produce a falsifiable DNA contract.

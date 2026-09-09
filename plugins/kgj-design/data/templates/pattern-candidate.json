@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0",
+  "id": "replace-with-pattern-id",
+  "name": "Pattern name",
+  "stage": "experimental",
+  "owner": "Pattern owner",
+  "scope": ["One explicit product job or surface"],
+  "criteria": {
+    "useful": "hold",
+    "unique": "hold",
+    "usable": "hold",
+    "accessible": "hold",
+    "consistent": "hold",
+    "versatile": "hold"
+  },
+  "evidenceRefs": [],
+  "migration": {
+    "replacement": null,
+    "deadline": null,
+    "notes": "No migration is required while this pattern remains experimental."
+  }
+}

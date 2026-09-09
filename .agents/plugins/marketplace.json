@@ -15,6 +15,30 @@
         "authentication": "ON_INSTALL"
       },
       "category": "Developer Tools"
+    },
+    {
+      "name": "canvas-web-experiences",
+      "source": {
+        "source": "local",
+        "path": "./plugins/canvas-web-experiences"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "kgj-design",
+      "source": {
+        "source": "local",
+        "path": "./plugins/kgj-design"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
     }
   ]
 }

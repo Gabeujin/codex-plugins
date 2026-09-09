@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko" data-phenotype="operations">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2310161d'/%3E%3Cpath d='M15 12h8v17l15-17h10L29 33l21 19H39L23 37v15h-8z' fill='%23c9ff6a'/%3E%3C/svg%3E">
+  <meta name="description" content="KGJ Design의 불변 유전체와 제품별 표현형, Ontology와 Dictionary 계보를 보여주는 로컬 데모">
+  <title>KGJ Design — Lineage Lab</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <div class="app-shell">
+    <aside class="brand-rail" aria-label="KGJ Design">
+      <a class="mark" href="#top" aria-label="KGJ Design 처음으로"><span>K</span><span>G</span><span>J</span></a>
+      <p class="rail-caption">DNA<br>1.2</p>
+      <span class="rail-line" aria-hidden="true"></span>
+      <p class="rail-caption rail-caption--bottom">CODEx<br>LOCAL</p>
+    </aside>
+
+    <div class="page" id="top">
+      <header class="topbar">
+        <a class="wordmark" href="#top">KGJ <span>Design</span></a>
+        <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Sections</button>
+        <nav id="primary-nav" aria-label="페이지 탐색">
+          <a href="#genome">Genome</a>
+          <a href="#phenotype">Phenotype</a>
+          <a href="#lineage">Lineage</a>
+          <a href="#system">System</a>
+        </nav>
+        <button class="quiet-button" id="evidence-button" type="button" aria-expanded="false" aria-controls="evidence-panel">
+          Proof
+        </button>
+      </header>
+
+      <p class="test-fixture-banner" id="test-fixture-banner" hidden></p>
+
+      <main id="main" tabindex="-1">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Product DNA architecture</p>
+            <h1 id="hero-title">닮았지만,<br><em>복제하지 않는다.</em></h1>
+          </div>
+          <div class="hero-note">
+            <p>같은 의미와 검증된 행동을 물려받되, 제품의 도메인·사용자·위험·콘텐츠가 고유한 표현형을 결정합니다.</p>
+            <p class="microcopy">Portable learning.<br>Never portable identity.</p>
+          </div>
+        </section>
+
+        <section class="genome-section" id="genome" aria-labelledby="genome-title">
+          <div class="section-heading">
+            <p class="section-index">01 / INVARIANT</p>
+            <h2 id="genome-title">변하지 않는<br>유전체</h2>
+            <p>표현이 바뀌어도 의미, 접근성, 데이터 진실성, 권한과 복구 가능성은 보존합니다.</p>
+          </div>
+          <ol class="genome-list">
+            <li><span>01</span><strong>Semantic behavior</strong><p>같은 행위는 같은 결과와 상태를 만든다.</p><b>LOCKED</b></li>
+            <li><span>02</span><strong>Accessibility</strong><p>키보드, 포커스, 이름, 대비, 축소 모션을 보존한다.</p><b>LOCKED</b></li>
+            <li><span>03</span><strong>Data truth</strong><p>수량·식별자·불확실성과 증거 경계를 왜곡하지 않는다.</p><b>LOCKED</b></li>
+            <li><span>04</span><strong>Recovery</strong><p>변이는 이력, 호환성, 롤백 경로와 함께 기록한다.</p><b>LOCKED</b></li>
+          </ol>
+        </section>
+
+        <section class="phenotype-section" id="phenotype" aria-labelledby="phenotype-title">
+          <div class="phenotype-heading">
+            <div>
+              <p class="section-index">02 / EXPRESSION</p>
+              <h2 id="phenotype-title">하나의 계보,<br>세 개의 표현형</h2>
+            </div>
+            <div class="phenotype-tabs" role="tablist" aria-label="제품 표현형 선택">
+              <button role="tab" aria-selected="true" aria-controls="phenotype-panel" id="tab-operations" data-mode="operations">Operations</button>
+              <button role="tab" aria-selected="false" aria-controls="phenotype-panel" id="tab-research" data-mode="research" tabindex="-1">Research</button>
+              <button role="tab" aria-selected="false" aria-controls="phenotype-panel" id="tab-spatial" data-mode="spatial" tabindex="-1">Spatial</button>
+            </div>
+          </div>
+
+          <div class="phenotype-stage" id="phenotype-panel" role="tabpanel" aria-labelledby="tab-operations" tabindex="0">
+            <canvas id="signal-canvas" aria-hidden="true"></canvas>
+            <div class="stage-chrome">
+              <div>
+                <p class="stage-kicker" id="stage-kicker">ILLUSTRATIVE / OPERATIONS / SEOUL</p>
+                <h3 id="stage-title">Pulse<br>Operations</h3>
+              </div>
+              <p class="stage-id">ID <span id="stage-id">OPS-2026-0144</span></p>
+            </div>
+
+            <div class="stage-grid">
+              <article class="primary-card" data-fixture-id="fixture.operations.signal">
+                <p class="card-label" id="primary-label">예시 처리 신호 · 최근 15분 · 건</p>
+                <p class="hero-number" id="primary-value">12,482</p>
+                <div class="delta" id="primary-delta">직전 15분보다 8.4% 증가</div>
+                <div class="bars" id="metric-bars" role="img" aria-labelledby="chart-summary">
+                  <span class="bar-item"><i style="--value:58%"></i><b>09</b><small>58</small></span>
+                  <span class="bar-item"><i style="--value:74%"></i><b>10</b><small>74</small></span>
+                  <span class="bar-item"><i style="--value:46%"></i><b>11</b><small>46</small></span>
+                  <span class="bar-item"><i style="--value:88%"></i><b>12</b><small>88</small></span>
+                  <span class="bar-item"><i style="--value:63%"></i><b>13</b><small>63</small></span>
+                </div>
+                <p class="sr-only" id="chart-summary">Operations 예시 신호: 09시 58, 10시 74, 11시 46, 12시 88, 13시 63.</p>
+              </article>
+
+              <article class="decision-card" data-proof-state="illustrative">
+                <div class="decision-topline"><span id="decision-state">DECISION READY</span><span class="pulse" aria-hidden="true"></span></div>
+                <h4 id="decision-title">결제 지연이 임계값을 넘었습니다.</h4>
+                <p id="decision-copy">영향 범위와 복구 경로를 확인한 뒤 트래픽 우회 여부를 결정하세요.</p>
+                <button type="button" id="inspect-button" aria-expanded="false" aria-controls="evidence-panel">근거와 복구 경로 보기</button>
+              </article>
+
+              <article class="trait-card">
+                <p class="card-label">Expression traits</p>
+                <dl>
+                  <div><dt>Density</dt><dd id="trait-density">Compressed</dd></div>
+                  <div><dt>Voice</dt><dd id="trait-voice">Decisive</dd></div>
+                  <div><dt>Motion</dt><dd id="trait-motion">State only</dd></div>
+                  <div><dt>Shape</dt><dd id="trait-shape">Tight</dd></div>
+                </dl>
+              </article>
+            </div>
+
+            <div class="stage-footer">
+              <span>Genome contract <b>7 / 7</b></span>
+              <span>Fixture state <b id="fixture-state">ILLUSTRATIVE</b></span>
+              <span>Quality target <b>≥ 9.9</b></span>
+            </div>
+          </div>
+          <p class="sr-only" id="mode-status" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="lineage-section" id="lineage" aria-labelledby="lineage-title">
+          <div class="section-heading lineage-heading">
+            <p class="section-index">03 / ONTOLOGY</p>
+            <h2 id="lineage-title">개성은 판단의<br>계보로 남는다</h2>
+            <p>사람을 점수화하지 않습니다. 범위가 있는 선호·거부·실험·검증 결과를 출처와 함께 기록합니다.</p>
+          </div>
+          <div class="lineage-flow" aria-label="디자인 판단 계보">
+            <article><span>OBSERVE</span><strong>고위험 화면에서 모호한 장식이 판단을 늦춤</strong><small>product-observation · local</small></article>
+            <i aria-hidden="true"></i>
+            <article><span>REJECT</span><strong>상태를 색 하나로만 표현하지 않음</strong><small>rejection · scope: operations</small></article>
+            <i aria-hidden="true"></i>
+            <article><span>VERIFY</span><strong>텍스트+형태 결합 후 오류 판독 시간 감소</strong><small>tested-locally · outcome</small></article>
+          </div>
+          <div class="authority-table-wrap">
+            <table>
+              <caption>Dictionary 충돌 해소 우선순위</caption>
+              <thead><tr><th scope="col">우선</th><th scope="col">지식 유형</th><th scope="col">적용 조건</th><th scope="col">다른 사용자에게</th></tr></thead>
+              <tbody>
+                <tr><td>01</td><th scope="row">Local rule</th><td>명시한 범위에서만</td><td>공유하지 않음</td></tr>
+                <tr><td>02</td><th scope="row">Scoped rejection</th><td>반례와 범위가 일치할 때</td><td>동의 후 집계 신호만</td></tr>
+                <tr><td>03</td><th scope="row">Verified outcome</th><td>유효성 조건이 일치할 때</td><td>정제된 후보 가능</td></tr>
+                <tr><td>04</td><th scope="row">Preference</th><td>제품·도메인 맥락이 일치할 때</td><td>개인 정체성으로 이전 금지</td></tr>
+                <tr><td>05</td><th scope="row">Adopted candidate</th><td>로컬 검토와 명시적 채택 후</td><td>채택 전에는 항상 비구속적</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="scroll-hint">좁은 화면에서는 좌우로 밀어 전체 항목을 확인할 수 있습니다.</p>
+        </section>
+
+        <section class="system-section" id="system" aria-labelledby="system-title">
+          <div class="system-heading">
+            <div>
+              <p class="section-index">04 / GOVERNANCE CONSOLE</p>
+              <h2 id="system-title">감각을 시스템으로,<br>시스템을 다시 근거로.</h2>
+            </div>
+            <p>프로젝트 연결부터 증거, 계보, 전문가 검토, 패턴 승격까지 같은 계약 안에서 확인합니다. 아래 값은 v1.2 계약을 설명하는 명시적 fixture이며 실제 운영 현황이 아닙니다.</p>
+          </div>
+
+          <div class="system-console">
+            <div class="system-tabs" role="tablist" aria-label="KGJ Design 거버넌스 단계">
+              <button role="tab" aria-selected="true" aria-controls="system-panel" id="system-tab-contract" data-system="contract">Project contract</button>
+              <button role="tab" aria-selected="false" aria-controls="system-panel" id="system-tab-evidence" data-system="evidence" tabindex="-1">Evidence graph</button>
+              <button role="tab" aria-selected="false" aria-controls="system-panel" id="system-tab-lineage" data-system="lineage" tabindex="-1">Lineage lock</button>
+              <button role="tab" aria-selected="false" aria-controls="system-panel" id="system-tab-pattern" data-system="pattern" tabindex="-1">Pattern lifecycle</button>
+            </div>
+
+            <div class="system-panel" id="system-panel" role="tabpanel" aria-labelledby="system-tab-contract" tabindex="0">
+              <div class="system-summary">
+                <p class="stage-kicker" id="system-kicker">PROJECT / HANDSHAKE</p>
+                <span class="system-state" id="system-state">READY</span>
+                <h3 id="system-panel-title">kgj.design.json</h3>
+                <p id="system-copy">제품·소유자·표면·DNA·증거 경로를 하나의 이동 가능한 계약으로 고정합니다.</p>
+              </div>
+              <dl class="system-metrics">
+                <div><dt id="system-metric-a-label">Linked paths</dt><dd id="system-metric-a">4 / 4</dd></div>
+                <div><dt id="system-metric-b-label">Unresolved</dt><dd id="system-metric-b">0</dd></div>
+                <div><dt id="system-metric-c-label">Doctor</dt><dd id="system-metric-c">PASS</dd></div>
+              </dl>
+              <ol class="system-trace" id="system-trace">
+                <li><span>01</span><strong>Inspect</strong><small>existing product language</small></li>
+                <li><span>02</span><strong>Bind</strong><small>portable relative paths</small></li>
+                <li><span>03</span><strong>Diagnose</strong><small>fail-closed readiness</small></li>
+              </ol>
+            </div>
+          </div>
+          <p class="scroll-hint scroll-hint--dark">좁은 화면에서는 탭을 좌우로 밀어 전체 단계를 확인할 수 있습니다.</p>
+          <p class="sr-only" id="system-status" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="closing" aria-labelledby="closing-title">
+          <p class="section-index">KGJ DESIGN / 1.2</p>
+          <h2 id="closing-title">규칙은 뿌리이고,<br><em>제품은 자란다.</em></h2>
+          <p>Codex가 프로젝트 계약을 읽고, 근거를 연결하고, 제품 DNA의 계보를 잠그고, 실제 표면을 구현한 뒤 세 번의 부정적 검토를 통과시킵니다.</p>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>KGJ Design <span>—</span> Product DNA, not product clones.</p>
+        <p>Local-first · Evidence-bound · Codex-native</p>
+      </footer>
+    </div>
+  </div>
+
+  <dialog class="evidence-panel" id="evidence-panel" aria-labelledby="evidence-title">
+    <button class="evidence-close" id="evidence-close" type="button">닫기</button>
+    <p class="section-index" id="proof-kicker">PROOF EXPLORER / ILLUSTRATIVE</p>
+    <h2 id="evidence-title">Operations 근거와 복구</h2>
+    <p class="proof-verdict" id="proof-verdict">ILLUSTRATIVE — release evidence가 아닙니다.</p>
+    <dl id="proof-details">
+      <div><dt>Fixture</dt><dd id="proof-fixture">fixture.operations.signal</dd></div>
+      <div><dt>Evidence ID · level</dt><dd id="proof-evidence">demo.operations.browser · illustrative browser</dd></div>
+      <div><dt>Scope · lineage</dt><dd id="proof-scope">operations console · DNA 1.2 · Dictionary review-only</dd></div>
+      <div><dt>Observed post-condition</dt><dd id="proof-postcondition">동일한 fixture가 수치, 차트, 접근 가능한 요약, 결정 문구를 함께 갱신합니다.</dd></div>
+      <div><dt>Limitation</dt><dd id="proof-limitation">정적 데모 fixture이며 설치·배포·실제 서비스 상태를 증명하지 않습니다.</dd></div>
+      <div><dt>Recovery</dt><dd id="proof-recovery">변경 전 routing state를 유지하고 검증 실패 시 트래픽 전환을 중단합니다.</dd></div>
+    </dl>
+    <p class="panel-note" id="proof-next-action">다음 안전한 단계: 검증된 evidence registry와 실제 실행 영수증을 연결하세요.</p>
+  </dialog>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>

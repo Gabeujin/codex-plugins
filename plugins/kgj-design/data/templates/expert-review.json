@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0",
+  "reviewId": "replace-with-review-id",
+  "artifact": "replace-with-artifact-and-release-target",
+  "artifactSha256": "replace-with-64-character-sha256",
+  "roles": ["Adversarial trust reviewer", "Product accessibility reviewer"],
+  "findings": [],
+  "dissent": [],
+  "decision": "hold",
+  "evidenceRefs": []
+}

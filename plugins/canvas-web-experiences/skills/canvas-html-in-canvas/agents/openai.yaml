@@ -1,0 +1,4 @@
+interface:
+  display_name: "HTML in Canvas"
+  short_description: "Adopt experimental HTML-in-Canvas with controlled fallbacks."
+  default_prompt: "Use $canvas-html-in-canvas to build an ambitious early-adopter version of this feature with runtime evidence, telemetry, and a task-equivalent fallback."

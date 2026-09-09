@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0",
+  "rubricVersion": "kgj-quality-1.0",
+  "threshold": 9.9,
+  "hardBlocks": ["open-P0", "open-P1", "unproven-core-flow", "missing-or-unusable-check-evidence"],
+  "findingPenalties": { "P0": 10.0, "P1": 1.0, "P2": 0.1, "P3": 0.02 },
+  "rounds": [
+    {
+      "round": 1,
+      "lens": "architecture-security-ontology-integrity",
+      "weight": 0.4,
+      "checks": [
+        "r1.genome-lineage-compatibility",
+        "r1.dictionary-integrity-recovery",
+        "r1.security-privacy-permission",
+        "r1.evidence-trust-provenance",
+        "r1.compatibility-rollback"
+      ]
+    },
+    {
+      "round": 2,
+      "lens": "browser-ux-accessibility-data-truth",
+      "weight": 0.35,
+      "checks": [
+        "r2.primary-alternate-states",
+        "r2.keyboard-focus-assistive",
+        "r2.desktop-mobile-zoom-overflow",
+        "r2.long-korean-data-truth",
+        "r2.reduced-motion-performance-console"
+      ]
+    },
+    {
+      "round": 3,
+      "lens": "reproducibility-package-install-readback",
+      "weight": 0.25,
+      "checks": [
+        "r3.manifest-skills-mcp",
+        "r3.deterministic-build-package",
+        "r3.clean-install-enabled-readback",
+        "r3.version-source-cache-identity",
+        "r3.receipt-reproduction"
+      ]
+    }
+  ]
+}

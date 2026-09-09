@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0",
+  "project": {
+    "id": "replace-with-product-id",
+    "name": "Product name",
+    "domain": "Domain and operating environment",
+    "owner": "Product owner"
+  },
+  "state": "draft",
+  "paths": {
+    "dna": "design/product-dna.json",
+    "tokenOutput": "design/generated/kgj-tokens.css",
+    "evidenceRegistry": "design/evidence-registry.json",
+    "evidenceRoot": "design/evidence"
+  },
+  "surfaces": ["web-app"],
+  "themes": ["light"],
+  "locales": ["ko-KR"],
+  "unresolved": ["Replace template assumptions with observed product evidence before setting state to ready."]
+}

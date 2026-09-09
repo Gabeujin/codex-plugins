@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kgj.design/schemas/evidence-registry.schema.json",
+  "title": "KGJ Design evidence registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "productId", "records"],
+  "properties": {
+    "schemaVersion": { "const": "1.1" },
+    "productId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{2,63}$" },
+    "records": {
+      "type": "array",
+      "maxItems": 2000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "proofLevel", "status", "locator", "sha256", "capturedAt", "limitations", "action", "result", "exitStatus", "postCondition", "environment", "claims", "coverage", "findingRefs", "rounds", "attestation"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{2,119}$" },
+          "kind": { "enum": ["source", "observation", "decision", "mutation", "run", "artifact", "verification"] },
+          "proofLevel": { "enum": ["declaration", "static", "build", "runtime", "browser", "install", "deployment", "user-research"] },
+          "status": { "enum": ["active", "superseded", "rejected", "expired"] },
+          "locator": { "type": "string", "minLength": 1, "maxLength": 500 },
+          "sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+          "capturedAt": { "type": "string", "format": "date-time" },
+          "supersedes": { "type": ["string", "null"] },
+          "limitations": { "type": "array", "maxItems": 20, "items": { "type": "string", "minLength": 3, "maxLength": 240 } },
+          "action": { "type": "string", "minLength": 3, "maxLength": 500 },
+          "result": { "enum": ["pass", "fail", "hold"] },
+          "exitStatus": { "type": ["integer", "null"] },
+          "postCondition": { "type": "string", "minLength": 3, "maxLength": 500 },
+          "environment": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["runtime", "browser", "browserVersion", "viewport"],
+            "properties": {
+              "runtime": { "type": ["string", "null"], "maxLength": 120 },
+              "browser": { "type": ["string", "null"], "maxLength": 120 },
+              "browserVersion": { "type": ["string", "null"], "maxLength": 120 },
+              "viewport": { "type": ["string", "null"], "maxLength": 80 }
+            }
+          },
+          "claims": {
+            "type": "array",
+            "uniqueItems": true,
+            "maxItems": 10,
+            "items": { "enum": ["conversion", "behavior-preservation", "differential-probe", "browser-regression", "rollback-rehearsal", "package-determinism", "install-readback", "deployment-readback", "lineage-impact", "genome-review", "quality-rubric"] }
+          },
+          "coverage": {
+            "type": "array",
+            "uniqueItems": true,
+            "maxItems": 50,
+            "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,79}$" }
+          },
+          "findingRefs": {
+            "type": "array",
+            "uniqueItems": true,
+            "maxItems": 50,
+            "items": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{2,119}$" }
+          },
+          "rounds": {
+            "type": "array",
+            "uniqueItems": true,
+            "maxItems": 3,
+            "items": { "enum": [1, 2, 3] }
+          },
+          "attestation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["issuer", "method", "startedAt", "completedAt", "toolVersion", "transcriptSha256"],
+            "properties": {
+              "issuer": { "type": "string", "minLength": 3, "maxLength": 120 },
+              "method": { "enum": ["command", "browser", "expert-review"] },
+              "startedAt": { "type": "string", "format": "date-time" },
+              "completedAt": { "type": "string", "format": "date-time" },
+              "toolVersion": { "type": "string", "minLength": 1, "maxLength": 120 },
+              "transcriptSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "proofLevel": { "const": "browser" } } },
+            "then": {
+              "properties": {
+                "environment": {
+                  "properties": {
+                    "browser": { "type": "string", "minLength": 1 },
+                    "browserVersion": { "type": "string", "minLength": 1 },
+                    "viewport": { "type": "string", "minLength": 1 }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": { "properties": { "proofLevel": { "enum": ["build", "runtime", "install", "deployment"] } } },
+            "then": { "properties": { "environment": { "properties": { "runtime": { "type": "string", "minLength": 1 } } } } }
+          },
+          {
+            "if": { "properties": { "claims": { "contains": { "const": "conversion" } } } },
+            "then": { "properties": { "proofLevel": { "enum": ["static", "build", "runtime", "browser"] } } }
+          },
+          {
+            "if": { "properties": { "claims": { "contains": { "const": "behavior-preservation" } } } },
+            "then": { "properties": { "proofLevel": { "enum": ["build", "runtime", "browser", "install"] } } }
+          },
+          {
+            "if": { "properties": { "claims": { "contains": { "const": "differential-probe" } } } },
+            "then": { "properties": { "proofLevel": { "enum": ["runtime", "browser"] } } }
+          },
+          {
+            "if": { "properties": { "claims": { "contains": { "const": "browser-regression" } } } },
+            "then": { "properties": { "proofLevel": { "const": "browser" } } }
+          },
+          {
+            "if": { "properties": { "claims": { "contains": { "const": "rollback-rehearsal" } } } },
+            "then": { "properties": { "proofLevel": { "enum": ["runtime", "browser"] } } }
+          },
+          {
+            "if": { "properties": { "claims": { "contains": { "const": "package-determinism" } } } },
+            "then": { "properties": { "proofLevel": { "const": "build" } } }
+          },
+          {
+            "if": { "properties": { "claims": { "contains": { "const": "install-readback" } } } },
+            "then": { "properties": { "proofLevel": { "const": "install" } } }
+          },
+          {
+            "if": { "properties": { "claims": { "contains": { "const": "deployment-readback" } } } },
+            "then": { "properties": { "proofLevel": { "const": "deployment" } } }
+          },
+          {
+            "if": { "properties": { "claims": { "contains": { "const": "lineage-impact" } } } },
+            "then": { "properties": { "proofLevel": { "enum": ["static", "runtime"] } } }
+          },
+          {
+            "if": { "properties": { "claims": { "contains": { "const": "genome-review" } } } },
+            "then": { "properties": { "proofLevel": { "enum": ["static", "runtime", "user-research"] } } }
+          },
+          {
+            "if": { "properties": { "claims": { "minItems": 1 } } },
+            "then": { "properties": { "exitStatus": { "const": 0 } } }
+          }
+        ]
+      }
+    }
+  }
+}

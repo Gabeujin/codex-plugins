@@ -1,0 +1,4 @@
+interface:
+  display_name: "Canvas Experience Design"
+  short_description: "Design polished canvas interfaces, motion, and app chrome."
+  default_prompt: "Use $canvas-experience-design to define the visual system and interaction model."

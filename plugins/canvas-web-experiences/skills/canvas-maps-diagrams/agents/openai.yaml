@@ -1,0 +1,4 @@
+interface:
+  display_name: "Canvas Maps and Diagrams"
+  short_description: "Build maps, GIS, whiteboards, diagrams, and floor plans."
+  default_prompt: "Use $canvas-maps-diagrams to implement this spatial canvas workflow."

@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "1.0",
+  "project": {
+    "name": "canvas-web-experiences",
+    "domain": "cross-domain-canvas-plugin",
+    "createdAt": "2026-09-09T00:00:00Z"
+  },
+  "intent": {
+    "outcome": "Plan, visualize, build, and verify an accessible Canvas web experience.",
+    "audience": [
+      "web designer",
+      "frontend engineer",
+      "creative technologist",
+      "keyboard and touch user"
+    ],
+    "nonGoals": [
+      "Treat Canvas as a replacement for semantic DOM",
+      "Claim stable experimental API support without fresh verification"
+    ]
+  },
+  "productDNA": {
+    "task": "Explore and manipulate a visual domain model.",
+    "tone": [
+      "precise",
+      "experimental",
+      "calm"
+    ],
+    "hostInvariants": [
+      "Preserve host typography",
+      "Use locale-aware quantity formatting"
+    ],
+    "deviceConstraints": [
+      "wide desktop",
+      "mobile viewport",
+      "reduced motion"
+    ]
+  },
+  "design": {
+    "requestedDirection": "A technical Canvas interface with domain-specific visual language.",
+    "concepts": [
+      {
+        "id": "aligned",
+        "status": "candidate",
+        "asset": "",
+        "strength": "Host consistency"
+      },
+      {
+        "id": "stretch",
+        "status": "candidate",
+        "asset": "",
+        "strength": "Distinct composition"
+      },
+      {
+        "id": "frontier",
+        "status": "candidate",
+        "asset": "",
+        "strength": "Experimental capability"
+      }
+    ],
+    "selectedConcept": "",
+    "fidelityLedger": []
+  },
+  "architecture": {
+    "renderer": [
+      "Canvas 2D",
+      "WebGL",
+      "WebGPU",
+      "semantic DOM",
+      "DOM overlay fallback"
+    ],
+    "stateOwners": {
+      "durable": "application state",
+      "transient": "renderer refs and per-frame model"
+    },
+    "fallback": "Trusted DOM overlay and structured text or table alternatives",
+    "budgets": {
+      "desktopFrameMs": 25,
+      "mobileFrameMs": 33,
+      "desktopDprMax": 2,
+      "mobileDprMax": 1.5
+    }
+  },
+  "accessibility": {
+    "keyboard": [
+      "named navigation",
+      "canvas focus",
+      "keyboard alternatives for primary actions"
+    ],
+    "touch": [
+      "pointer scene manipulation",
+      "touch-accessible controls"
+    ],
+    "semantics": [
+      "named landmarks",
+      "named controls",
+      "live status",
+      "text alternatives"
+    ]
+  },
+  "qualityGate": {
+    "rounds": [
+      "architecture-security",
+      "browser-ux-a11y-performance",
+      "reproducibility-package-install"
+    ],
+    "threshold": 99,
+    "openP0": 0,
+    "openP1": 0
+  },
+  "learnings": []
+}

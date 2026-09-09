@@ -1,0 +1,4 @@
+interface:
+  display_name: "Canvas Quality Audit"
+  short_description: "Audit canvas accessibility, performance, security, and fidelity."
+  default_prompt: "Use $canvas-quality-audit to verify this canvas feature in a real browser."

@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0",
+  "project": {
+    "name": "sample-canvas-experience",
+    "domain": "interactive-web",
+    "createdAt": "2026-08-21T00:00:00Z"
+  },
+  "intent": {
+    "outcome": "Create one complete, browser-verified Canvas experience.",
+    "audience": ["desktop user", "mobile user", "keyboard user"],
+    "nonGoals": ["Replace semantic DOM with pixels", "Claim native experimental support without evidence"]
+  },
+  "productDNA": {
+    "task": "Explore and manipulate a visual domain model.",
+    "tone": ["precise", "experimental", "calm"],
+    "hostInvariants": ["Preserve host typography", "Use locale-aware quantity formatting"],
+    "deviceConstraints": ["wide desktop", "390px", "reduced motion"]
+  },
+  "design": {
+    "requestedDirection": "Deep graphite technical canvas with domain-specific visual language.",
+    "concepts": [
+      {"id": "aligned", "status": "candidate", "asset": "", "strength": "Host consistency"},
+      {"id": "stretch", "status": "candidate", "asset": "", "strength": "Distinct composition"},
+      {"id": "frontier", "status": "candidate", "asset": "", "strength": "Experimental capability"}
+    ],
+    "selectedConcept": "",
+    "fidelityLedger": []
+  },
+  "architecture": {
+    "renderer": ["Canvas 2D", "semantic DOM"],
+    "stateOwners": {"durable": "application", "transient": "renderer refs"},
+    "fallback": "DOM overlay and text/table alternative",
+    "budgets": {"desktopFrameMs": 25, "mobileFrameMs": 33, "desktopDprMax": 2, "mobileDprMax": 1.5}
+  },
+  "accessibility": {
+    "keyboard": [],
+    "touch": [],
+    "semantics": [],
+    "alternative": "Named controls and structured text/table state"
+  },
+  "qualityGate": {
+    "rounds": ["architecture-security", "browser-ux-a11y-performance", "reproducibility-package-install"],
+    "threshold": 99,
+    "openP0": 0,
+    "openP1": 0
+  },
+  "learnings": []
+}

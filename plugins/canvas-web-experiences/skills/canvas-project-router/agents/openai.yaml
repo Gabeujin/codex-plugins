@@ -1,0 +1,4 @@
+interface:
+  display_name: "Canvas Project Router"
+  short_description: "Route broad canvas work to the right rendering path."
+  default_prompt: "Use $canvas-project-router to choose an evidence-backed Canvas stack and an aggressive but controlled experimental adoption lane for this project."

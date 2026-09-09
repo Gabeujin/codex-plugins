@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.2",
+  "id": "research-report",
+  "name": "Fieldnote Research",
+  "domain": "Evidence-led technical and product research",
+  "audience": "Decision makers who need the conclusion quickly and the provenance on demand",
+  "jobs": ["Understand the decision and uncertainty", "Trace every material claim to bounded evidence"],
+  "character": ["editorial", "measured", "curious", "precise"],
+  "avoid": ["dashboard theater", "false certainty", "undifferentiated card grids"],
+  "traits": {
+    "density": "Generous reading rhythm with compact evidence tables",
+    "hierarchy": "Decision, implication, evidence, then method",
+    "typography": "Editorial display face paired with practical Korean sans and mono citations",
+    "motion": "Progressive disclosure only; printable meaning is complete without motion"
+  },
+  "genome": {
+    "semantics": ["Decision, uncertainty, implication, evidence, and method form the stable reading order."],
+    "behavior": ["Evidence opens in place without moving the reader away from the claim being examined."],
+    "accessibility": ["The complete argument remains readable in linear order, print, zoom, and reduced motion."],
+    "contentLocale": ["Long Korean prose preserves semantic grouping, citation adjacency, and readable line length."],
+    "dataTruth": ["Every material conclusion exposes scope, proof level, limitation, and source state."],
+    "permissionsPrivacy": ["Private research notes stay local unless an allowlisted export is explicitly consented."],
+    "recovery": ["Rejected or superseded evidence remains traceable and can restore the prior decision boundary."]
+  },
+  "tokens": {
+    "foundation": {
+      "color.canvas":{"$type":"color","$value":"#F2EEE5"},"color.surface":{"$type":"color","$value":"#FFFDF8"},"color.ink":{"$type":"color","$value":"#18202A"},"color.muted":{"$type":"color","$value":"#68717A"},"color.line":{"$type":"color","$value":"#D8D0C2"},"color.accent":{"$type":"color","$value":"#315CFF"},"color.accent-ink":{"$type":"color","$value":"#FFFFFF"},
+      "font.sans":{"$type":"fontFamily","$value":"Pretendard, Noto Sans KR, sans-serif"},"font.mono":{"$type":"fontFamily","$value":"IBM Plex Mono, Consolas, monospace"},"font.display-weight":{"$type":"fontWeight","$value":720},"font.body-weight":{"$type":"fontWeight","$value":430},"type.base-size":{"$type":"dimension","$value":"17px"},"type.line-height":{"$type":"number","$value":1.68},
+      "space.unit":{"$type":"dimension","$value":"5px"},"space.content-max":{"$type":"dimension","$value":"1120px"},"space.section-gap":{"$type":"dimension","$value":"96px"},"radius.control":{"$type":"dimension","$value":"6px"},"radius.panel":{"$type":"dimension","$value":"2px"},"duration.fast":{"$type":"duration","$value":"120ms"},"duration.standard":{"$type":"duration","$value":"220ms"},"easing.standard":{"$type":"cubicBezier","$value":"cubic-bezier(.22,.75,.18,1)"}
+    },
+    "semantic": {
+      "surface.canvas":{"$type":"color","$value":"{foundation.color.canvas}"},"surface.panel":{"$type":"color","$value":"{foundation.color.surface}"},"text.primary":{"$type":"color","$value":"{foundation.color.ink}"},"text.muted":{"$type":"color","$value":"{foundation.color.muted}"},"border.default":{"$type":"color","$value":"{foundation.color.line}"},"action.accent":{"$type":"color","$value":"{foundation.color.accent}"},"action.on-accent":{"$type":"color","$value":"{foundation.color.accent-ink}"},"type.body":{"$type":"fontFamily","$value":"{foundation.font.sans}"},"type.code":{"$type":"fontFamily","$value":"{foundation.font.mono}"},"space.unit":{"$type":"dimension","$value":"{foundation.space.unit}"},"shape.control":{"$type":"dimension","$value":"{foundation.radius.control}"},"shape.panel":{"$type":"dimension","$value":"{foundation.radius.panel}"},"motion.fast":{"$type":"duration","$value":"{foundation.duration.fast}"},"motion.standard":{"$type":"duration","$value":"{foundation.duration.standard}"},"motion.easing":{"$type":"cubicBezier","$value":"{foundation.easing.standard}"}
+    },
+    "component": {
+      "panel.background":{"$type":"color","$value":"{semantic.surface.panel}"},"panel.border":{"$type":"color","$value":"{semantic.border.default}"},"button.background":{"$type":"color","$value":"{semantic.action.accent}"},"button.text":{"$type":"color","$value":"{semantic.action.on-accent}"},"button.radius":{"$type":"dimension","$value":"{semantic.shape.control}"},"focus.ring":{"$type":"color","$value":"{semantic.action.accent}"},"data.accent":{"$type":"color","$value":"{semantic.action.accent}"}
+    }
+  },
+  "signatureMoment": "A visible evidence seam runs beside each conclusion and opens its lineage without moving the reader away.",
+  "evidence": ["content:long-form", "proof:source-bounded"]
+}

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "one-call-receipt/1.0",
+  "runId": "replace-with-run-id",
+  "project": "sample-canvas-experience",
+  "startedAt": "2026-08-21T00:00:00Z",
+  "endedAt": "2026-08-21T00:00:00Z",
+  "stages": [
+    {"id": "plan", "status": "passed", "evidenceIds": ["static-spec"]},
+    {"id": "design", "status": "passed", "evidenceIds": ["concept-browser"]},
+    {"id": "implement", "status": "passed", "evidenceIds": ["build"]},
+    {"id": "verify", "status": "passed", "evidenceIds": ["desktop-browser", "mobile-browser", "keyboard-browser", "fallback-browser", "console-browser"]},
+    {"id": "package", "status": "passed", "evidenceIds": ["package"]},
+    {"id": "learn", "status": "pending", "evidenceIds": ["desktop-browser"]}
+  ],
+  "commands": [
+    {"id": "spec-check", "label": "Validate ontology", "exitCode": 0, "status": "passed"},
+    {"id": "build-command", "label": "Build production artifact", "exitCode": 0, "status": "passed"},
+    {"id": "browser-command", "label": "Exercise browser assertions", "exitCode": 0, "status": "passed"},
+    {"id": "package-command", "label": "Verify package", "exitCode": 0, "status": "passed"}
+  ],
+  "evidence": [
+    {"id": "static-spec", "level": "static", "commandId": "spec-check", "result": "passed", "assertion": "The project ontology validates."},
+    {"id": "build", "level": "build", "commandId": "build-command", "result": "passed", "assertion": "The production build completed."},
+    {"id": "package", "level": "build", "commandId": "package-command", "result": "passed", "assertion": "The package readback completed."},
+    {"id": "concept-browser", "level": "browser", "commandId": "browser-command", "result": "passed", "assertion": "Five selected concept details match the implementation.", "browserName": "replace", "browserVersion": "replace", "viewport": "1440x900", "postCondition": "Five ledger checks passed.", "artifact": "replace/concept.png"},
+    {"id": "desktop-browser", "level": "browser", "commandId": "browser-command", "result": "passed", "assertion": "The primary desktop flow passed.", "browserName": "replace", "browserVersion": "replace", "viewport": "1440x900", "postCondition": "The selected state changed and remained visible.", "artifact": "replace/desktop.png"},
+    {"id": "mobile-browser", "level": "browser", "commandId": "browser-command", "result": "passed", "assertion": "The mobile flow passed without overflow.", "browserName": "replace", "browserVersion": "replace", "viewport": "390x844", "postCondition": "The primary task remained operable.", "artifact": "replace/mobile.png"},
+    {"id": "keyboard-browser", "level": "browser", "commandId": "browser-command", "result": "passed", "assertion": "Keyboard input changed state.", "browserName": "replace", "browserVersion": "replace", "viewport": "1440x900", "postCondition": "Focus and selected state were asserted.", "artifact": "replace/keyboard.png"},
+    {"id": "fallback-browser", "level": "browser", "commandId": "browser-command", "result": "passed", "assertion": "The task-equivalent fallback opened.", "browserName": "replace", "browserVersion": "replace", "viewport": "1440x900", "postCondition": "Equivalent content and controls were present.", "artifact": "replace/fallback.png"},
+    {"id": "console-browser", "level": "browser", "commandId": "browser-command", "result": "passed", "assertion": "The final tested flow had no console errors.", "browserName": "replace", "browserVersion": "replace", "viewport": "1440x900", "postCondition": "Console error count was zero after the final action.", "artifact": "replace/console.txt"}
+  ],
+  "claims": [
+    {"id": "ontology-valid", "kind": "core", "status": "passed", "requiredLevel": "static", "statement": "The work ontology is structurally valid.", "evidenceIds": ["static-spec"]},
+    {"id": "concept-fidelity", "kind": "core", "status": "passed", "requiredLevel": "browser", "statement": "The implementation preserves the selected concept.", "evidenceIds": ["concept-browser"]},
+    {"id": "build-valid", "kind": "core", "status": "passed", "requiredLevel": "build", "statement": "The production build passes.", "evidenceIds": ["build"]},
+    {"id": "runtime-load", "kind": "core", "status": "passed", "requiredLevel": "browser", "statement": "The built application loads.", "evidenceIds": ["desktop-browser"]},
+    {"id": "browser-primary", "kind": "core", "status": "passed", "requiredLevel": "browser", "statement": "The primary browser flow passes.", "evidenceIds": ["desktop-browser"]},
+    {"id": "browser-mobile", "kind": "core", "status": "passed", "requiredLevel": "browser", "statement": "The mobile browser flow passes.", "evidenceIds": ["mobile-browser"]},
+    {"id": "browser-keyboard", "kind": "core", "status": "passed", "requiredLevel": "browser", "statement": "Keyboard task completion passes.", "evidenceIds": ["keyboard-browser"]},
+    {"id": "browser-fallback", "kind": "core", "status": "passed", "requiredLevel": "browser", "statement": "The task-equivalent fallback passes.", "evidenceIds": ["fallback-browser"]},
+    {"id": "browser-console-clean", "kind": "core", "status": "passed", "requiredLevel": "browser", "statement": "The final browser flow has no console errors.", "evidenceIds": ["console-browser"]},
+    {"id": "package-valid", "kind": "core", "status": "passed", "requiredLevel": "build", "statement": "The package and install/readback contract passes.", "evidenceIds": ["package"]}
+  ],
+  "substitutions": [],
+  "unresolvedRequiredProof": ["learning-append-pending"],
+  "gate": {
+    "rounds": [
+      {"id": "architecture-security", "status": "passed"},
+      {"id": "browser-ux-a11y-performance", "status": "passed"},
+      {"id": "reproducibility-package-install", "status": "passed"}
+    ],
+    "score": 99,
+    "openP0": 0,
+    "openP1": 0,
+    "status": "bounded"
+  }
+}

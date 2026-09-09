@@ -10,3 +10,14 @@ __pycache__/
 /work/
 /runtime-data/
 /.codex/
+
+.localdock.json
+.playwright-cli/
+.vite/
+dist/
+coverage/
+*.tsbuildinfo
+*.mp4
+*.webm
+*.zip
+*.sqlite

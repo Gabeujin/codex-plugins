@@ -1,0 +1,4 @@
+interface:
+  display_name: "Canvas Experience Orchestrator"
+  short_description: "Plan, design, build, verify, and learn in one Canvas workflow."
+  default_prompt: "Use $canvas-experience-orchestrator to take this Canvas experience from intent and concept art through implementation, browser verification, the 9.9 gate, and evidence-backed learning in one invocation."

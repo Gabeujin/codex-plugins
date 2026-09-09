@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "2.0",
+  "rubricVersion": "kgj-quality-1.0",
+  "artifact": "replace-with-artifact-id",
+  "artifactType": "codex-plugin",
+  "releaseTarget": "replace-with-release-target",
+  "rounds": [
+    {
+      "round": 1,
+      "lens": "architecture-security-ontology-integrity",
+      "weight": 0.4,
+      "checks": [
+        {"id":"r1.genome-lineage-compatibility","evidenceRef":null},
+        {"id":"r1.dictionary-integrity-recovery","evidenceRef":null},
+        {"id":"r1.security-privacy-permission","evidenceRef":null},
+        {"id":"r1.evidence-trust-provenance","evidenceRef":null},
+        {"id":"r1.compatibility-rollback","evidenceRef":null}
+      ],
+      "findings": []
+    },
+    {
+      "round": 2,
+      "lens": "browser-ux-accessibility-data-truth",
+      "weight": 0.35,
+      "checks": [
+        {"id":"r2.primary-alternate-states","evidenceRef":null},
+        {"id":"r2.keyboard-focus-assistive","evidenceRef":null},
+        {"id":"r2.desktop-mobile-zoom-overflow","evidenceRef":null},
+        {"id":"r2.long-korean-data-truth","evidenceRef":null},
+        {"id":"r2.reduced-motion-performance-console","evidenceRef":null}
+      ],
+      "findings": []
+    },
+    {
+      "round": 3,
+      "lens": "reproducibility-package-install-readback",
+      "weight": 0.25,
+      "checks": [
+        {"id":"r3.manifest-skills-mcp","evidenceRef":null},
+        {"id":"r3.deterministic-build-package","evidenceRef":null},
+        {"id":"r3.clean-install-enabled-readback","evidenceRef":null},
+        {"id":"r3.version-source-cache-identity","evidenceRef":null},
+        {"id":"r3.receipt-reproduction","evidenceRef":null}
+      ],
+      "findings": []
+    }
+  ],
+  "coreFlows": []
+}

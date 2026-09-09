@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.2",
+  "id": "regulated-operations",
+  "name": "Assurance Operations",
+  "domain": "Regulated certification operations with auditable decisions",
+  "audience": "Reviewers and operators who must explain high-impact state changes",
+  "jobs": ["Identify abnormal certification state", "Act with visible consequence, evidence, and recovery information"],
+  "character": ["assured", "compressed", "traceable", "legible"],
+  "avoid": ["decorative ambiguity", "color-only status", "unattributed evidence", "hidden destructive consequences"],
+  "traits": {
+    "density": "Dense comparison rows with expanded evidence around irreversible decisions",
+    "hierarchy": "Decision, authority, consequence, and evidence precede secondary navigation",
+    "typography": "Compact sans roles with monospaced identifiers and explicit evidence labels",
+    "motion": "Short state confirmation only; no ambient motion in review or incident states"
+  },
+  "genome": {
+    "semantics": ["Authority, evidence, consequence, and recovery precede presentation detail for every regulated decision."],
+    "behavior": ["A regulated mutation requires preview, authorized execution, immutable receipt, and readback."],
+    "accessibility": ["Review and incident states remain fully operable by keyboard and readable without color or motion."],
+    "contentLocale": ["Regulatory Korean language and identifiers remain complete, attributable, and untruncated."],
+    "dataTruth": ["Displayed certification state is bound to a named evidence receipt and observed post-condition."],
+    "permissionsPrivacy": ["Least privilege, bounded credentials, and private evidence paths are visible governance constraints."],
+    "recovery": ["Every high-impact mutation retains the previous state, rollback authority, and verification route."]
+  },
+  "tokens": {
+    "foundation": {
+      "color.canvas":{"$type":"color","$value":"#111116"},"color.surface":{"$type":"color","$value":"#1A1A22"},"color.ink":{"$type":"color","$value":"#F7F7FA"},"color.muted":{"$type":"color","$value":"#AAAAB7"},"color.line":{"$type":"color","$value":"#343442"},"color.accent":{"$type":"color","$value":"#89E8FF"},"color.accent-ink":{"$type":"color","$value":"#07171A"},
+      "font.sans":{"$type":"fontFamily","$value":"Inter, Pretendard, sans-serif"},"font.mono":{"$type":"fontFamily","$value":"IBM Plex Mono, Consolas, monospace"},"font.display-weight":{"$type":"fontWeight","$value":740},"font.body-weight":{"$type":"fontWeight","$value":480},"type.base-size":{"$type":"dimension","$value":"15px"},"type.line-height":{"$type":"number","$value":1.5},
+      "space.unit":{"$type":"dimension","$value":"4px"},"space.content-max":{"$type":"dimension","$value":"1440px"},"space.section-gap":{"$type":"dimension","$value":"64px"},"radius.control":{"$type":"dimension","$value":"6px"},"radius.panel":{"$type":"dimension","$value":"10px"},"duration.fast":{"$type":"duration","$value":"90ms"},"duration.standard":{"$type":"duration","$value":"170ms"},"easing.standard":{"$type":"cubicBezier","$value":"cubic-bezier(.2,.8,.2,1)"}
+    },
+    "semantic": {
+      "surface.canvas":{"$type":"color","$value":"{foundation.color.canvas}"},"surface.panel":{"$type":"color","$value":"{foundation.color.surface}"},"text.primary":{"$type":"color","$value":"{foundation.color.ink}"},"text.muted":{"$type":"color","$value":"{foundation.color.muted}"},"border.default":{"$type":"color","$value":"{foundation.color.line}"},"action.accent":{"$type":"color","$value":"{foundation.color.accent}"},"action.on-accent":{"$type":"color","$value":"{foundation.color.accent-ink}"},"type.body":{"$type":"fontFamily","$value":"{foundation.font.sans}"},"type.code":{"$type":"fontFamily","$value":"{foundation.font.mono}"},"space.unit":{"$type":"dimension","$value":"{foundation.space.unit}"},"shape.control":{"$type":"dimension","$value":"{foundation.radius.control}"},"shape.panel":{"$type":"dimension","$value":"{foundation.radius.panel}"},"motion.fast":{"$type":"duration","$value":"{foundation.duration.fast}"},"motion.standard":{"$type":"duration","$value":"{foundation.duration.standard}"},"motion.easing":{"$type":"cubicBezier","$value":"{foundation.easing.standard}"}
+    },
+    "component": {
+      "panel.background":{"$type":"color","$value":"{semantic.surface.panel}"},"panel.border":{"$type":"color","$value":"{semantic.border.default}"},"button.background":{"$type":"color","$value":"{semantic.action.accent}"},"button.text":{"$type":"color","$value":"{semantic.action.on-accent}"},"button.radius":{"$type":"dimension","$value":"{semantic.shape.control}"},"focus.ring":{"$type":"color","$value":"{semantic.action.accent}"},"data.accent":{"$type":"color","$value":"{semantic.action.accent}"}
+    }
+  },
+  "lineage": {
+    "policy": "semantic-contract",
+    "parents": [
+      {"id":"operations-console","path":"operations-console.json","minSchemaVersion":"1.2"}
+    ],
+    "allowedOverrides": ["foundation.*", "traits.*", "signatureMoment"]
+  },
+  "signatureMoment": "An evidence spine connects detected signal, authorized decision, mutation receipt, and verified outcome.",
+  "evidence": ["domain-risk:critical", "auditability:required"]
+}

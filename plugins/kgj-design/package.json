@@ -1,0 +1,16 @@
+{
+  "name": "kgj-design-plugin-runtime",
+  "private": true,
+  "version": "1.2.4",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "dictionary:verify": "node scripts/kgj_dictionary.mjs verify",
+    "dictionary:health": "node scripts/kgj_dictionary.mjs health",
+    "dictionary:seed": "node scripts/kgj_dictionary.mjs seed",
+    "attest": "python -B scripts/kgj_attest.py"
+  }
+}

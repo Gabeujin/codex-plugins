@@ -1,0 +1,4 @@
+interface:
+  display_name: Curate KGJ Dictionary
+  short_description: Learn scoped preferences without pooling identities.
+  default_prompt: Search or update my KGJ Design Dictionary with explicit provenance and privacy boundaries.

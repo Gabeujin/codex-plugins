@@ -1,0 +1,4 @@
+interface:
+  display_name: Design HTML Report
+  short_description: Create a source-bound, browser and print-ready report.
+  default_prompt: Turn this material into a distinctive KGJ HTML report with explicit evidence boundaries.

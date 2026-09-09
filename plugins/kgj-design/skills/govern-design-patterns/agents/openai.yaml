@@ -1,0 +1,7 @@
+interface:
+  display_name: "Govern Design Patterns"
+  short_description: "Move design patterns through evidence-led lifecycle gates."
+  brand_color: "#C9FF6A"
+  default_prompt: "Use $govern-design-patterns to assess this pattern and produce a safe lifecycle decision."
+policy:
+  allow_implicit_invocation: true

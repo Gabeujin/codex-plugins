@@ -1,0 +1,4 @@
+interface:
+  display_name: "Canvas Runtime Architecture"
+  short_description: "Design scalable canvas state, rendering, and worker boundaries."
+  default_prompt: "Use $canvas-runtime-architecture to produce an architecture decision for this canvas app."

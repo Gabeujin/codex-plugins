@@ -1,0 +1,4 @@
+interface:
+  display_name: Evolve KGJ Design
+  short_description: Propose and verify a traceable design-system mutation.
+  default_prompt: Turn this design-system change into a reversible, versioned KGJ mutation.

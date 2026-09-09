@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kgj.design/schemas/expert-review.schema.json",
+  "title": "KGJ expert review board record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "reviewId", "artifact", "artifactSha256", "roles", "findings", "dissent", "decision", "evidenceRefs"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "reviewId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{2,119}$" },
+    "artifact": { "type": "string", "minLength": 3, "maxLength": 200 },
+    "artifactSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "roles": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 3, "maxLength": 120 }
+    },
+    "findings": {
+      "type": "array",
+      "maxItems": 200,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "round", "severity", "status", "summary", "impact", "acceptanceTest", "reviewer"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{2,119}$" },
+          "round": { "enum": [1, 2, 3] },
+          "severity": { "enum": ["P0", "P1", "P2", "P3"] },
+          "status": { "enum": ["open", "fixed", "closed", "deferred", "superseded"] },
+          "summary": { "type": "string", "minLength": 3, "maxLength": 500 },
+          "impact": { "type": "string", "minLength": 3, "maxLength": 500 },
+          "acceptanceTest": { "type": "string", "minLength": 3, "maxLength": 1000 },
+          "reviewer": { "type": "string", "minLength": 3, "maxLength": 120 },
+          "evidenceRef": { "type": ["string", "null"], "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{2,119}$" }
+        }
+      }
+    },
+    "dissent": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["findingId", "reviewer", "position", "resolutionTest"],
+        "properties": {
+          "findingId": { "type": "string" },
+          "reviewer": { "type": "string" },
+          "position": { "type": "string", "minLength": 3, "maxLength": 500 },
+          "resolutionTest": { "type": "string", "minLength": 3, "maxLength": 1000 }
+        }
+      }
+    },
+    "decision": { "enum": ["pass", "hold", "fail"] },
+    "evidenceRefs": {
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 100,
+      "items": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{2,119}$" }
+    }
+  }
+}
+

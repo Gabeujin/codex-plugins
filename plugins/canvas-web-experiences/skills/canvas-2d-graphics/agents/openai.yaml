@@ -1,0 +1,4 @@
+interface:
+  display_name: "Canvas 2D Graphics"
+  short_description: "Build 2D graphics, animation, games, charts, and editors."
+  default_prompt: "Use $canvas-2d-graphics to implement this 2D canvas feature."

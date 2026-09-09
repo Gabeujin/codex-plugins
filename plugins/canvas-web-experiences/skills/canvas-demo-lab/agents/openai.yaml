@@ -1,0 +1,4 @@
+interface:
+  display_name: "Canvas Demo Lab"
+  short_description: "Run and adapt 12 interactive Canvas domain experiments."
+  default_prompt: "Use $canvas-demo-lab to run the reference lab and adapt the closest interactive Canvas experiment."

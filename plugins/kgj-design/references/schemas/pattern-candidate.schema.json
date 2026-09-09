@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kgj.design/schemas/pattern-candidate.schema.json",
+  "title": "KGJ Design pattern candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "name", "stage", "owner", "scope", "criteria", "evidenceRefs", "migration"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{2,79}$" },
+    "name": { "type": "string", "minLength": 3, "maxLength": 100 },
+    "stage": { "enum": ["experimental", "candidate", "stable", "deprecated", "removed"] },
+    "owner": { "type": "string", "minLength": 2, "maxLength": 80 },
+    "scope": { "type": "array", "minItems": 1, "maxItems": 20, "items": { "type": "string", "maxLength": 120 } },
+    "criteria": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["useful", "unique", "usable", "accessible", "consistent", "versatile"],
+      "properties": {
+        "useful": { "enum": ["pass", "hold", "fail"] },
+        "unique": { "enum": ["pass", "hold", "fail"] },
+        "usable": { "enum": ["pass", "hold", "fail"] },
+        "accessible": { "enum": ["pass", "hold", "fail"] },
+        "consistent": { "enum": ["pass", "hold", "fail"] },
+        "versatile": { "enum": ["pass", "hold", "fail"] }
+      }
+    },
+    "evidenceRefs": { "type": "array", "maxItems": 50, "uniqueItems": true, "items": { "type": "string", "minLength": 3, "maxLength": 120 } },
+    "migration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["replacement", "deadline", "notes"],
+      "properties": {
+        "replacement": { "type": ["string", "null"], "maxLength": 120 },
+        "deadline": { "type": ["string", "null"], "format": "date" },
+        "notes": { "type": "string", "maxLength": 400 }
+      }
+    }
+  }
+}

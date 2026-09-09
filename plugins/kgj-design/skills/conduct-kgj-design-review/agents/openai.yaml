@@ -1,0 +1,5 @@
+interface:
+  display_name: "Conduct KGJ Expert Review"
+  short_description: "Cross-examined experts for the KGJ 9.9 gate"
+  default_prompt: "Select the right expert roles, run independent and cross reviews, and map evidence-bound findings to KGJ quality rounds 1–3."
+

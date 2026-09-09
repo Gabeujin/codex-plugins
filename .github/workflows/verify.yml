@@ -17,4 +17,29 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: node scripts/verify-public-source.mjs
       - run: node scripts/verify-release.mjs
+      - run: python -B scripts/kgj_design.py validate .
+        working-directory: plugins/kgj-design
+      - run: node scripts/verify-public-package.mjs
+        working-directory: plugins/kgj-design
+      - run: node --test tests/mcp.test.mjs
+        working-directory: plugins/kgj-design
+      - run: python -B scripts/validate_canvas_plugin.py --public-source
+        working-directory: plugins/canvas-web-experiences
+  canvas-demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+        working-directory: plugins/canvas-web-experiences/demo
+      - run: npm test
+        working-directory: plugins/canvas-web-experiences/demo
+      - run: npm run build
+        working-directory: plugins/canvas-web-experiences/demo

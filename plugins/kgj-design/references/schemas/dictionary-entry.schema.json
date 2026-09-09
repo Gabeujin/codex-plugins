@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kgj.design/schemas/dictionary-entry.schema.json",
+  "title": "KGJ Dictionary entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "type",
+    "title",
+    "guidance",
+    "scope",
+    "provenance",
+    "confidence",
+    "sharingClass"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{2,79}$"
+    },
+    "type": {
+      "enum": [
+        "observation",
+        "preference",
+        "rule",
+        "rejection",
+        "experiment",
+        "outcome",
+        "candidate-pattern"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 120
+    },
+    "guidance": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 600
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "product": { "type": "string", "maxLength": 80 },
+        "domain": { "type": "string", "maxLength": 80 },
+        "surface": { "type": "string", "maxLength": 80 },
+        "task": { "type": "string", "maxLength": 80 },
+        "risk": { "enum": ["low", "medium", "high", "critical"] },
+        "device": { "type": "string", "maxLength": 40 },
+        "locale": { "type": "string", "maxLength": 20 }
+      }
+    },
+    "traitAxes": {
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 12,
+      "items": { "type": "string" }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "sourceRef"],
+      "properties": {
+        "role": {
+          "enum": [
+            "user-stated",
+            "product-observation",
+            "official-source",
+            "inferred",
+            "tested-locally",
+            "import"
+          ]
+        },
+        "sourceRef": { "type": "string", "minLength": 3, "maxLength": 160 },
+        "evidenceRefs": {
+          "type": "array",
+          "maxItems": 12,
+          "items": { "type": "string", "maxLength": 160 }
+        }
+      }
+    },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "status": { "enum": ["active", "revoked", "superseded"] },
+    "sharingClass": { "enum": ["private", "consented-candidate"] },
+    "consent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["grantId", "purpose", "policyVersion", "grantedAt", "expiresAt", "status"],
+      "properties": {
+        "grantId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{2,79}$" },
+        "purpose": { "const": "cross-user-candidate-export" },
+        "policyVersion": { "type": "string", "pattern": "^\\d+\\.\\d+$" },
+        "grantedAt": { "type": "string", "format": "date-time" },
+        "expiresAt": { "type": "string", "format": "date-time" },
+        "status": { "const": "granted" }
+      }
+    },
+    "counterevidence": {
+      "type": "array",
+      "maxItems": 12,
+      "items": { "type": "string", "maxLength": 160 }
+    },
+    "reviewAfter": { "type": "string", "format": "date" },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "supersedesRevision": { "type": "integer", "minimum": 1 },
+    "retention": { "enum": ["until-revoked", "review-required", "expires"] },
+    "adoptionStatus": { "enum": ["native", "pending", "adopted", "rejected"] },
+    "adoptionNote": { "type": "string", "minLength": 3, "maxLength": 240 },
+    "inferenceStatus": { "enum": ["native", "pending", "verified", "rejected"] },
+    "inferenceNote": { "type": "string", "minLength": 3, "maxLength": 240 },
+    "portablePrinciples": {
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 8,
+      "items": {
+        "enum": [
+          "preserve-semantic-state",
+          "surface-evidence-boundary",
+          "use-progressive-disclosure",
+          "adapt-density-to-task",
+          "keep-recovery-visible",
+          "separate-identity-from-learning",
+          "prefer-product-local-pattern"
+        ]
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "sharingClass": { "const": "consented-candidate" } } },
+      "then": {
+        "required": ["consent", "portablePrinciples"],
+        "properties": { "portablePrinciples": { "minItems": 1 } }
+      },
+      "else": { "not": { "required": ["consent"] } }
+    },
+    {
+      "if": {
+        "properties": {
+          "provenance": { "properties": { "role": { "const": "import" } }, "required": ["role"] }
+        }
+      },
+      "then": { "required": ["adoptionStatus"] },
+      "else": {
+        "properties": { "adoptionStatus": { "const": "native" } },
+        "not": { "required": ["adoptionNote"] }
+      }
+    },
+    {
+      "if": { "properties": { "adoptionStatus": { "enum": ["adopted", "rejected"] } }, "required": ["adoptionStatus"] },
+      "then": { "required": ["adoptionNote"] }
+    },
+    {
+      "if": {
+        "properties": {
+          "provenance": { "properties": { "role": { "const": "inferred" } }, "required": ["role"] }
+        }
+      },
+      "then": { "required": ["inferenceStatus"] },
+      "else": {
+        "properties": { "inferenceStatus": { "const": "native" } },
+        "not": { "required": ["inferenceNote"] }
+      }
+    },
+    {
+      "if": { "properties": { "inferenceStatus": { "enum": ["verified", "rejected"] } }, "required": ["inferenceStatus"] },
+      "then": { "required": ["inferenceNote"] }
+    }
+  ]
+}

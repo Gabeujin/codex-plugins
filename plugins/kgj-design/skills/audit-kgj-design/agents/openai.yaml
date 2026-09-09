@@ -1,0 +1,4 @@
+interface:
+  display_name: Audit KGJ Design
+  short_description: Run the exact three-round 9.9 release gate.
+  default_prompt: Try to disprove this artifact's production readiness and issue a KGJ PASS or HOLD.
