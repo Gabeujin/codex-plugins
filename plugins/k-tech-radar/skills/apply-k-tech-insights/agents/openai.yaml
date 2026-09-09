@@ -1,0 +1,13 @@
+interface:
+  display_name: "Apply K-Tech Insights"
+  short_description: "Apply source-backed engineering insights safely"
+  default_prompt: "Use $apply-k-tech-insights to improve this service with relevant Korean tech-blog evidence."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "k-tech-radar"
+      description: "Local source-partitioned tech-blog catalog and Dictionary"
+
+policy:
+  allow_implicit_invocation: true

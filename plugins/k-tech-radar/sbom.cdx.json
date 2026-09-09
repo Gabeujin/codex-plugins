@@ -1,0 +1,22 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "urn:uuid:6070c65a-6adc-4be2-b5c2-4ba54e995c5e",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-07-30T00:00:00.000Z",
+    "component": {
+      "type": "application",
+      "name": "k-tech-radar",
+      "version": "0.3.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    }
+  },
+  "components": []
+}

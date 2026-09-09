@@ -1,0 +1,10 @@
+.git
+.github
+node_modules
+coverage
+data
+submission
+tests
+*.zip
+*.tgz
+work

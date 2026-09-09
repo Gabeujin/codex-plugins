@@ -1,0 +1,93 @@
+{
+  "documentType": "k-tech-radar.quality-gate",
+  "schemaVersion": 1,
+  "pluginVersion": "0.3.0",
+  "scope": "local-plugin-and-sanitized-distribution-candidate",
+  "officialCertificationClaimed": false,
+  "scoringPolicy": {
+    "id": "negative-review-v1",
+    "p0Weight": 2,
+    "p1Weight": 0.1,
+    "p2Weight": 0.02,
+    "decimals": 2
+  },
+  "reviewedFileSet": {
+    "algorithm": "sha256-path-and-normalized-content-v2",
+    "fileCount": 89,
+    "hash": "1e40a52b2b7bf60eb56f8aeb6b3c4047c4580d9e91d6e6c67ff2a6275f1dbcdc"
+  },
+  "reviewRounds": [
+    {
+      "round": 1,
+      "score": 5.22,
+      "p0": 2,
+      "p1": 7,
+      "p2": 4,
+      "summary": "Baseline hostile review found release-blocking integrity and publication-boundary defects; the failed result is preserved unchanged.",
+      "evidence": [
+        {
+          "command": "independent-negative-review-round-1",
+          "exitCode": 0,
+          "outputSha256": "f1afff950979dcae608dc0e724f710506826d3a4a416e9044dcdb00ec771de48",
+          "outputBytes": 799,
+          "output": "# K-Tech Radar negative review — public receipt, round 1\n\n- Classification: public-sanitized-review-report\n- Result at review time: failed\n- Findings: P0=2, P1=7, P2=4\n- Deterministic score: 5.22/10\n- Review scope: plugin architecture, integrity boundaries, cross-company fusion, knowledge ledgers, public packaging, and runtime contracts\n\nThe baseline hostile review identified release-blocking integrity and publication-boundary defects. Later remediation closed persisted snapshot schemas, bound derived state to one content identity, hardened Dictionary and InsightRun replay, separated raw publisher partitions from semantic fusion, minimized public data, and added executable release checks. This receipt intentionally omits raw reviewer text, local paths, and internal operational details.\n",
+          "classification": "public-sanitized-review-report"
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "score": 9.36,
+      "p0": 0,
+      "p1": 6,
+      "p2": 2,
+      "summary": "The second independent review removed critical findings but retained publication, integration, documentation, and distribution gaps; the failed result is preserved unchanged.",
+      "evidence": [
+        {
+          "command": "independent-negative-review-round-2",
+          "exitCode": 0,
+          "outputSha256": "2570a27ab8012df176ae40e1d2fa0a0121fd907c791c1bdb7fd735c679d18cf5",
+          "outputBytes": 816,
+          "output": "# K-Tech Radar negative review — public receipt, round 2\n\n- Classification: public-sanitized-review-report\n- Result at review time: failed\n- Findings: P0=0, P1=6, P2=2\n- Deterministic score: 9.36/10\n- Review scope: remediated plugin, public export, documentation contracts, distribution claims, and submission evals\n\nThe second independent review confirmed that critical findings were removed and identified remaining publication-gate, documentation, integration, and distribution-contract gaps. Later remediation centralized public Dictionary gating, synchronized runtime and submission contracts, added populated export-to-read coverage, kept unsupported publication channels explicitly gated, and retained this round as an immutable failed intermediate result. This receipt contains only a public-safe summary.\n",
+          "classification": "public-sanitized-review-report"
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "score": 10,
+      "p0": 0,
+      "p1": 0,
+      "p2": 0,
+      "summary": "The frozen final candidate passed all independent negative-review findings with no remaining P0, P1, or P2 issue.",
+      "evidence": [
+        {
+          "command": "independent-frozen-negative-audit-round-3",
+          "exitCode": 0,
+          "outputSha256": "7304a76c49a132830cb8ba3ec0ae7e7be59c2eb86a914891031d0777e51271b2",
+          "outputBytes": 884,
+          "output": "# K-Tech Radar negative review — public receipt, round 3\n\n- Classification: public-sanitized-review-report\n- Result at review time: passed\n- Findings: P0=0, P1=0, P2=0\n- Deterministic score: 10.00/10\n- Reviewed set: 89 files under sha256-path-and-normalized-content-v2\n- Review scope: frozen release candidate, integrity contracts, publisher partitions, cross-company fusion, temporal ledgers, public projection, and MCP capability boundaries\n\nThe frozen candidate passed 25 integrity checks, 132 adversarial tests, a zero-finding secret scan, zero production dependency vulnerabilities, plugin validation, local and public MCP capability checks, publisher-partition independence regressions, and fail-closed public export and read probes. Universal-directory publication remains contingent on separately documented operator, rights, identity, domain, and production-hosting gates.\n",
+          "classification": "public-sanitized-review-report"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "testsPassed": 132,
+    "testsFailed": 0,
+    "integrityChecksPassed": 25,
+    "secretFindings": 0,
+    "npmAuditVulnerabilities": 0,
+    "localMcpTools": 13,
+    "publicMcpTools": 9
+  },
+  "externalGates": {
+    "universalDirectoryApproved": false,
+    "remaining": [
+      "Operator identity and support ownership are not yet verified.",
+      "Publisher rights and legal basis require release-owner confirmation.",
+      "Production HTTPS MCP hosting and domain verification are not yet complete.",
+      "Universal-directory review approval has not been requested or granted."
+    ]
+  }
+}

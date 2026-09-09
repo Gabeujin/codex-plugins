@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "exportedAt": "2026-07-30T00:00:00.000Z",
+  "sourceSnapshotId": null,
+  "publicSnapshotId": "snapshot:58c3bbbe5d53ad95f389",
+  "visibility": "public",
+  "publisherExcerptPolicy": "metadata-only",
+  "articleCount": 0,
+  "dictionaryEntryCount": 0,
+  "dictionaryHash": "de3e575d0c76fd0bd409968dce34ebb5693cbd469bd1e7f3deda96115d3e2a30",
+  "dictionaryRevisionPins": [],
+  "insightRunCount": 0,
+  "insightRunsHash": "676e6b9259f16d4d6f100f92fa2b4104fd08256dc4b200cdb8ba80c9e3e850f1",
+  "publicDataHash": "0b763bb2bd53557b16639d23b57558bee719f309c20030419a88579aedaf9374",
+  "configHash": "54cff74c30ffec5e336769eed733afc7e169e62d8d632cd0deee88d615c4251a",
+  "taxonomyHash": "6103e5feaf35c270c0c2f4a357f2a038a830074fc5b8f4440595d8331293e1d0",
+  "integrityHash": "58c3bbbe5d53ad95f3893405bc11cd69365d6bcaf4471c1f16a3f05e68560f03"
+}

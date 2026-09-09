@@ -1,0 +1,280 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.k-tech-radar.dev/ontology.schema.json",
+  "title": "K-Tech Radar Ontology",
+  "description": "Raw evidence stays publisher-partitioned. Immutable article and insight revisions, evidence pins, held decisions, and shared domain/problem nodes enable provenance-preserving cross-company synthesis.",
+  "type": "object",
+  "required": ["sources", "domains", "problemTypes"],
+  "$defs": {
+    "reviewEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifactId", "kind", "sha256", "bytes", "subjectHash", "round", "content"],
+      "properties": {
+        "artifactId": {"type": "string", "pattern": "^review-artifact:[a-f0-9]{64}$"},
+        "kind": {"enum": ["command-output", "review-report", "test-report", "source-scan"]},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "bytes": {"type": "integer", "minimum": 1, "maximum": 200000},
+        "subjectHash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "round": {"type": "integer", "minimum": 1, "maximum": 3},
+        "content": {"type": "string", "minLength": 1, "maxLength": 100000}
+      }
+    },
+    "reviewRound": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["round", "score", "p0", "p1", "p2", "summary", "evidenceRefs"],
+      "properties": {
+        "round": {"type": "integer", "minimum": 1, "maximum": 3},
+        "score": {"type": "number", "minimum": 0, "maximum": 10},
+        "p0": {"type": "integer", "minimum": 0},
+        "p1": {"type": "integer", "minimum": 0},
+        "p2": {"type": "integer", "minimum": 0},
+        "summary": {"type": "string", "minLength": 1},
+        "evidenceRefs": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "items": {"$ref": "#/$defs/reviewEvidence"}
+        }
+      }
+    },
+    "canonicalInstant": {
+      "type": "string",
+      "format": "date-time",
+      "maxLength": 24,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+    }
+  },
+  "properties": {
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["sourceId", "companyId", "authority"],
+        "properties": {
+          "sourceId": {"type": "string"},
+          "companyId": {"type": "string"},
+          "authority": {"const": "official-primary"}
+        }
+      }
+    },
+    "articles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["articleId", "sourceId", "companyId", "canonicalUrl", "contentHash"],
+        "properties": {
+          "articleId": {"type": "string"},
+          "sourceId": {"type": "string"},
+          "companyId": {"type": "string"},
+          "businessUnitId": {"type": "string"},
+          "canonicalUrl": {"type": "string", "format": "uri"},
+          "canonicalWorkId": {"type": "string"},
+          "translationOf": {"type": ["string", "null"]},
+          "workIdentityBasis": {"enum": ["curated", "derived-metadata"]},
+          "workIndependenceStatus": {"enum": ["confirmed-original", "related-copy", "review-required"]},
+          "contentHash": {"type": "string"},
+          "ontologyHash": {"type": "string"},
+          "taxonomyHash": {"type": "string"},
+          "revisionHash": {"type": "string"},
+          "revisions": {"type": "array"},
+          "rawPublisherTags": {"type": "array", "items": {"type": "string"}},
+          "namespacedTags": {"type": "array", "items": {"type": "string"}},
+          "domainIds": {"type": "array", "items": {"type": "string"}},
+          "problemTypeIds": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "domains": {
+      "type": "array",
+      "items": {"type": "object", "required": ["id", "labelKo"]}
+    },
+    "problemTypes": {
+      "type": "array",
+      "items": {"type": "object", "required": ["id", "labelKo"]}
+    },
+    "dictionaryEntries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["entryId", "kind", "title", "summary", "sourceIds", "articleIds", "evidence", "status"],
+        "properties": {
+          "entryId": {"type": "string"},
+          "kind": {
+            "enum": ["article-summary", "source-insight", "cross-source-synthesis", "application-note"]
+          },
+          "title": {"type": "string"},
+          "summary": {"type": "string"},
+          "sourceIds": {
+            "type": "array",
+            "items": {"type": "string"},
+            "uniqueItems": true
+          },
+          "articleIds": {
+            "type": "array",
+            "items": {"type": "string"},
+            "uniqueItems": true
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["sourceId", "articleId", "claim"],
+              "properties": {
+                "sourceId": {"type": "string"},
+                "articleId": {"type": "string"},
+                "claim": {"type": "string"},
+                "locator": {"type": "string"},
+                "role": {
+                  "enum": ["observed", "recommended", "inferred", "tested-locally"]
+                },
+                "evidenceLevel": {
+                  "enum": ["metadata", "article-observation", "measured-result", "author-claim"]
+                }
+              }
+            }
+          },
+          "contextComparisons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["sourceId", "comparability"],
+              "properties": {
+                "sourceId": {"type": "string"},
+                "scale": {"type": "string"},
+                "workload": {"type": "string"},
+                "stackVersion": {"type": "string"},
+                "slo": {"type": "string"},
+                "teamShape": {"type": "string"},
+                "regulation": {"type": "string"},
+                "comparability": {
+                  "enum": ["comparable", "conditional", "not-comparable"]
+                },
+                "note": {"type": "string"}
+              }
+            }
+          },
+          "status": {
+            "enum": ["candidate", "reviewed", "verified", "superseded"]
+          },
+          "visibility": {
+            "enum": ["local", "public"]
+          },
+          "entryRevision": {"type": "integer", "minimum": 1},
+          "revisionId": {"type": "string"},
+          "supersedesRevisionId": {"type": ["string", "null"]},
+          "evidenceSnapshot": {
+            "type": "object",
+            "required": ["snapshotId", "taxonomyHash", "articles"]
+          },
+          "createdAt": {"$ref": "#/$defs/canonicalInstant"},
+          "updatedAt": {"$ref": "#/$defs/canonicalInstant"},
+          "verification": {
+            "type": "object",
+            "properties": {
+              "primarySourcesChecked": {"type": "boolean"},
+              "counterEvidenceReviewed": {"type": "boolean"},
+              "reviewedAt": {
+                "oneOf": [
+                  {"$ref": "#/$defs/canonicalInstant"},
+                  {"type": "null"}
+                ]
+              }
+            }
+          },
+          "qualityReview": {
+            "type": "object",
+            "required": ["rounds"],
+            "properties": {
+              "rounds": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {"$ref": "#/$defs/reviewRound"}
+              },
+              "reviewedAt": {
+                "oneOf": [
+                  {"$ref": "#/$defs/canonicalInstant"},
+                  {"type": "null"}
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "insightRuns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "runId",
+          "status",
+          "snapshotId",
+          "sourceIds",
+          "acceptedEntryIds",
+          "acceptedEntryRevisions",
+          "observedDictionaryRevision",
+          "heldReasons",
+          "reviewRounds",
+          "committedRevision",
+          "mutationFingerprint"
+        ],
+        "properties": {
+          "runId": {"type": "string"},
+          "status": {
+            "enum": ["accepted", "held", "no-change"]
+          },
+          "snapshotId": {"type": "string"},
+          "sourceIds": {
+            "type": "array",
+            "items": {"type": "string"},
+            "uniqueItems": true
+          },
+          "acceptedEntryIds": {
+            "type": "array",
+            "items": {"type": "string"},
+            "uniqueItems": true
+          },
+          "acceptedEntryRevisions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "entryId",
+                "entryRevision",
+                "revisionId",
+                "provenanceHash",
+                "payloadHash",
+                "evidenceSnapshotId",
+                "statusAtAcceptance",
+                "dictionaryCommittedRevision"
+              ]
+            }
+          },
+          "observedDictionaryRevision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "heldReasons": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "reviewRounds": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {"$ref": "#/$defs/reviewRound"}
+          },
+          "committedRevision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "mutationFingerprint": {"type": "string"},
+          "createdAt": {"$ref": "#/$defs/canonicalInstant"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "domains": [
+    {
+      "id": "ai-ml",
+      "labelKo": "AI·머신러닝",
+      "keywords": ["ai", "llm", "머신러닝", "딥러닝", "모델", "rag", "embedding", "임베딩", "추천", "분류", "추론", "agent", "에이전트"]
+    },
+    {
+      "id": "backend-distributed-systems",
+      "labelKo": "백엔드·분산시스템",
+      "keywords": ["backend", "백엔드", "server", "서버", "api", "spring", "kotlin", "java", "golang", "node.js", "분산", "event", "이벤트", "kafka", "msa"]
+    },
+    {
+      "id": "frontend-web",
+      "labelKo": "프런트엔드·웹",
+      "keywords": ["frontend", "front-end", "프런트엔드", "react", "vue", "next.js", "web", "웹", "javascript", "typescript", "css", "브라우저"]
+    },
+    {
+      "id": "mobile-client",
+      "labelKo": "모바일·클라이언트",
+      "keywords": ["android", "안드로이드", "ios", "swift", "flutter", "mobile", "모바일", "app", "앱", "client", "클라이언트"]
+    },
+    {
+      "id": "data-analytics",
+      "labelKo": "데이터·분석",
+      "keywords": ["data", "데이터", "analytics", "분석", "spark", "hadoop", "warehouse", "lakehouse", "etl", "pipeline", "파이프라인", "db", "database"]
+    },
+    {
+      "id": "platform-infrastructure",
+      "labelKo": "플랫폼·인프라",
+      "keywords": ["infra", "인프라", "platform", "플랫폼", "cloud", "클라우드", "kubernetes", "docker", "aws", "gcp", "devops", "sre", "network"]
+    },
+    {
+      "id": "security-privacy",
+      "labelKo": "보안·프라이버시",
+      "keywords": ["security", "보안", "privacy", "개인정보", "encryption", "암호화", "인증", "authorization", "oauth", "취약점", "moderation", "유해성"]
+    },
+    {
+      "id": "quality-reliability",
+      "labelKo": "품질·신뢰성",
+      "keywords": ["quality", "품질", "reliability", "신뢰성", "test", "테스트", "qa", "장애", "incident", "복구", "resilience", "observability", "모니터링"]
+    },
+    {
+      "id": "developer-productivity",
+      "labelKo": "개발 생산성",
+      "keywords": ["productivity", "생산성", "developer experience", "dx", "tooling", "자동화", "automation", "ci", "cd", "code review", "코드리뷰", "문서화"]
+    },
+    {
+      "id": "architecture",
+      "labelKo": "아키텍처",
+      "keywords": ["architecture", "아키텍처", "설계", "design decision", "상태 머신", "state machine", "event-driven", "도메인 주도", "ddd", "migration", "마이그레이션"]
+    },
+    {
+      "id": "product-design",
+      "labelKo": "프로덕트·디자인",
+      "keywords": ["product", "프로덕트", "ux", "ui", "design", "디자인", "접근성", "accessibility", "design system", "디자인 시스템", "사용자 경험"]
+    },
+    {
+      "id": "engineering-culture",
+      "labelKo": "개발 문화·조직",
+      "keywords": ["culture", "문화", "organization", "조직", "collaboration", "협업", "career", "채용", "leadership", "리더십", "agile", "애자일"]
+    }
+  ],
+  "problemTypes": [
+    {
+      "id": "technical-debt",
+      "labelKo": "기술 부채",
+      "keywords": ["기술 부채", "technical debt", "legacy", "레거시", "refactor", "리팩터", "deprecated", "노후화"]
+    },
+    {
+      "id": "performance-bottleneck",
+      "labelKo": "성능 병목",
+      "keywords": ["병목", "bottleneck", "성능", "performance", "latency", "지연", "throughput", "처리량", "slow", "최적화"]
+    },
+    {
+      "id": "reliability",
+      "labelKo": "신뢰성·장애 대응",
+      "keywords": ["장애", "incident", "reliability", "복구", "retry", "재시도", "fallback", "graceful shutdown", "resilience"]
+    },
+    {
+      "id": "scalability",
+      "labelKo": "확장성",
+      "keywords": ["scale", "scalability", "확장", "대규모", "수억", "million", "분산 처리", "partitioning", "샤딩"]
+    },
+    {
+      "id": "cost-efficiency",
+      "labelKo": "비용 효율",
+      "keywords": ["cost", "비용", "효율", "efficiency", "리소스", "resource", "절감", "finops"]
+    },
+    {
+      "id": "data-quality",
+      "labelKo": "데이터 품질·정합성",
+      "keywords": ["정합성", "data quality", "데이터 품질", "consistency", "중복", "label", "라벨", "outbox", "cdc"]
+    },
+    {
+      "id": "delivery-speed",
+      "labelKo": "배포·전달 속도",
+      "keywords": ["delivery", "배포", "deployment", "release", "릴리스", "lead time", "ci/cd", "pipeline"]
+    },
+    {
+      "id": "developer-experience",
+      "labelKo": "개발자 경험",
+      "keywords": ["developer experience", "dx", "개발자 경험", "생산성", "onboarding", "온보딩", "tooling", "자동화"]
+    },
+    {
+      "id": "security-risk",
+      "labelKo": "보안 위험",
+      "keywords": ["security", "보안", "vulnerability", "취약점", "privacy", "암호화", "인증", "권한"]
+    },
+    {
+      "id": "migration",
+      "labelKo": "마이그레이션",
+      "keywords": ["migration", "마이그레이션", "전환", "upgrade", "업그레이드", "교체", "replatform"]
+    },
+    {
+      "id": "observability",
+      "labelKo": "관측 가능성",
+      "keywords": ["observability", "관측", "monitoring", "모니터링", "trace", "트레이싱", "metric", "메트릭", "logging", "로그"]
+    },
+    {
+      "id": "governance",
+      "labelKo": "거버넌스·운영 기준",
+      "keywords": ["governance", "거버넌스", "정책", "policy", "표준", "standard", "compliance", "규제", "review"]
+    }
+  ]
+}

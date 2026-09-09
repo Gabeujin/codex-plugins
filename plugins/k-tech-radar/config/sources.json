@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "userAgent": "K-Tech-Radar/0.3.0 (local research index; metadata-only storage)",
+  "defaultRequestIntervalMs": 650,
+  "sources": [
+    {
+      "id": "toss-tech",
+      "companyId": "toss",
+      "companyName": "비바리퍼블리카",
+      "displayName": "토스 테크",
+      "homepage": "https://toss.tech/",
+      "language": "ko",
+      "workRelations": [],
+      "adapter": {
+        "type": "feed",
+        "url": "https://toss.tech/rss.xml",
+        "format": "rss",
+        "articleUrlPattern": "^https://toss\\.tech/article/"
+      },
+      "policy": {
+        "authority": "official-primary",
+        "storesFullText": false,
+        "contentFetch": "on-demand-excerpt",
+        "requestIntervalMs": 650
+      }
+    },
+    {
+      "id": "lycorp-tech-ko",
+      "companyId": "lycorp",
+      "companyName": "LY Corporation",
+      "displayName": "LY Corporation Tech Blog 한국어",
+      "homepage": "https://techblog.lycorp.co.jp/ko",
+      "language": "ko",
+      "workRelations": [],
+      "excludeTitlePatterns": [
+        "^List of .+ Articles$"
+      ],
+      "adapter": {
+        "type": "sitemap",
+        "url": "https://techblog.lycorp.co.jp/sitemap-index.xml",
+        "articleUrlPattern": "^https://techblog\\.lycorp\\.co\\.jp/ko/[a-z0-9][a-z0-9-]*$",
+        "metadataFetchLimit": 24,
+        "requireArticleMetadata": true
+      },
+      "policy": {
+        "authority": "official-primary",
+        "storesFullText": false,
+        "contentFetch": "on-demand-excerpt",
+        "requestIntervalMs": 850
+      }
+    },
+    {
+      "id": "naver-d2",
+      "companyId": "naver",
+      "companyName": "NAVER",
+      "displayName": "NAVER D2",
+      "homepage": "https://d2.naver.com/home",
+      "language": "ko",
+      "workRelations": [],
+      "adapter": {
+        "type": "feed",
+        "url": "https://d2.naver.com/d2.atom",
+        "format": "atom",
+        "articleUrlPattern": "^https://d2\\.naver\\.com/"
+      },
+      "policy": {
+        "authority": "official-primary",
+        "storesFullText": false,
+        "contentFetch": "on-demand-excerpt",
+        "requestIntervalMs": 650
+      }
+    },
+    {
+      "id": "kakao-tech",
+      "companyId": "kakao",
+      "companyName": "Kakao",
+      "displayName": "카카오테크",
+      "homepage": "https://tech.kakao.com/blog",
+      "language": "ko",
+      "workRelations": [],
+      "adapter": {
+        "type": "feed",
+        "url": "https://tech.kakao.com/feed",
+        "format": "rss",
+        "articleUrlPattern": "^https://tech\\.kakao\\.com/posts/",
+        "backfillSitemapUrl": "https://tech.kakao.com/sitemap.xml",
+        "metadataFetchLimit": 24
+      },
+      "policy": {
+        "authority": "official-primary",
+        "storesFullText": false,
+        "contentFetch": "on-demand-excerpt",
+        "requestIntervalMs": 650
+      }
+    },
+    {
+      "id": "kurly-helloworld",
+      "companyId": "kurly",
+      "companyName": "Kurly",
+      "displayName": "컬리 기술 블로그",
+      "homepage": "https://helloworld.kurly.com/",
+      "language": "ko",
+      "workRelations": [],
+      "adapter": {
+        "type": "feed",
+        "url": "https://helloworld.kurly.com/rss.xml",
+        "format": "rss",
+        "articleUrlPattern": "^https://helloworld\\.kurly\\.com/blog/"
+      },
+      "policy": {
+        "authority": "official-primary",
+        "storesFullText": false,
+        "contentFetch": "on-demand-excerpt",
+        "requestIntervalMs": 650
+      }
+    },
+    {
+      "id": "socar-tech",
+      "companyId": "socar",
+      "companyName": "SOCAR",
+      "displayName": "쏘카 테크 블로그",
+      "homepage": "https://tech.socar.kr/",
+      "language": "ko",
+      "workRelations": [
+        {
+          "canonicalUrl": "https://tech.socar.kr/dev/2026/02/14/legacy-code-and-docs-improvement",
+          "canonicalWorkId": "work:socar-tech:legacy-code-and-docs-improvement",
+          "translationOf": null,
+          "independenceStatus": "confirmed-original"
+        }
+      ],
+      "adapter": {
+        "type": "feed",
+        "url": "https://tech.socar.kr/rss.xml",
+        "format": "rss",
+        "articleUrlPattern": "^https://tech\\.socar\\.kr/",
+        "backfillSitemapUrl": "https://tech.socar.kr/sitemap.xml",
+        "metadataFetchLimit": 24
+      },
+      "policy": {
+        "authority": "official-primary",
+        "storesFullText": false,
+        "contentFetch": "on-demand-excerpt",
+        "requestIntervalMs": 650
+      }
+    },
+    {
+      "id": "kakaopay-tech",
+      "companyId": "kakaopay",
+      "companyName": "Kakao Pay",
+      "displayName": "카카오페이 기술 블로그",
+      "homepage": "https://tech.kakaopay.com/",
+      "language": "ko",
+      "workRelations": [],
+      "adapter": {
+        "type": "sitemap",
+        "url": "https://tech.kakaopay.com/sitemap-index.xml",
+        "latestListUrl": "https://tech.kakaopay.com/",
+        "articleUrlPattern": "^https://tech\\.kakaopay\\.com/post/",
+        "metadataFetchLimit": 24,
+        "requireArticleMetadata": true,
+        "titleSuffixPattern": "\\s*\\|\\s*카카오페이 기술 블로그$"
+      },
+      "businessUnitRules": [
+        {
+          "id": "kakaopay-insurance",
+          "keywords": ["카카오페이손해보험", "kakaopayins"]
+        },
+        {
+          "id": "kakaopay-securities",
+          "keywords": ["카카오페이증권", "kakaopaysec"]
+        }
+      ],
+      "policy": {
+        "authority": "official-primary",
+        "storesFullText": false,
+        "contentFetch": "on-demand-excerpt",
+        "requestIntervalMs": 850
+      }
+    },
+    {
+      "id": "banksalad-tech",
+      "companyId": "banksalad",
+      "companyName": "Banksalad",
+      "displayName": "뱅크샐러드 기술 블로그",
+      "homepage": "https://blog.banksalad.com/tech/",
+      "language": "ko",
+      "workRelations": [
+        {
+          "canonicalUrl": "https://blog.banksalad.com/tech/how-banksalald-decomposes-legacy-services",
+          "canonicalWorkId": "work:banksalad-tech:decomposes-legacy-services",
+          "translationOf": null,
+          "independenceStatus": "confirmed-original"
+        }
+      ],
+      "adapter": {
+        "type": "feed",
+        "url": "https://blog.banksalad.com/rss.xml",
+        "format": "rss",
+        "articleUrlPattern": "^https://blog\\.banksalad\\.com/tech/"
+      },
+      "policy": {
+        "authority": "official-primary",
+        "storesFullText": false,
+        "contentFetch": "on-demand-excerpt",
+        "requestIntervalMs": 650
+      }
+    },
+    {
+      "id": "woowahan-tech",
+      "companyId": "woowahan",
+      "companyName": "우아한형제들",
+      "displayName": "우아한형제들 기술블로그",
+      "homepage": "https://techblog.woowahan.com/",
+      "language": "ko",
+      "workRelations": [],
+      "adapter": {
+        "type": "feed",
+        "url": "https://techblog.woowahan.com/feed/",
+        "format": "rss",
+        "articleUrlPattern": "^https://techblog\\.woowahan\\.com/[0-9]+(?:/|$)",
+        "fallbackListUrl": "https://techblog.woowahan.com/",
+        "metadataFetchLimit": 12
+      },
+      "policy": {
+        "authority": "official-primary",
+        "storesFullText": false,
+        "contentFetch": "on-demand-excerpt",
+        "requestIntervalMs": 650
+      }
+    }
+  ],
+  "discoveryReferences": [
+    {
+      "id": "velopers",
+      "url": "https://www.velopers.kr/",
+      "role": "product-discovery-reference-only",
+      "ingest": false,
+      "reason": "Use the public product as interaction inspiration only. Do not copy or automate requests against its data; collect from official publisher sources."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "gabeujin-plugins",
+  "interface": {
+    "displayName": "Gabeujin Plugins"
+  },
+  "plugins": [
+    {
+      "name": "k-tech-radar",
+      "source": {
+        "source": "local",
+        "path": "./plugins/k-tech-radar"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

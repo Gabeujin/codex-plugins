@@ -1,0 +1,13 @@
+interface:
+  display_name: "Explore K-Tech Radar"
+  short_description: "Find fresh, source-backed Korean engineering posts"
+  default_prompt: "Use $research-k-tech-blogs to find recent Korean tech-blog evidence for my topic."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "k-tech-radar"
+      description: "Local source-partitioned tech-blog catalog and Dictionary"
+
+policy:
+  allow_implicit_invocation: true

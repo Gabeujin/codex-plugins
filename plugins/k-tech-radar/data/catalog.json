@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 2,
+  "view": "derived-from-source-partitions",
+  "refreshedAt": null,
+  "lastAttemptAt": null,
+  "collectionStatus": "seed",
+  "taxonomyHash": "6103e5feaf35c270c0c2f4a357f2a038a830074fc5b8f4440595d8331293e1d0",
+  "configHash": "54cff74c30ffec5e336769eed733afc7e169e62d8d632cd0deee88d615c4251a",
+  "snapshotId": "snapshot:58c3bbbe5d53ad95f389",
+  "catalogHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "articles": []
+}

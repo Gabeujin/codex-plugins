@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">K-Tech Insight Radar</title>
+  <desc id="desc">A neutral radar graph with separated source nodes and a shared insight center.</desc>
+  <rect width="256" height="256" rx="56" fill="#103F39"/>
+  <circle cx="128" cy="128" r="78" fill="none" stroke="#7EDBC3" stroke-width="8" opacity=".45"/>
+  <circle cx="128" cy="128" r="42" fill="none" stroke="#7EDBC3" stroke-width="8" opacity=".72"/>
+  <path d="M128 128 190 78" stroke="#F7D264" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="128" cy="128" r="13" fill="#F7D264"/>
+  <circle cx="67" cy="92" r="11" fill="#E9FFF9"/>
+  <circle cx="183" cy="161" r="11" fill="#E9FFF9"/>
+  <circle cx="97" cy="193" r="11" fill="#E9FFF9"/>
+</svg>
