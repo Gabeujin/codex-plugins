@@ -6,7 +6,7 @@ Use the demo as an architecture sample. Keep task controls and semantic alternat
 
 ## Local development
 
-Use Node.js 20.19+ or 22.12+ and npm. Node 22 and Node 24 have passed local Windows demo tests and builds. The Chromium, Firefox, and WebKit browser matrix has passed locally; the new cross-platform GitHub CI configuration still requires a pushed PR run. Node 20 compatibility is retained by the Vite dependency range, but Node 20 is not the recommended new-install runtime. From this directory:
+Use Node.js 20.19+ or 22.12+ and npm. Node 22 and Node 24 have passed local Windows demo tests and builds. The Chromium, Firefox, and WebKit browser matrix has passed locally; consult the release-linked GitHub Actions run for the exact remote CI result and the browser guide for explicit capability skips. Node 20 compatibility is retained by the Vite dependency range, but Node 20 is not the recommended new-install runtime. From this directory:
 
 ```text
 npm ci --ignore-scripts --no-audit --no-fund

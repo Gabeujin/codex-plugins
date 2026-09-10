@@ -39,6 +39,21 @@ const SENSITIVE = /(?:password|secret|api[_ -]?key|access[_ -]?token|diagnos|psy
 const PERSONAL = /(?:[A-Z]:\\|\\\\[^\\]+\\|\b[\w.%+-]+@[\w.-]+\.[A-Za-z]{2,}\b|https?:\/\/[^\s]+)/i;
 const execFileAsync = promisify(execFile);
 let currentProcessStartIdentity;
+const WINDOWS_PROCESS_IDENTITY_TIMEOUT_MS = 10_000;
+
+function windowsPowerShellExecutables() {
+  const executables = [];
+  for (const systemRoot of [process.env.SystemRoot, process.env.SYSTEMROOT]) {
+    if (typeof systemRoot === "string" && systemRoot.trim()) {
+      executables.push(path.join(systemRoot, "System32", "WindowsPowerShell", "v1.0", "powershell.exe"));
+    }
+  }
+  for (const programFiles of [process.env.ProgramW6432, process.env.ProgramFiles]) {
+    if (typeof programFiles === "string" && programFiles.trim()) executables.push(path.join(programFiles, "PowerShell", "7", "pwsh.exe"));
+  }
+  executables.push("powershell.exe", "pwsh.exe");
+  return [...new Set(executables)];
+}
 
 function fail(message, code = "INVALID_ARGUMENT", data = {}) {
   const error = new Error(message);
@@ -401,13 +416,20 @@ async function processStartIdentity(pid) {
   try {
     if (process.platform === "win32") {
       const command = `$processValue = Get-Process -Id ${pid} -ErrorAction Stop; $processValue.StartTime.ToUniversalTime().Ticks`;
-      const { stdout } = await execFileAsync("powershell.exe", ["-NoProfile", "-NonInteractive", "-Command", command], {
-        windowsHide: true,
-        timeout: 2000,
-        maxBuffer: 4096
-      });
-      const ticks = String(stdout).trim();
-      return /^\d+$/.test(ticks) ? `windows-ticks:${ticks}` : null;
+      for (const executable of windowsPowerShellExecutables()) {
+        try {
+          const { stdout } = await execFileAsync(executable, ["-NoLogo", "-NoProfile", "-NonInteractive", "-Command", command], {
+            windowsHide: true,
+            timeout: WINDOWS_PROCESS_IDENTITY_TIMEOUT_MS,
+            maxBuffer: 4096
+          });
+          const ticks = String(stdout).trim();
+          if (/^\d+$/.test(ticks)) return `windows-ticks:${ticks}`;
+        } catch {
+          // Try the next installed PowerShell host; no identity remains a hard failure.
+        }
+      }
+      return null;
     }
     if (process.platform === "linux") {
       const [stat, bootId] = await Promise.all([
