@@ -45,7 +45,7 @@ test("submission eval pack has exactly five positive and four negative cases", a
   );
 });
 
-test("submission and active docs match the 0.3 runtime contract", async () => {
+test("current runtime preserves tool contract and historical evaluation provenance", async () => {
   const [packageManifest, pluginManifest, evals, ...texts] =
     await Promise.all([
       readFile(join(pluginRoot, "package.json"), "utf8").then(
@@ -67,10 +67,10 @@ test("submission and active docs match the 0.3 runtime contract", async () => {
         readFile(join(pluginRoot, path), "utf8")
       )
     ]);
-  assert.equal(packageManifest.version, "0.3.0");
+  assert.equal(packageManifest.version, "0.4.0");
   assert.match(
     pluginManifest.version,
-    /^0\.3\.0(?:\+codex\.[a-z0-9-]+)?$/u
+    /^0\.4\.0(?:\+codex\.[a-z0-9-]+)?$/u
   );
   assert.equal(evals.pluginVersion, "0.3.0");
   const localTools = createMcpRuntime().tools.map(

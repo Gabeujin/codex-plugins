@@ -24,6 +24,17 @@ genome while letting density, hierarchy, palette, typography, shape, copy, and s
 fit the product's domain. Avoid generic card grids, arbitrary gradients, ornamental glass, and motion
 that exists only to appear advanced.
 
+## Refinement mode
+
+Use refinement mode for a bounded change to an existing surface, such as spacing, copy, one control,
+or a localized accessibility fix. First read the existing token and contract files that govern that
+surface, then change only the affected implementation. Do not create product DNA, record a KGJ
+Dictionary entry, package a release, or run the release three-round gate for this mode.
+
+Check the affected viewport and, when interaction or focus changed, complete the affected keyboard
+path. Use the full required-state and browser checklist below for a new feature, a changed flow or
+state model, a responsive redesign, or release work.
+
 ## Required states and proof
 
 Implement applicable empty, loading, partial, error, permission, offline, saved, and completed

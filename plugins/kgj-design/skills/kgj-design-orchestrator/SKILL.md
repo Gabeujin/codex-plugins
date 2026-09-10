@@ -28,6 +28,12 @@ Capture:
 
 ## Route the phenotype
 
+For a small refinement to an existing web surface, route to `design-web-experience` in refinement
+mode: read the governing token/contract files, make the bounded change, and verify the affected
+viewport and keyboard path when applicable. Do not create DNA, write the Dictionary, package, or
+run release quality rounds. Use the full web workflow for a feature, changed flow, responsive
+redesign, or release.
+
 - Use `inherit-product-dna` when identity or inheritance boundaries are unresolved.
 - Use `adopt-kgj-design` for project contracts, evidence registries, and readiness diagnostics.
 - Use `design-web-experience` for local services, apps, dashboards, and interactive sites.

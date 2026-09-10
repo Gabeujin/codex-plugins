@@ -19,6 +19,12 @@ PUBLIC_SOURCE = False
 IGNORED_PARTS = {"node_modules", "__pycache__", ".git", ".vite", ".playwright-cli", "dist", "coverage"}
 PACKAGE_EXCLUDED_SUFFIXES = {".pyc", ".pyo", ".log", ".tsbuildinfo"}
 PACKAGE_EXCLUDED_PREFIXES = ("installation-readback-",)
+CONCEPT_ASSET_HASHES = {
+    "concept-atlas-expression-data.png": "97d4f4651bf8cc223b4c277ec04ec95c52de7bb27ff515bcb9b128ac8e378e54",
+    "concept-atlas-worldmaking.png": "32e72e77ac9aaa3fa4838a08e8db68bca636e98f68f866213103c22c8c835eec",
+    "concept-atlas-spatial-operations.png": "8545f63584bbacdb1a7f3f06dc814b2626ccf99662f3f7f971e1027b117ad41c",
+    "concept-mobile-interaction-states.png": "f9f92b37d5a6b31f90d536aca3dec6ed2f285769596f1bcece3a738d477ea07b",
+}
 EXPECTED_SKILLS = {
     "canvas-experience-orchestrator",
     "canvas-project-router",
@@ -393,20 +399,12 @@ def validate_one_shot_system(result: Validation) -> None:
                 if key not in learning:
                     result.error(f"Canvas learning ledger line {index + 1} missing {key}")
 
-    concept_assets = (
-        "concept-atlas-expression-data.png",
-        "concept-atlas-worldmaking.png",
-        "concept-atlas-spatial-operations.png",
-        "concept-mobile-interaction-states.png",
-    )
-    for filename in concept_assets:
-        source = ROOT / "assets" / "concepts" / filename
+    for filename, expected_hash in CONCEPT_ASSET_HASHES.items():
         public = ROOT / "demo" / "public" / "concepts" / filename
-        source_size = source.stat().st_size if source.is_file() else 0
-        if source_size < 100_000:
-            result.error(f"Missing detailed concept asset: {filename}")
-        if not public.is_file() or public.stat().st_size != source_size:
-            result.error(f"Demo concept asset mismatch: {filename}")
+        if not public.is_file() or public.stat().st_size < 100_000:
+            result.error(f"Missing detailed runtime concept asset: {filename}")
+        elif hashlib.sha256(public.read_bytes()).hexdigest() != expected_hash:
+            result.error(f"Runtime concept asset hash mismatch: {filename}")
     for filename in ("commerce-scene-plate.png", "signal-runner-scene-plate.png"):
         path = ROOT / "demo" / "public" / "assets" / filename
         if not path.is_file() or path.stat().st_size < 100_000:

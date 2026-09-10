@@ -7,15 +7,15 @@ description: Run, inspect, extend, or adapt the bundled Canvas Futures Lab acros
 
 Use the bundled reference app as an executable architecture sample, not a screenshot gallery.
 
-## Required references
+## References
 
-Read completely:
+For every task, read `../../demo/README.md` and `../../references/domain-routing.md`.
 
-- `../../demo/README.md`
-- `../../references/domain-routing.md`
-- `../../references/architecture-patterns.md`
-- `../../references/demo-modernization-ledger-v3.md`
-- `../../references/qa-gates.md`
+Read the following only when the change needs them:
+
+- `../../references/architecture-patterns.md` for a new renderer, state, worker, or resource boundary;
+- `../../references/demo-modernization-ledger-v3.md` when adding or modernizing more than one domain;
+- `../../references/qa-gates.md` for release work.
 
 For an HTML surface, also read `../../references/html-in-canvas-recipes.md`, `../../references/html-in-canvas-capability-contract-v2.md`, and `../../references/official-sources.md`.
 

@@ -7,12 +7,15 @@ export default defineConfig({
     target: 'es2022',
     sourcemap: true,
     chunkSizeWarningLimit: 600,
+    // Keep prior ignored build artifacts recoverable during local verification.
+    emptyOutDir: false,
   },
   server: {
     strictPort: true,
   },
   test: {
     environment: 'node',
+    exclude: ['tests/browser/**'],
     coverage: { reporter: ['text', 'json-summary'] },
   },
 });

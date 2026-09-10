@@ -11,7 +11,8 @@ import { join } from "node:path";
 import { promisify } from "node:util";
 import test from "node:test";
 
-import { pluginRoot } from "../lib/paths.mjs";
+import { createSyntheticPlugin } from "./helpers/synthetic-store.mjs";
+const pluginRoot = await createSyntheticPlugin();
 
 const execFileAsync = promisify(execFile);
 

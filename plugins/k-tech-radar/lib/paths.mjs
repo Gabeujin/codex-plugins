@@ -32,8 +32,7 @@ export function resolveDefaultDataRoot({
     return resolve(environment.K_TECH_RADAR_DATA_DIR);
   }
   if (
-    environment.K_TECH_RADAR_USE_BUNDLED_DATA === "1" ||
-    !isManagedInstallPath(root)
+    environment.K_TECH_RADAR_USE_BUNDLED_DATA === "1"
   ) {
     return join(root, "data");
   }

@@ -25,6 +25,7 @@ import { resolveSurfaceBinding, surfaceOwnedControlKeys, type SurfaceBinding } f
 import { createPointerState, nextScienceAttempts, updatePointerState, zoomAfterWheel } from './runtime/interactionContracts';
 import { applySceneKeyboardCommand, SCENE_KEYBOARD_HELP } from './runtime/sceneKeyboard';
 import { applyResponsiveTransformGuard, initialSceneSize, isResponsiveTransformGuardActive, shouldShowSemanticFallback } from './runtime/responsiveTransformGuard';
+import { effectiveSurfaceRequest, experiencePathStatus, type ExperiencePath } from './runtime/experiencePath';
 import type { ControlDefinition, DemoDefinition, DemoId, DemoState, PointerState, SceneRuntimeState, SceneTelemetry } from './types';
 
 function useReducedMotion() {
@@ -524,6 +525,8 @@ export function App() {
   const [requestPaintToken, setRequestPaintToken] = useState(0);
   const [controlsOpen, setControlsOpen] = useState(false);
   const [evidenceOpen, setEvidenceOpen] = useState(false);
+  const [experiencePath, setExperiencePath] = useState<ExperiencePath>('stable');
+  const [firstTaskOpen, setFirstTaskOpen] = useState(true);
   const [surfaceRequest, setSurfaceRequest] = useState<HtmlCanvasRequest>('auto');
   const [killSwitch, setKillSwitch] = useState(false);
   const [atlasOpen, setAtlasOpen] = useState(false);
@@ -537,8 +540,8 @@ export function App() {
   const surfaceSuppressed = killSwitch || state.htmlSurface === false;
   const bootstrapSceneSize = initialSceneSize(viewportSize.width, viewportSize.height);
   const requestedSurfaceMode = useMemo(
-    () => resolveHtmlCanvasMode(surfaceRequest, surfaceDefinition.lane, capabilities, surfaceSuppressed),
-    [capabilities, surfaceDefinition.lane, surfaceRequest, surfaceSuppressed],
+    () => resolveHtmlCanvasMode(effectiveSurfaceRequest(experiencePath, surfaceRequest), surfaceDefinition.lane, capabilities, surfaceSuppressed),
+    [capabilities, experiencePath, surfaceDefinition.lane, surfaceRequest, surfaceSuppressed],
   );
   const surfaceMode = useMemo(
     () => applyResponsiveTransformGuard(requestedSurfaceMode, surfaceDefinition.lane, viewportSize.width),
@@ -565,6 +568,7 @@ export function App() {
       : surfaceMode.startsWith('native-') && (!diagnostics.ready || diagnostics.snapshotPhase !== 'current')
         ? 'native-first-paint-pending'
         : 'none';
+  const pathStatus = experiencePathStatus(experiencePath, surfaceMode, diagnostics.ready);
   const diagnosticsIdentityRef = useRef(diagnosticsIdentity);
   const activeDiagnosticsScopeRef = useRef(diagnosticsIdentity);
   activeDiagnosticsScopeRef.current = diagnosticsIdentity;
@@ -649,6 +653,12 @@ export function App() {
     setEvidenceOpen(false);
     location.hash = `/${id}`;
     setActiveId(id);
+  };
+
+  const startStableTask = () => {
+    setExperiencePath('stable');
+    setFirstTaskOpen(false);
+    navigate('commerce');
   };
 
   const updateState = useCallback((key: string, value: string | number | boolean) => setStates((current) => ({
@@ -894,6 +904,20 @@ export function App() {
         </div>
       </header>
 
+      {firstTaskOpen && (
+        <section className="first-task-guide" aria-labelledby="first-task-title">
+          <div>
+            <span>FIRST TASK · STABLE PATH</span>
+            <h2 id="first-task-title">3D 장면을 조작하고 안전한 대체 경로를 확인하세요</h2>
+            <p>Commerce 장면에서 드래그로 시점을 바꾸고, 정면 버튼으로 돌아온 뒤 구성 폼의 재질을 바꾸세요. 이 경로는 실험 API 없이도 같은 과업을 수행합니다.</p>
+          </div>
+          <div className="first-task-actions">
+            <button type="button" onClick={startStableTask}>안정 과업 시작</button>
+            <button type="button" className="quiet-button" onClick={() => setFirstTaskOpen(false)}>가이드 건너뛰기</button>
+          </div>
+        </section>
+      )}
+
       {atlasOpen && (
         <dialog ref={atlasDialogRef} className="atlas-dialog reconcept-dialog" aria-labelledby="atlas-title" onCancel={() => setAtlasOpen(false)} onClick={(event) => { if (event.target === event.currentTarget) setAtlasOpen(false); }}>
             <header>
@@ -922,8 +946,9 @@ export function App() {
       <main className="workspace">
         <section className="workspace-heading">
           <div><p>{demo.eyebrow} <span>EXPERIMENT {demo.index} / 12</span></p><h1 id="workspace-title">{demo.title}</h1><p>{demo.instruction}</p></div>
-          <div className="heading-badges"><span>{surfaceMode.startsWith('native-') ? '실험 API 실행 중' : '호환 모드'}</span><button type="button" onClick={reset}>처음부터</button></div>
+          <div className="heading-badges"><span>{experiencePath === 'stable' ? '안정 DOM 경로' : surfaceMode.startsWith('native-') ? '실험 API 확인 중' : '실험 대체 경로'}</span><button type="button" onClick={reset}>처음부터</button></div>
         </section>
+        <p className="experience-path-status" role="status">{pathStatus}</p>
         <section className="stage-panel" data-testid="interactive-stage" aria-label={`${demo.shortTitle} HTML-in-Canvas 인터랙티브 스테이지`}>
           <SceneCanvas
             key={diagnosticsIdentity}
@@ -962,6 +987,7 @@ export function App() {
           </div>
           <details className="developer-settings"><summary>개발자 설정 · 렌더 경로</summary><fieldset className="experimental-settings">
             <legend>HTML-in-Canvas 실행 계약</legend>
+            <label><span>사용 경로</span><select aria-label="Canvas 사용 경로" value={experiencePath} onChange={(event) => setExperiencePath(event.currentTarget.value as ExperiencePath)}><option value="stable">안정 과업 · DOM fallback</option><option value="experiment">실험 경로 · native trial</option></select></label>
             <label><span>렌더 경로</span><select aria-label="HTML-in-Canvas 렌더 경로" value={surfaceRequest} onChange={(event) => setSurfaceRequest(event.currentTarget.value as HtmlCanvasRequest)}><option value="auto">Auto / exact detect</option><option value="native">Native trial</option><option value="dom-overlay">DOM fallback</option><option value="disabled">Disabled</option></select></label>
             <label className="kill-switch"><input type="checkbox" checked={killSwitch} onChange={(event) => setKillSwitch(event.currentTarget.checked)} /><span>실험 HTML API 끄기 · 기본 3D 유지</span></label>
             <p><span className={`status-dot ${surfaceMode}`} /> 현재: <strong>{surfaceMode}</strong> · 원시 lane {nativePrimitiveCount} / 4 감지</p>
@@ -975,7 +1001,7 @@ export function App() {
       <footer className="runtime-bar" aria-label="실시간 렌더링 상태">
         <span className="runtime-label">RUNTIME</span>
         <span><i className="cyan" />{laneDisplayName(surfaceDefinition.lane)}</span>
-        <span><i className={diagnostics.ready ? 'mint' : 'amber'} />{diagnostics.ready ? 'TASK READY' : 'AWAITING NATIVE PROOF'}</span>
+        <span><i className={experiencePath === 'stable' || diagnostics.ready ? 'mint' : 'amber'} />{experiencePath === 'stable' ? 'TASK-READY FALLBACK' : diagnostics.ready ? 'NATIVE SESSION READY' : 'FALLBACK · NATIVE UNPROVEN'}</span>
         <span>PAINT <strong>{formatQuantity(diagnostics.paintCount)}</strong></span>
         <span>UPLOAD <strong>{formatQuantity(diagnostics.uploadCount)}</strong></span>
         <span>SYNC <strong>{formatQuantity(diagnostics.transformSyncCount)}</strong></span>

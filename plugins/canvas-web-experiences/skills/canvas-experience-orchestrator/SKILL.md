@@ -17,9 +17,11 @@ Read [the task-first improvement contract](../../references/task-first-improveme
 
 If scope is unclear, start at Feature rather than silently treating a small request as a release. Escalate only when the user asks for release readiness or the change materially affects the experimental runtime contract.
 
-## Required references
+## References
 
-For every mode, read:
+For every mode, read `../../references/task-first-improvement-contract.md` and select Prototype, Feature, or Release before expanding the evidence workload.
+
+Read the following when they affect the selected task:
 
 - `../../references/work-ontology.md`
 - `../../references/domain-routing.md`

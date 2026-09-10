@@ -1,6 +1,6 @@
 {
   "name": "canvas-web-experiences",
-  "version": "1.6.0+codex.20260909013051",
+  "version": "1.7.0",
   "description": "Design and build accessible Canvas, WebGL, WebGPU, and hybrid web experiences.",
   "author": {
     "name": "Gabeujin"

@@ -10,7 +10,9 @@ import {
   taxonomyHash,
   validateSnapshotBundle
 } from "../lib/integrity.mjs";
-import { getSourceStatus } from "../lib/engine.mjs";
+import { execFileSync } from "node:child_process";
+import { join } from "node:path";
+import { createSyntheticPlugin } from "./helpers/synthetic-store.mjs";
 
 const config = {
   sources: [
@@ -341,10 +343,11 @@ test("snapshot source state rejects undeclared persisted fields", () => {
 });
 
 test("public reads fail closed against a local snapshot", async () => {
-  await assert.rejects(
-    getSourceStatus({}, { publicMode: true }),
-    /visibility local cannot be used as public/
-  );
+  const root = await createSyntheticPlugin();
+  assert.throws(() => execFileSync(process.execPath, ['--input-type=module','--eval',
+    "const {getSourceStatus}=await import('./lib/engine.mjs'); await getSourceStatus({}, {publicMode:true});"],
+    {cwd:root,env:{...process.env,K_TECH_RADAR_DATA_DIR:join(root,'data')},stdio:'pipe'}),
+    /visibility local cannot be used as public/);
 });
 
 test("snapshot validation binds title and summary payload bytes", () => {

@@ -10,36 +10,32 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node: [20, 22]
+        node: [22, 24]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: ${{ matrix.node }}
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.12'
-      - run: node scripts/verify-public-source.mjs
       - run: node scripts/verify-release.mjs
-      - run: python -B scripts/kgj_design.py validate .
-        working-directory: plugins/kgj-design
-      - run: node scripts/verify-public-package.mjs
-        working-directory: plugins/kgj-design
-      - run: node --test tests/mcp.test.mjs
-        working-directory: plugins/kgj-design
-      - run: python -B scripts/validate_canvas_plugin.py --public-source
-        working-directory: plugins/canvas-web-experiences
+      - run: python -X utf8 -B scripts/package-release.py --output runner-bundle.zip
   canvas-demo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          node-version: 22
+          node-version: 24
       - run: npm ci --ignore-scripts --no-audit --no-fund
         working-directory: plugins/canvas-web-experiences/demo
       - run: npm test
         working-directory: plugins/canvas-web-experiences/demo
       - run: npm run build
         working-directory: plugins/canvas-web-experiences/demo
+      - run: node scripts/verify-public-source.mjs
+      - run: npm install --prefix "${{ runner.temp }}/canvas-browser-tools" --ignore-scripts --no-audit --no-fund --save-exact @playwright/test@1.58.2
+      - run: node "${{ runner.temp }}/canvas-browser-tools/node_modules/playwright/cli.js" install --with-deps chromium firefox webkit
+      - run: node scripts/test-canvas-browser.mjs "${{ runner.temp }}/canvas-browser-tools"

@@ -1,6 +1,6 @@
 {
   "name": "kgj-design",
-  "version": "1.2.4+codex.20260908101117",
+  "version": "1.3.0",
   "description": "A governed product-DNA architecture with project contracts, evidence graphs, lineage locks, migration plans, and a private evolving design dictionary.",
   "license": "MIT",
   "author": {

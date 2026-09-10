@@ -130,3 +130,11 @@ Personal, repository, Git marketplace, and universal public directory paths have
 - Cap persisted publisher excerpts at 600 characters. On-demand evidence returns no more than 4,000 characters or 60% of readable text, whichever is smaller, and is never persisted.
 
 The MIT license covers plugin code, not third-party article metadata or excerpts. Never publish the private/local snapshot without confirming redistribution rights. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), [docs/PRIVACY.md](docs/PRIVACY.md), and [SECURITY.md](SECURITY.md).
+
+## Public candidate 0.4.0: first use and data paths
+
+`node scripts/offline-demo.mjs` prints a clearly fictional example without network or data writes. Real catalogs remain empty until you explicitly refresh. `node scripts/watch-topic.mjs save "canvas"` stores an immutable watch baseline in user data; `brief "canvas"` compares the current validated snapshot with it. No subscription or scheduled task is created.
+
+All installations now default to the OS user-data directory, including development checkouts and custom CODEX_HOME. Explicit `K_TECH_RADAR_DATA_DIR` wins; bundled development writes require `K_TECH_RADAR_USE_BUNDLED_DATA=1`. Existing data is never moved automatically. Choose an old data directory explicitly after checking it.
+
+`npm test` creates a retained, isolated public fixture root. Historical submission/evaluation files describe 0.3.0; they are not a new certification. Maintained Node 22/24 is recommended. See the repository root's doctor, verification report, and releasing guide.
