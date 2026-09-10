@@ -361,13 +361,22 @@ class KgjDesignTests(unittest.TestCase):
             KGJ.install_audit(ROOT, cache, package)
 
     def test_fresh_codex_cli_command_is_wrapper_bound(self):
-        expected_wrapper = str((Path.home() / ".codex" / "scripts" / "Invoke-FreshCodexCli.ps1").resolve())
-        with mock.patch.object(KGJ.shutil, "which", return_value=r"C:\Program Files\PowerShell\7\pwsh.exe"):
+        home = self.workspace("cli-wrapper")
+        wrapper = home / ".codex" / "scripts" / "Invoke-FreshCodexCli.ps1"
+        wrapper.parent.mkdir(parents=True)
+        wrapper.write_text("# synthetic command-construction fixture; never executed\n", encoding="utf-8")
+        with mock.patch.object(KGJ.Path, "home", return_value=home), mock.patch.object(KGJ.shutil, "which", return_value="pwsh"):
             command = KGJ.fresh_codex_cli_command("plugin", "list", "--json")
         self.assertEqual(command, [
-            r"C:\Program Files\PowerShell\7\pwsh.exe",
-            "-NoProfile", "-File", expected_wrapper, "plugin", "list", "--json",
+            "pwsh", "-NoProfile", "-File", str(wrapper.resolve()), "plugin", "list", "--json",
         ])
+        missing_home = self.workspace("missing-cli-wrapper")
+        with mock.patch.object(KGJ.Path, "home", return_value=missing_home), mock.patch.object(KGJ.shutil, "which", return_value="pwsh"):
+            with self.assertRaisesRegex(KGJ.ValidationError, "wrapper is missing"):
+                KGJ.fresh_codex_cli_command("plugin", "list", "--json")
+        with mock.patch.object(KGJ.shutil, "which", return_value=None):
+            with self.assertRaisesRegex(KGJ.ValidationError, "cannot find pwsh"):
+                KGJ.fresh_codex_cli_command("plugin", "list", "--json")
 
     def test_mcp_readback_parser_rejects_substring_and_field_ambiguity(self):
         valid = "\n".join([

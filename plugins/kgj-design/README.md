@@ -1,6 +1,6 @@
 # KGJ Design
 
-Install `kgj-design@gabeujin-plugins` using the [shared installation guide](../../README.md). Existing users should read [updates and data preservation](../../docs/INSTALL-AND-UPDATE.md). Copy-ready starter commands are in [First use](../../docs/FIRST-USE.md).
+Install `kgj-design@gabeujin-plugins` using the [shared installation guide](https://github.com/Gabeujin/codex-plugins/blob/main/README.md). Existing users should read [updates and data preservation](https://github.com/Gabeujin/codex-plugins/blob/main/docs/INSTALL-AND-UPDATE.md). Copy-ready starter commands are in [First use](https://github.com/Gabeujin/codex-plugins/blob/main/docs/FIRST-USE.md).
 
 KGJ Design is a product-DNA architecture for creating related products without making replicas.
 It preserves semantic behavior, accessibility, data truth, and evidence boundaries while letting each
@@ -121,3 +121,5 @@ and distinct marketplace/install/version/source-cache readback. An install audit
 file with the package and fails on ignored executable residue. KGJ Design runs as an on-demand Codex
 stdio MCP process and opens no listener; if it later becomes a persistent local service, publish that
 service through the governed AX Store runtime workflow instead of desktop auto-start.
+
+The optional fresh-session attestation workflow requires PowerShell and an operator-provided `Invoke-FreshCodexCli.ps1` under the user Codex scripts directory. This wrapper is not bundled. It is not required for ordinary local MCP use, DNA preview, or public unit tests; without it that particular attestation stays unverified.

@@ -82,9 +82,9 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/DATA-GOVERNANCE.md](docs
 
 ## Installation and packaging
 
-Install from the shared GitHub marketplace using the [repository guide](../../README.md). For an existing installation, read [data preservation and updates](../../docs/INSTALL-AND-UPDATE.md) before refreshing.
+Install from the shared GitHub marketplace using the [repository guide](https://github.com/Gabeujin/codex-plugins/blob/main/README.md). For an existing installation, read [data preservation and updates](https://github.com/Gabeujin/codex-plugins/blob/main/docs/INSTALL-AND-UPDATE.md) before refreshing.
 
-The current three-plugin release is built from the repository root with `python -X utf8 -B scripts/package-release.py --output <new-zip>`. It packages an exact Git commit and excludes runtime data and build dependencies. See [release verification](../../docs/RELEASING.md).
+The current three-plugin release is built from the repository root with `python -X utf8 -B scripts/package-release.py --output <new-zip>`. It packages an exact Git commit and excludes runtime data and build dependencies. See [release verification](https://github.com/Gabeujin/codex-plugins/blob/main/docs/RELEASING.md).
 
 The plugin-local `npm run build:public` exporter and `submission/` records belong to the historical 0.3.0 standalone release. Their closed file inventory and quality evidence are not certification for 0.4.0; use the repository-root workflow for this distribution. Do not update old receipts to make a new release appear certified.
 
