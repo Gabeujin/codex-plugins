@@ -7,13 +7,23 @@ description: Route broad or ambiguous web Canvas requests to the right DOM, SVG,
 
 Choose the least-complex rendering path that preserves the intended experience, then activate only the focused skills needed to build and verify it. For a broad request that expects a finished artifact, prefer `$canvas-experience-orchestrator`; the user should not need to chain the focused skills manually.
 
-## Required references
+## Choose the engagement first
 
-Read these when routing a project:
+| Scope | Next skill | Minimum outcome | Required verification |
+| --- | --- | --- | --- |
+| Architecture decision or reversible spike | `$canvas-project-router` or `$canvas-experience-orchestrator` in Prototype mode | renderer, semantic boundary, fallback, and open questions | source/architecture evidence only unless a runtime changed |
+| Bounded existing task | `$canvas-experience-orchestrator` in Feature mode | one task slice with durable post-condition and fallback | focused tests and target-browser exercise when available |
+| Package or release readiness | `$canvas-experience-orchestrator` in Release mode, then `$canvas-quality-audit` | complete release receipt | exactly three scored rounds, package/readback, and declared core-flow proof |
 
-- `../../references/domain-routing.md`
-- `../../references/codebase-catalog.md`
-- `../../references/design-quality-system.md`
+Do not turn a small task into a release engagement. Preserve every safety, accessibility, fallback, and evidence boundary in all modes.
+
+## References
+
+Read `../../references/domain-routing.md` for every routing decision. Read the following only when they affect the selected path:
+
+- `../../references/codebase-catalog.md` for a library/framework decision;
+- `../../references/design-quality-system.md` for user-facing visual or interaction work;
+- `../../references/qa-gates.md` for a Release audit.
 
 For experimental HTML capture, also read `../../references/early-adopter-playbook.md` and `../../references/official-sources.md`.
 
@@ -69,7 +79,7 @@ Use `../../assets/templates/canvas-feature-brief.md` for material work.
 - Use `$canvas-experience-design` for visual direction, interaction grammar, app chrome, and motion.
 - Use `$canvas-runtime-architecture` for state/renderer/worker/resource decisions.
 - Use `$canvas-2d-graphics`, `$canvas-3d-spatial`, or `$canvas-maps-diagrams` for the selected domain.
-- Always finish material work with `$canvas-quality-audit`.
+- Use `$canvas-quality-audit` for an explicitly requested review or a risk-triggered focused audit. Release work must finish with the scored three-round audit; Prototype and Feature work do not inherit Release packaging or scoring by default.
 
 ## Stop conditions
 

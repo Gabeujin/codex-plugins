@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import copy
 import hashlib
+import html
 import json
 import os
 import re
@@ -13,6 +14,7 @@ import shutil
 import struct
 import subprocess
 import sys
+import uuid
 import zipfile
 from datetime import datetime, timedelta, timezone
 from pathlib import Path, PurePosixPath
@@ -2362,6 +2364,89 @@ def diff_dna(current_path: Path, next_path: Path) -> dict:
     }
 
 
+def preview_input_hashes(*sources: Path) -> dict[str, str]:
+    records: dict[str, str] = {}
+
+    def visit(path: Path, lineage_root: Path) -> None:
+        resolved = path.resolve()
+        key = str(resolved)
+        if key in records:
+            return
+        try:
+            raw = resolved.read_bytes()
+        except OSError as exc:
+            raise ValidationError(f"preview source dependency is unreadable: {resolved}: {exc}") from exc
+        records[key] = hashlib.sha256(raw).hexdigest()
+        try:
+            value = json.loads(raw.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            return
+        lineage = value.get("lineage") if isinstance(value, dict) else None
+        parents = lineage.get("parents", []) if isinstance(lineage, dict) else []
+        if not isinstance(parents, list):
+            return
+        for parent in parents:
+            if not isinstance(parent, dict) or not isinstance(parent.get("path"), str):
+                continue
+            normalized, _ = portable_relative_path(parent["path"], f"{resolved.name}: parent path")
+            if not normalized:
+                continue
+            candidate = resolved.parent / normalized
+            parent_path = candidate.resolve()
+            if lineage_root not in parent_path.parents or candidate.is_symlink():
+                continue
+            visit(parent_path, lineage_root)
+
+    for source in sources:
+        resolved = source.resolve()
+        visit(resolved, resolved.parent)
+    return dict(sorted(records.items()))
+
+
+def write_failed_preview(staging: Path, reason: str, inputs: dict[str, str]) -> None:
+    (staging / "preview-status.json").write_text(
+        json.dumps({"schemaVersion": "kgj-dna-preview-v1", "status": "failed", "reason": reason, "inputs": inputs}, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+
+
+def preview_dna(current_path: Path, next_path: Path, output: Path, expected_current_sha256: str | None = None, expected_next_sha256: str | None = None) -> dict:
+    current_path, next_path, output = current_path.resolve(), next_path.resolve(), output.resolve()
+    if output.exists():
+        raise ValidationError("preview output must not already exist")
+    if current_path.parent in output.parents or next_path.parent in output.parents:
+        raise ValidationError("preview output must be outside both DNA source directories")
+    input_hashes = preview_input_hashes(current_path, next_path)
+    current_hash, next_hash = input_hashes[str(current_path)], input_hashes[str(next_path)]
+    if expected_current_sha256 and expected_current_sha256 != current_hash:
+        raise ValidationError("current DNA source hash is stale")
+    if expected_next_sha256 and expected_next_sha256 != next_hash:
+        raise ValidationError("next DNA source hash is stale")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    staging = output.parent / f".{output.name}.failed-{uuid.uuid4().hex}"
+    staging.mkdir()
+    try:
+        difference = diff_dna(current_path, next_path)
+        compile_dna(current_path, staging / "before.css")
+        compile_dna(next_path, staging / "after.css")
+        final_hashes = preview_input_hashes(current_path, next_path)
+        if final_hashes != input_hashes:
+            write_failed_preview(staging, "DNA source or lineage dependency changed during preview generation", final_hashes)
+            raise ValidationError(f"preview source changed during generation; failed staging retained at {staging}")
+        payload = {"schemaVersion": "kgj-dna-preview-v1", "mode": "preview-only", "applyAllowed": False, "source": {"currentSha256": current_hash, "nextSha256": next_hash}, "difference": difference, "artifacts": {"beforeCss": "before.css", "afterCss": "after.css", "html": "index.html"}}
+        (staging / "preview.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+        rows = "".join(f"<li><code>{html.escape(change['path'])}</code> — {html.escape(change['classification'])}</li>" for change in difference["changes"]) or "<li>No DNA changes.</li>"
+        page = f'''<!doctype html><html lang="en"><meta charset="utf-8"><title>KGJ DNA preview</title><style>body{{font:16px system-ui;margin:2rem;background:#f5f3ec;color:#14191f}}main{{max-width:70rem;margin:auto}}.views{{display:grid;grid-template-columns:1fr 1fr;gap:1rem}}.card{{border:1px solid #d9dee3;border-radius:16px;padding:1.25rem;background:white}}code{{overflow-wrap:anywhere}}@media(max-width:700px){{.views{{grid-template-columns:1fr}}}}</style><link rel="stylesheet" href="before.css"><link rel="stylesheet" href="after.css"><main><p>Preview only. It does not apply changes to either source project.</p><p>Current SHA-256: <code>{current_hash}</code><br>Next SHA-256: <code>{next_hash}</code></p><section class="views"><article class="card kgj-dna-{html.escape(difference['from']['id'])}"><h2>Before</h2><p>{html.escape(difference['from']['id'])}</p><button>Primary action</button></article><article class="card kgj-dna-{html.escape(difference['to']['id'])}"><h2>After</h2><p>{html.escape(difference['to']['id'])}</p><button>Primary action</button></article></section><h2>Impact</h2><p>{html.escape(difference['compatibility'])}</p><ul>{rows}</ul></main></html>'''
+        (staging / "index.html").write_text(page + "\n", encoding="utf-8", newline="\n")
+        staging.replace(output)
+        return {"ok": True, **payload, "output": str(output)}
+    except Exception as exc:
+        if not (staging / "preview-status.json").exists():
+            write_failed_preview(staging, str(exc), input_hashes)
+        raise
+
+
 def migration_plan(
     current_path: Path,
     next_path: Path,
@@ -2776,6 +2861,12 @@ def main(argv=None) -> int:
     diff_parser = subparsers.add_parser("diff-dna")
     diff_parser.add_argument("current", type=Path)
     diff_parser.add_argument("next", type=Path)
+    preview_parser = subparsers.add_parser("preview-dna")
+    preview_parser.add_argument("current", type=Path)
+    preview_parser.add_argument("next", type=Path)
+    preview_parser.add_argument("--output", type=Path, required=True)
+    preview_parser.add_argument("--expected-current-sha256")
+    preview_parser.add_argument("--expected-next-sha256")
     migration_parser = subparsers.add_parser("migration-plan")
     migration_parser.add_argument("current", type=Path)
     migration_parser.add_argument("next", type=Path)
@@ -2839,6 +2930,8 @@ def main(argv=None) -> int:
             emit(resolve_lineage(args.source, args.output))
         elif args.command == "diff-dna":
             emit(diff_dna(args.current.resolve(), args.next.resolve()))
+        elif args.command == "preview-dna":
+            emit(preview_dna(args.current, args.next, args.output, args.expected_current_sha256, args.expected_next_sha256))
         elif args.command == "migration-plan":
             emit(migration_plan(
                 args.current.resolve(),

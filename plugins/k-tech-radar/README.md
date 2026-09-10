@@ -1,11 +1,11 @@
-# K-Tech Insight Radar 0.3
+# K-Tech Insight Radar 0.4.0
 
 K-Tech Radar is a local Codex plugin for discovering and applying evidence from official Korean technology blogs. It indexes metadata and short publisher-provided excerpts, never a private mirror of full posts.
 
 The repository supports two deliberately different distributions:
 
 - **Private/local source** can retain a user-collected metadata snapshot for fast local search.
-- **Public marketplace bundle** is produced by `npm run build:public` with zero article records, excerpts, local Dictionary entries, or review receipts. A local user refreshes after installation. A hosted read-only service receives only an explicitly exported, validated public snapshot.
+- **Public marketplace bundle** is produced by the repository-root release workflow with zero article records, excerpts, local Dictionary entries, or review receipts. A local user refreshes after installation. A hosted read-only service receives only an explicitly exported, validated public snapshot.
 
 The model has three layers:
 
@@ -21,7 +21,7 @@ Toss Tech, LY Corporation Tech Blog (Korean), NAVER D2, Kakao Tech, Kurly, SOCAR
 
 ## Local use
 
-Requirements: Node.js 20 or later. No Docker installation, package installation, OpenAI API key, or Codex Security approval is required.
+Requirements: maintained Node.js 22 or 24. No Docker installation, package installation, OpenAI API key, or Codex Security approval is required.
 
 ```powershell
 npm run refresh -- --mode latest
@@ -33,7 +33,7 @@ npm run verify
 
 The local stdio MCP server exposes 13 tools: nine public-safe reads plus catalog refresh, Dictionary recording, local InsightRun history, and InsightRun recording. `prepare_application_plan` compares a reviewed Dictionary revision against the caller's real scale, workload, stack, SLO, team, and regulatory context. Every tool has a title, bounded input schema, concrete structured output schema, and behavior annotations. Publisher excerpts are marked as untrusted third-party data and cannot authorize commands or writes.
 
-Managed Codex installs write mutable state outside the plugin cache:
+All installs write mutable state outside the plugin cache by default:
 
 - Windows: `%LOCALAPPDATA%\KTechRadar\data`
 - macOS: `~/Library/Application Support/KTechRadar/data`
@@ -80,42 +80,13 @@ The default export retains official title, URL, dates, tags, ontology links, has
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/DATA-GOVERNANCE.md](docs/DATA-GOVERNANCE.md), and [docs/DISTRIBUTION.md](docs/DISTRIBUTION.md).
 
-## Codex plugin packaging
+## Installation and packaging
 
-This directory is the plugin root. Its `.codex-plugin/plugin.json` declares three skills and the local stdio MCP server. Build the sanitized Git/repository marketplace:
+Install from the shared GitHub marketplace using the [repository guide](https://github.com/Gabeujin/codex-plugins/blob/main/README.md). For an existing installation, read [data preservation and updates](https://github.com/Gabeujin/codex-plugins/blob/main/docs/INSTALL-AND-UPDATE.md) before refreshing.
 
-```powershell
-npm run build:public
-```
+The current three-plugin release is built from the repository root with `python -X utf8 -B scripts/package-release.py --output <new-zip>`. It packages an exact Git commit and excludes runtime data and build dependencies. See [release verification](https://github.com/Gabeujin/codex-plugins/blob/main/docs/RELEASING.md).
 
-The build creates `k-tech-radar-marketplace-0.3.0` beside this directory with `.agents/plugins/marketplace.json`, `plugins/k-tech-radar`, executable tests, a CycloneDX SBOM, and SHA-256 release manifest. It requires the exact checked-in `config/public-release-files.json` inventory and a closed, current `QUALITY-GATE.json` containing only public-sanitized, content-addressed review reports. It rejects missing/extra files and symbolic links, scans for obvious secrets, freezes the approved source bytes before copying, seeds zero public data, rechecks the copied destination against its quality gate, validates the result, and refuses to overwrite an existing destination.
-
-For a hand-built marketplace, place the sanitized plugin at `plugins/k-tech-radar` and add:
-
-```json
-{
-  "name": "k-tech-radar",
-  "source": {
-    "source": "local",
-    "path": "./plugins/k-tech-radar"
-  },
-  "policy": {
-    "installation": "AVAILABLE",
-    "authentication": "ON_INSTALL"
-  },
-  "category": "Developer Tools"
-}
-```
-
-Then install it with the marketplace name configured for that root:
-
-```powershell
-codex plugin marketplace add C:\path\to\marketplace-root
-```
-
-Install it from the desktop Plugins Directory or the Codex CLI `/plugins` browser, then start a new task so the plugin runtime is reloaded.
-
-Personal, repository, Git marketplace, and universal public directory paths have different requirements. See [docs/DISTRIBUTION.md](docs/DISTRIBUTION.md) and [submission/publication-checklist.md](submission/publication-checklist.md).
+The plugin-local `npm run build:public` exporter and `submission/` records belong to the historical 0.3.0 standalone release. Their closed file inventory and quality evidence are not certification for 0.4.0; use the repository-root workflow for this distribution. Do not update old receipts to make a new release appear certified.
 
 ## Data integrity rules
 
@@ -130,3 +101,11 @@ Personal, repository, Git marketplace, and universal public directory paths have
 - Cap persisted publisher excerpts at 600 characters. On-demand evidence returns no more than 4,000 characters or 60% of readable text, whichever is smaller, and is never persisted.
 
 The MIT license covers plugin code, not third-party article metadata or excerpts. Never publish the private/local snapshot without confirming redistribution rights. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), [docs/PRIVACY.md](docs/PRIVACY.md), and [SECURITY.md](SECURITY.md).
+
+## 0.4.0: first use and data paths
+
+`node scripts/offline-demo.mjs` prints a clearly fictional example without network or data writes. Real catalogs remain empty until you explicitly refresh. `node scripts/watch-topic.mjs save "canvas"` stores an immutable watch baseline in user data; `brief "canvas"` compares the current validated snapshot with it. No subscription or scheduled task is created.
+
+All installations now default to the OS user-data directory, including development checkouts and custom CODEX_HOME. Explicit `K_TECH_RADAR_DATA_DIR` wins; bundled development writes require `K_TECH_RADAR_USE_BUNDLED_DATA=1`. Existing data is never moved automatically. Choose an old data directory explicitly after checking it.
+
+`npm test` creates a retained, isolated public fixture root. Historical submission/evaluation files describe 0.3.0; they are not a new certification. Maintained Node 22/24 is recommended. See the repository root's doctor, verification report, and releasing guide.

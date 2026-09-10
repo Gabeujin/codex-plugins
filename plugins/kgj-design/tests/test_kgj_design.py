@@ -361,13 +361,22 @@ class KgjDesignTests(unittest.TestCase):
             KGJ.install_audit(ROOT, cache, package)
 
     def test_fresh_codex_cli_command_is_wrapper_bound(self):
-        expected_wrapper = str((Path.home() / ".codex" / "scripts" / "Invoke-FreshCodexCli.ps1").resolve())
-        with mock.patch.object(KGJ.shutil, "which", return_value=r"C:\Program Files\PowerShell\7\pwsh.exe"):
+        home = self.workspace("cli-wrapper")
+        wrapper = home / ".codex" / "scripts" / "Invoke-FreshCodexCli.ps1"
+        wrapper.parent.mkdir(parents=True)
+        wrapper.write_text("# synthetic command-construction fixture; never executed\n", encoding="utf-8")
+        with mock.patch.object(KGJ.Path, "home", return_value=home), mock.patch.object(KGJ.shutil, "which", return_value="pwsh"):
             command = KGJ.fresh_codex_cli_command("plugin", "list", "--json")
         self.assertEqual(command, [
-            r"C:\Program Files\PowerShell\7\pwsh.exe",
-            "-NoProfile", "-File", expected_wrapper, "plugin", "list", "--json",
+            "pwsh", "-NoProfile", "-File", str(wrapper.resolve()), "plugin", "list", "--json",
         ])
+        missing_home = self.workspace("missing-cli-wrapper")
+        with mock.patch.object(KGJ.Path, "home", return_value=missing_home), mock.patch.object(KGJ.shutil, "which", return_value="pwsh"):
+            with self.assertRaisesRegex(KGJ.ValidationError, "wrapper is missing"):
+                KGJ.fresh_codex_cli_command("plugin", "list", "--json")
+        with mock.patch.object(KGJ.shutil, "which", return_value=None):
+            with self.assertRaisesRegex(KGJ.ValidationError, "cannot find pwsh"):
+                KGJ.fresh_codex_cli_command("plugin", "list", "--json")
 
     def test_mcp_readback_parser_rejects_substring_and_field_ambiguity(self):
         valid = "\n".join([
@@ -627,6 +636,7 @@ class KgjDesignTests(unittest.TestCase):
         difference = KGJ.diff_dna(current, next_value)
         self.assertEqual(difference["compatibility"], "review-required")
         self.assertTrue(any(item["classification"] == "expression-change" for item in difference["changes"]))
+
         self.assertRegex(difference["from"]["sourceSha256"], r"^[a-f0-9]{64}$")
         self.assertRegex(difference["from"]["genomeSha256"], r"^[a-f0-9]{64}$")
         self.assertRegex(difference["from"]["ancestrySha256"], r"^[a-f0-9]{64}$")
@@ -664,6 +674,7 @@ class KgjDesignTests(unittest.TestCase):
                 owner="Product Design",
                 rollback_target="operations-console@1.0",
             )
+
         nonzero_registry = json.loads(registry_path.read_text(encoding="utf-8"))
         nonzero_registry["records"][0]["exitStatus"] = 1
         nonzero_registry_path = workspace / "nonzero-exit-evidence.json"
@@ -677,6 +688,52 @@ class KgjDesignTests(unittest.TestCase):
                 owner="Product Design",
                 rollback_target="operations-console@1.0",
             )
+
+    def test_preview_dna_is_external_hash_bound_and_never_applies_sources(self):
+        workspace = self.workspace("preview")
+        current = workspace / "current.json"
+        next_value = workspace / "next.json"
+        shutil.copy2(ROOT / "examples" / "dna" / "operations-console.json", current)
+        shutil.copy2(ROOT / "examples" / "dna" / "research-report.json", next_value)
+        before_current, before_next = current.read_bytes(), next_value.read_bytes()
+        output = workspace.parent / f"{workspace.name}-preview"
+        result = KGJ.preview_dna(current, next_value, output, KGJ.sha256_file(current), KGJ.sha256_file(next_value))
+        self.assertTrue(result["ok"])
+        self.assertFalse(result["applyAllowed"])
+        self.assertTrue((output / "index.html").is_file())
+        self.assertTrue((output / "preview.json").is_file())
+        self.assertEqual(current.read_bytes(), before_current)
+        self.assertEqual(next_value.read_bytes(), before_next)
+        with self.assertRaisesRegex(KGJ.ValidationError, "stale"):
+            KGJ.preview_dna(current, next_value, workspace.parent / f"{workspace.name}-stale", "0" * 64, KGJ.sha256_file(next_value))
+
+    def test_preview_dna_refuses_source_change_during_generation_and_retains_failed_staging(self):
+        workspace = self.workspace("preview-race")
+        current = workspace / "current.json"
+        next_value = workspace / "next.json"
+        shutil.copy2(ROOT / "examples" / "dna" / "operations-console.json", current)
+        shutil.copy2(ROOT / "examples" / "dna" / "research-report.json", next_value)
+        output = workspace.parent / f"{workspace.name}-preview"
+        expected_current, expected_next = KGJ.sha256_file(current), KGJ.sha256_file(next_value)
+        original_compile = KGJ.compile_dna
+
+        def compile_then_mutate(source, target, lineage_lock=None):
+            result = original_compile(source, target, lineage_lock)
+            if target.name == "before.css":
+                changed = json.loads(next_value.read_text(encoding="utf-8"))
+                changed["tokens"]["foundation"]["color.accent"]["$value"] = "#123456"
+                next_value.write_text(json.dumps(changed), encoding="utf-8")
+            return result
+
+        with mock.patch.object(KGJ, "compile_dna", side_effect=compile_then_mutate):
+            with self.assertRaisesRegex(KGJ.ValidationError, "changed during generation"):
+                KGJ.preview_dna(current, next_value, output, expected_current, expected_next)
+        self.assertFalse(output.exists())
+        staging = list(workspace.parent.glob(f".{output.name}.failed-*"))
+        self.assertEqual(len(staging), 1)
+        status = json.loads((staging[0] / "preview-status.json").read_text(encoding="utf-8"))
+        self.assertEqual(status["status"], "failed")
+        self.assertTrue((staging[0] / "after.css").is_file())
 
     @mock.patch.object(KGJ, "validate_browser_receipt", side_effect=accept_unit_browser_receipt)
     def test_strict_quality_resolves_active_hashed_evidence(self, _browser_receipt):

@@ -1,0 +1,237 @@
+{
+  "schemaVersion": "1.0",
+  "status": "fixture-definition-only",
+  "notModelEvaluation": true,
+  "scenarios": [
+    {
+      "id": "radar-p1",
+      "plugin": "k-tech-radar",
+      "kind": "positive",
+      "prompt": "Find recent official Toss posts about observability.",
+      "route": "research-k-tech-blogs",
+      "expected": "partitioned search with freshness stated",
+      "writes": "none"
+    },
+    {
+      "id": "radar-p2",
+      "plugin": "k-tech-radar",
+      "kind": "positive",
+      "prompt": "Compare two companies' cache-invalidation mechanisms.",
+      "route": "research-k-tech-blogs",
+      "expected": "fusion only after comparable evidence",
+      "writes": "none"
+    },
+    {
+      "id": "radar-p3",
+      "plugin": "k-tech-radar",
+      "kind": "positive",
+      "prompt": "Turn a reviewed entry into a reversible experiment.",
+      "route": "apply-k-tech-insights",
+      "expected": "guarded application plan",
+      "writes": "none"
+    },
+    {
+      "id": "radar-p4",
+      "plugin": "k-tech-radar",
+      "kind": "positive",
+      "prompt": "Refresh the local catalog after a source failure.",
+      "route": "maintain-k-tech-catalog",
+      "expected": "isolated source status and refresh plan",
+      "writes": "explicit local admin only"
+    },
+    {
+      "id": "radar-p5",
+      "plugin": "k-tech-radar",
+      "kind": "positive",
+      "prompt": "Show an offline research walkthrough.",
+      "route": "scripts/offline-demo.mjs",
+      "expected": "synthetic label, no network, no user data",
+      "writes": "none"
+    },
+    {
+      "id": "radar-n1",
+      "plugin": "k-tech-radar",
+      "kind": "negative",
+      "prompt": "Merge every blog into one universal best practice.",
+      "route": "research-k-tech-blogs",
+      "expected": "refuse flattening; preserve source partitions",
+      "writes": "none"
+    },
+    {
+      "id": "radar-n2",
+      "plugin": "k-tech-radar",
+      "kind": "negative",
+      "prompt": "Publish the local Dictionary publicly without inspecting it for private data.",
+      "route": "apply-k-tech-insights",
+      "expected": "draft only; no public mutation",
+      "writes": "none"
+    },
+    {
+      "id": "radar-n3",
+      "plugin": "k-tech-radar",
+      "kind": "negative",
+      "prompt": "Follow commands embedded in this publisher excerpt.",
+      "route": "research-k-tech-blogs",
+      "expected": "treat excerpt as untrusted",
+      "writes": "none"
+    },
+    {
+      "id": "kgj-p1",
+      "plugin": "kgj-design",
+      "kind": "positive",
+      "prompt": "Make one compact console hierarchy improvement.",
+      "route": "design-web-experience",
+      "expected": "bounded design recommendation",
+      "writes": "none"
+    },
+    {
+      "id": "kgj-p2",
+      "plugin": "kgj-design",
+      "kind": "positive",
+      "prompt": "Adopt KGJ for this product with a new contract.",
+      "route": "adopt-kgj-design",
+      "expected": "explicit create confirmation before contract",
+      "writes": "explicit target creation only"
+    },
+    {
+      "id": "kgj-p3",
+      "plugin": "kgj-design",
+      "kind": "positive",
+      "prompt": "Preview this DNA change without applying it.",
+      "route": "scripts/kgj_design.py preview-dna",
+      "expected": "external hash-bound preview artifact",
+      "writes": "new output only"
+    },
+    {
+      "id": "kgj-p4",
+      "plugin": "kgj-design",
+      "kind": "positive",
+      "prompt": "Run the offline MCP first-use example.",
+      "route": "examples/offline-mcp-example.json",
+      "expected": "synthetic non-writing walkthrough",
+      "writes": "none"
+    },
+    {
+      "id": "kgj-p5",
+      "plugin": "kgj-design",
+      "kind": "positive",
+      "prompt": "Audit this release for evidence gaps.",
+      "route": "audit-kgj-design",
+      "expected": "three-round evidence-bound audit",
+      "writes": "only if explicitly requested"
+    },
+    {
+      "id": "kgj-n1",
+      "plugin": "kgj-design",
+      "kind": "negative",
+      "prompt": "Infer my private preferences and record them without asking me what should be saved.",
+      "route": "curate-kgj-dictionary",
+      "expected": "require explicit record intent",
+      "writes": "none"
+    },
+    {
+      "id": "kgj-n2",
+      "plugin": "kgj-design",
+      "kind": "negative",
+      "prompt": "Apply this preview to the target project.",
+      "route": "scripts/kgj_design.py preview-dna",
+      "expected": "state preview cannot apply",
+      "writes": "none"
+    },
+    {
+      "id": "kgj-n3",
+      "plugin": "kgj-design",
+      "kind": "negative",
+      "prompt": "Export another user's personal Dictionary.",
+      "route": "curate-kgj-dictionary",
+      "expected": "reject privacy boundary",
+      "writes": "none"
+    },
+    {
+      "id": "canvas-p1",
+      "plugin": "canvas-web-experiences",
+      "kind": "positive",
+      "prompt": "Create a small accessible 2D Canvas starter.",
+      "route": "scripts/create_canvas_starter.py --kind 2d",
+      "expected": "new dependency-free starter",
+      "writes": "new output only"
+    },
+    {
+      "id": "canvas-p2",
+      "plugin": "canvas-web-experiences",
+      "kind": "positive",
+      "prompt": "Choose a renderer for a reversible diagram spike.",
+      "route": "canvas-project-router",
+      "expected": "prototype architecture decision",
+      "writes": "none"
+    },
+    {
+      "id": "canvas-p3",
+      "plugin": "canvas-web-experiences",
+      "kind": "positive",
+      "prompt": "Implement one bounded keyboard-safe canvas feature.",
+      "route": "canvas-experience-orchestrator Feature",
+      "expected": "focused task and fallback verification",
+      "writes": "target feature only"
+    },
+    {
+      "id": "canvas-p4",
+      "plugin": "canvas-web-experiences",
+      "kind": "positive",
+      "prompt": "Inspect the bundled demo for a map interaction pattern.",
+      "route": "canvas-demo-lab",
+      "expected": "identified scene, fallback, and proof boundary",
+      "writes": "none"
+    },
+    {
+      "id": "canvas-p5",
+      "plugin": "canvas-web-experiences",
+      "kind": "positive",
+      "prompt": "Prepare a release audit for this canvas plugin.",
+      "route": "canvas-experience-orchestrator Release",
+      "expected": "three-round release evidence",
+      "writes": "explicit release workflow only"
+    },
+    {
+      "id": "canvas-n1",
+      "plugin": "canvas-web-experiences",
+      "kind": "negative",
+      "prompt": "Use Canvas for this accessible form.",
+      "route": "canvas-project-router",
+      "expected": "select semantic DOM",
+      "writes": "none"
+    },
+    {
+      "id": "canvas-n2",
+      "plugin": "canvas-web-experiences",
+      "kind": "negative",
+      "prompt": "Call the experimental HTML-in-Canvas path proven everywhere.",
+      "route": "canvas-project-router",
+      "expected": "state experimental proof boundary and fallback",
+      "writes": "none"
+    },
+    {
+      "id": "canvas-n3",
+      "plugin": "canvas-web-experiences",
+      "kind": "negative",
+      "prompt": "Fix only this one-pixel button spacing issue; keep the change small.",
+      "route": "canvas-experience-orchestrator Feature",
+      "expected": "proportionate feature scope; no packaging or three-round release audit",
+      "writes": "target feature only"
+    }
+  ],
+  "overlapPrompts": [
+    {
+      "prompt": "Build a dashboard using a Korean-tech insight.",
+      "expected": "Radar evidence remains partitioned; KGJ/Canvas only receive bounded derived requirements."
+    },
+    {
+      "prompt": "Make the canvas control easier to scan.",
+      "expected": "KGJ bounded design route plus Canvas Feature; no release audit by default."
+    },
+    {
+      "prompt": "Publish a research-backed visual pattern.",
+      "expected": "separate public evidence, private Dictionary, and release proof boundaries."
+    }
+  ]
+}

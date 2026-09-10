@@ -1,5 +1,7 @@
 # KGJ Design
 
+Install `kgj-design@gabeujin-plugins` using the [shared installation guide](https://github.com/Gabeujin/codex-plugins/blob/main/README.md). Existing users should read [updates and data preservation](https://github.com/Gabeujin/codex-plugins/blob/main/docs/INSTALL-AND-UPDATE.md). Copy-ready starter commands are in [First use](https://github.com/Gabeujin/codex-plugins/blob/main/docs/FIRST-USE.md).
+
 KGJ Design is a product-DNA architecture for creating related products without making replicas.
 It preserves semantic behavior, accessibility, data truth, and evidence boundaries while letting each
 product re-express density, typography, color, shape, motion, voice, and signature moments. A local
@@ -69,6 +71,19 @@ valid, an operator can explicitly rebuild projection, idempotency, and snapshot 
 `node scripts/kgj_dictionary.mjs recover --confirm`. The command versions the prior state and refuses
 recovery when immutable history fails semantic replay.
 
+## Choose the smallest workflow
+
+| Request | Skill or command | Minimum result | State change |
+| --- | --- | --- | --- |
+| Small screen or component improvement | `design-web-experience` | scoped design recommendation and proportionate checks | none unless separately authorized |
+| Adopt KGJ in a product | `adopt-kgj-design` | project contract and lineage decision | creates only with the command's confirmation |
+| Review a release | `audit-kgj-design` | evidence-bound three-round audit | records evidence only when explicitly requested |
+| Compare DNA changes | `preview-dna current.json next.json --output <outside-project>` | static before/after preview, diff, and source hashes | writes a new preview folder only; never applies changes |
+
+For a safe offline first result, inspect `examples/offline-mcp-example.json`. It is synthetic, needs no network or Dictionary write, and must never be treated as research or product evidence.
+
+`preview-dna` compiles both inputs into a new output folder containing `index.html`, `before.css`, `after.css`, and `preview.json`. It rejects an existing output directory and can pin each input with `--expected-current-sha256` and `--expected-next-sha256`; a hash mismatch fails before writing the preview. The preview is informational and cannot apply a change to either source project. Direct and lineage inputs are re-hashed after generation; a concurrent change prevents publication of the requested folder and retains a failed staging directory with preview-status.json for inspection.
+
 `package` is deterministic, rejects output inside the plugin tree, rejects symlinks, and excludes
 runtime caches. `quality` accepts ledger schema 2.0 only; callers cannot provide scores. The runner
 derives all three round scores from the versioned 15-check rubric, finding state, evidence proof level,
@@ -106,3 +121,5 @@ and distinct marketplace/install/version/source-cache readback. An install audit
 file with the package and fails on ignored executable residue. KGJ Design runs as an on-demand Codex
 stdio MCP process and opens no listener; if it later becomes a persistent local service, publish that
 service through the governed AX Store runtime workflow instead of desktop auto-start.
+
+The optional fresh-session attestation workflow requires PowerShell and an operator-provided `Invoke-FreshCodexCli.ps1` under the user Codex scripts directory. This wrapper is not bundled. It is not required for ordinary local MCP use, DNA preview, or public unit tests; without it that particular attestation stays unverified.

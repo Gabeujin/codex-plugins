@@ -32,7 +32,7 @@ import {
 
 export const serverInfo = {
   name: "k-tech-radar",
-  version: "0.3.0"
+  version: "0.4.0"
 };
 
 const supportedProtocolVersions = new Set([

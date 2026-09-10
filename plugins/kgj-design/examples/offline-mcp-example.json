@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "kgj-offline-example-v1",
+  "fixture": true,
+  "researchUse": "not-a-real-product-or-user-dictionary",
+  "network": "not-required",
+  "writes": false,
+  "requests": [
+    {
+      "name": "get_ontology",
+      "arguments": {},
+      "expected": "KGJ ontology and its portable-learning boundary"
+    },
+    {
+      "name": "prepare_design_application",
+      "arguments": {
+        "context": { "domain": "fictional-operations", "surface": "demo-console" },
+        "traitAxes": ["hierarchy"],
+        "limit": 5
+      },
+      "expected": "An empty matching result on a clean Dictionary; no record is created"
+    }
+  ],
+  "nextStep": "Use record_dictionary_entry only after supplying real, local evidence and explicit confirmation."
+}

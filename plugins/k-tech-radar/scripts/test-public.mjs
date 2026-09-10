@@ -1,0 +1,12 @@
+import {mkdtemp,cp} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+const root=fileURLToPath(new URL('../',import.meta.url));
+const data=await mkdtemp(join(tmpdir(),'k-tech-radar-public-tests-'));
+await cp(join(root,'data'),data,{recursive:true});
+const preload=new URL('./offline-test-guard.mjs',import.meta.url).href;
+const run=spawnSync(process.execPath,['--test','./tests/*.test.mjs'],{cwd:root,stdio:'inherit',env:{...process.env,NODE_OPTIONS:`${process.env.NODE_OPTIONS??''} --import=${preload}`,K_TECH_RADAR_DATA_DIR:data,K_TECH_RADAR_USE_BUNDLED_DATA:'0'},timeout:120000});
+if(run.error)throw run.error;
+process.exitCode=run.status??1;

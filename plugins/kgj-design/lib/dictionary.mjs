@@ -39,6 +39,21 @@ const SENSITIVE = /(?:password|secret|api[_ -]?key|access[_ -]?token|diagnos|psy
 const PERSONAL = /(?:[A-Z]:\\|\\\\[^\\]+\\|\b[\w.%+-]+@[\w.-]+\.[A-Za-z]{2,}\b|https?:\/\/[^\s]+)/i;
 const execFileAsync = promisify(execFile);
 let currentProcessStartIdentity;
+const WINDOWS_PROCESS_IDENTITY_TIMEOUT_MS = 10_000;
+
+function windowsPowerShellExecutables() {
+  const executables = [];
+  for (const systemRoot of [process.env.SystemRoot, process.env.SYSTEMROOT]) {
+    if (typeof systemRoot === "string" && systemRoot.trim()) {
+      executables.push(path.join(systemRoot, "System32", "WindowsPowerShell", "v1.0", "powershell.exe"));
+    }
+  }
+  for (const programFiles of [process.env.ProgramW6432, process.env.ProgramFiles]) {
+    if (typeof programFiles === "string" && programFiles.trim()) executables.push(path.join(programFiles, "PowerShell", "7", "pwsh.exe"));
+  }
+  executables.push("powershell.exe", "pwsh.exe");
+  return [...new Set(executables)];
+}
 
 function fail(message, code = "INVALID_ARGUMENT", data = {}) {
   const error = new Error(message);
@@ -178,6 +193,10 @@ async function exists(file) {
   try { await fs.access(file); return true; } catch { return false; }
 }
 
+async function hasEntries(directory) {
+  try { return (await fs.readdir(directory)).length > 0; } catch { return false; }
+}
+
 async function readJson(file, fallback = null) {
   try { return JSON.parse(await fs.readFile(file, "utf8")); } catch (error) {
     if (error.code === "ENOENT" && fallback !== null) return fallback;
@@ -302,12 +321,62 @@ function entryAtRevision(replay, id, revision) {
   return (replay.entryHistory[id] ?? []).filter((entry) => entry.revision <= revision).at(-1) ?? null;
 }
 
-async function writeJsonVersioned(file, value, paths, label) {
+function validateRunHistory(runEvents, replay) {
+  const issues = [];
+  const requests = {};
+  for (let index = 0; index < runEvents.length; index += 1) {
+    const event = runEvents[index];
+    const line = index + 1;
+    if (!event || typeof event !== "object" || Array.isArray(event)) {
+      issues.push(`run event must be an object at line ${line}`);
+      continue;
+    }
+    if (event.event !== "design-run-recorded") issues.push(`run event type mismatch at line ${line}`);
+    if (event.receiptHash !== hashObject(event.receipt)) issues.push(`run receipt hash mismatch at line ${line}`);
+    if (typeof event.idempotencyKeyHash !== "string" || !/^[a-f0-9]{64}$/.test(event.idempotencyKeyHash)) issues.push(`run idempotency key hash missing at line ${line}`);
+    const receipt = event.receipt ?? {};
+    if (receipt.schemaVersion !== "1.1") issues.push(`run receipt schema mismatch at line ${line}`);
+    if (!ISO_INSTANT.test(receipt.recordedAt ?? "") || !Number.isFinite(Date.parse(receipt.recordedAt))) issues.push(`run recordedAt invalid at line ${line}`);
+    if (replay.revisionHashes[receipt.dictionaryRevision] !== receipt.projectionHash) issues.push(`run projection hash mismatch at line ${line}`);
+    try {
+      validateRun({
+        runId: receipt.runId,
+        productId: receipt.productId,
+        phenotype: receipt.phenotype,
+        dictionaryRevision: receipt.dictionaryRevision,
+        appliedEntryIds: receipt.appliedEntryIds,
+        rejectedEntryIds: receipt.rejectedEntryIds,
+        result: receipt.result,
+        evidenceRefs: receipt.evidenceRefs
+      });
+    } catch (error) {
+      issues.push(`run receipt contract invalid at line ${line}: ${error.message}`);
+    }
+    for (const id of [...(receipt.appliedEntryIds ?? []), ...(receipt.rejectedEntryIds ?? [])]) {
+      if (!entryAtRevision(replay, id, receipt.dictionaryRevision)) issues.push(`run references unknown entry ${id} at line ${line}`);
+    }
+    for (const id of receipt.appliedEntryIds ?? []) {
+      const historical = entryAtRevision(replay, id, receipt.dictionaryRevision);
+      if (historical && !bindingState(historical, new Date(receipt.recordedAt)).binding) issues.push(`run applied non-binding entry ${id} at line ${line}`);
+    }
+    const bindingIds = Array.isArray(receipt.evidenceBindings) ? receipt.evidenceBindings.map((item) => item?.id) : [];
+    if (hashObject(bindingIds) !== hashObject(receipt.evidenceRefs ?? [])) issues.push(`run evidence bindings mismatch at line ${line}`);
+    if ((receipt.evidenceRefs ?? []).length && !/^[a-f0-9]{64}$/.test(receipt.evidenceRegistryHash ?? "")) issues.push(`run evidence registry hash missing at line ${line}`);
+    for (const binding of receipt.evidenceBindings ?? []) {
+      if (!/^[a-f0-9]{64}$/.test(binding?.artifactHash ?? "")) issues.push(`run evidence artifact hash invalid at line ${line}`);
+    }
+    if (typeof event.idempotencyKeyHash === "string" && /^[a-f0-9]{64}$/.test(event.idempotencyKeyHash)) requests[event.idempotencyKeyHash] = expectedRunIdempotency(event);
+  }
+  return { issues, requests };
+}
+
+async function writeJsonVersioned(file, value, paths, label, boundary) {
   const temp = `${file}.next-${process.pid}-${crypto.randomUUID()}`;
   await writeFileDurable(temp, `${JSON.stringify(value, null, 2)}\n`, "wx");
   if (await exists(file)) {
     const archive = path.join(paths.versions, `${path.basename(file, ".json")}.${label}-${crypto.randomUUID()}.json`);
     await fs.rename(file, archive);
+    paths.writeHook?.(boundary, "after-archive");
   }
   await fs.rename(temp, file);
 }
@@ -347,13 +416,20 @@ async function processStartIdentity(pid) {
   try {
     if (process.platform === "win32") {
       const command = `$processValue = Get-Process -Id ${pid} -ErrorAction Stop; $processValue.StartTime.ToUniversalTime().Ticks`;
-      const { stdout } = await execFileAsync("powershell.exe", ["-NoProfile", "-NonInteractive", "-Command", command], {
-        windowsHide: true,
-        timeout: 2000,
-        maxBuffer: 4096
-      });
-      const ticks = String(stdout).trim();
-      return /^\d+$/.test(ticks) ? `windows-ticks:${ticks}` : null;
+      for (const executable of windowsPowerShellExecutables()) {
+        try {
+          const { stdout } = await execFileAsync(executable, ["-NoLogo", "-NoProfile", "-NonInteractive", "-Command", command], {
+            windowsHide: true,
+            timeout: WINDOWS_PROCESS_IDENTITY_TIMEOUT_MS,
+            maxBuffer: 4096
+          });
+          const ticks = String(stdout).trim();
+          if (/^\d+$/.test(ticks)) return `windows-ticks:${ticks}`;
+        } catch {
+          // Try the next installed PowerShell host; no identity remains a hard failure.
+        }
+      }
+      return null;
     }
     if (process.platform === "linux") {
       const [stat, bootId] = await Promise.all([
@@ -446,19 +522,31 @@ function bindingState(entry, now = new Date()) {
   return { binding: reasons.length === 0, reasons };
 }
 
-async function ensureStore(root) {
+const STORE_FILES = ["projection", "ledger", "idempotency", "runs", "snapshot"];
+
+function emptyProjection() {
+  return { schemaVersion: "1.0", revision: 0, entries: {} };
+}
+
+async function ensureStore(root, { create = false } = {}) {
   const paths = runtimePaths(root);
-  await Promise.all([paths.root, paths.events, paths.leaseArchive, paths.versions].map((dir) => fs.mkdir(dir, { recursive: true })));
-  if (!(await exists(paths.projection))) await fs.writeFile(paths.projection, `${JSON.stringify({ schemaVersion: "1.0", revision: 0, entries: {} }, null, 2)}\n`, { flag: "wx" });
-  if (!(await exists(paths.idempotency))) await fs.writeFile(paths.idempotency, `${JSON.stringify({ schemaVersion: "1.0", requests: {} }, null, 2)}\n`, { flag: "wx" });
-  if (!(await exists(paths.ledger))) await fs.writeFile(paths.ledger, "", { flag: "wx" });
-  if (!(await exists(paths.runs))) await fs.writeFile(paths.runs, "", { flag: "wx" });
-  if (!(await exists(paths.snapshot))) {
-    const projection = await readJson(paths.projection);
-    const snapshot = await buildSnapshot(paths, projection);
+  const present = Object.fromEntries(await Promise.all(STORE_FILES.map(async (name) => [name, await exists(paths[name])] )));
+  const presentCount = Object.values(present).filter(Boolean).length;
+  if (presentCount === 0) {
+    const hasImmutableHistory = await hasEntries(paths.events);
+    if (hasImmutableHistory) return { paths, state: "recovery-required", missing: STORE_FILES };
+    if (!create) return { paths, state: "empty", missing: [] };
+    await Promise.all([paths.root, paths.events, paths.leaseArchive, paths.versions].map((dir) => fs.mkdir(dir, { recursive: true })));
+    await fs.writeFile(paths.projection, `${JSON.stringify(emptyProjection(), null, 2)}\n`, { flag: "wx" });
+    await fs.writeFile(paths.idempotency, `${JSON.stringify({ schemaVersion: "1.0", requests: {} }, null, 2)}\n`, { flag: "wx" });
+    await fs.writeFile(paths.ledger, "", { flag: "wx" });
+    await fs.writeFile(paths.runs, "", { flag: "wx" });
+    const snapshot = await buildSnapshot(paths, emptyProjection());
     await fs.writeFile(paths.snapshot, `${JSON.stringify(snapshot, null, 2)}\n`, { flag: "wx" });
+    return { paths, state: "ready", missing: [] };
   }
-  return paths;
+  const missing = STORE_FILES.filter((name) => !present[name]);
+  return { paths, state: missing.length ? "recovery-required" : "ready", missing };
 }
 
 async function buildSnapshot(paths, projection) {
@@ -481,17 +569,38 @@ async function buildSnapshot(paths, projection) {
 }
 
 async function updateSnapshot(paths, projection, label) {
-  await writeJsonVersioned(paths.snapshot, await buildSnapshot(paths, projection), paths, label);
+  await writeJsonVersioned(paths.snapshot, await buildSnapshot(paths, projection), paths, label, "snapshot");
 }
 
 export class KgjDictionary {
   constructor(options = {}) {
     this.root = options.root ? path.resolve(options.root) : dataRoot(options.env);
+    this.failAt = options.failAt ?? null;
   }
 
-  async init() {
-    this.paths = await ensureStore(this.root);
+  #inject(label) {
+    if (this.failAt === label) fail(`Injected write-boundary failure: ${label}`, "TEST_WRITE_BOUNDARY");
+  }
+
+  async init({ create = false } = {}) {
+    const store = await ensureStore(this.root, { create });
+    this.paths = store.paths;
+    this.paths.writeHook = (boundary, phase) => this.#inject(`${boundary}-${phase}`);
+    this.store = store;
     return this;
+  }
+
+  async #readableStore() {
+    await this.init();
+    if (this.store.state === "recovery-required") {
+      fail("Dictionary recovery is required before reading derived state", "RECOVERY_REQUIRED", { missing: this.store.missing });
+    }
+    if (this.store.state === "ready") {
+      const integrity = await this.verify();
+      if (!integrity.ok) fail("Dictionary recovery is required before reading derived state", "RECOVERY_REQUIRED", { issues: integrity.issues });
+      return { ...this.store, integrity };
+    }
+    return this.store;
   }
 
   async ontology() {
@@ -499,8 +608,13 @@ export class KgjDictionary {
   }
 
   async projection() {
-    await this.init();
-    return readJson(this.paths.projection);
+    const store = await this.#readableStore();
+    if (store.state === "empty") return emptyProjection();
+    const projection = await readJson(this.paths.projection);
+    if (store.integrity?.hashes?.projection && hashObject(projection) !== store.integrity.hashes.projection) {
+      fail("Dictionary changed while being read; retry after verifying integrity", "RECOVERY_REQUIRED");
+    }
+    return projection;
   }
 
   async search({ query = "", types = [], context = {}, includeCandidates = true, includeNonBinding = false, limit = 20 } = {}) {
@@ -564,7 +678,10 @@ export class KgjDictionary {
     if (confirmRecordIntent !== true) fail("confirmRecordIntent must be true", "CONFIRMATION_REQUIRED");
     if (typeof idempotencyKey !== "string" || !/^[A-Za-z0-9._:-]{8,200}$/.test(idempotencyKey)) fail("idempotencyKey is invalid");
     const normalized = validateEntry(entry);
-    await this.init();
+    await this.init({ create: true });
+    if (this.store.state === "recovery-required") {
+      fail("Dictionary integrity must be recovered before mutation", "RECOVERY_REQUIRED", { missing: this.store.missing });
+    }
     const lease = await acquireLease(this.paths);
     try {
       const integrity = await this.verify();
@@ -613,13 +730,18 @@ export class KgjDictionary {
       const event = { schemaVersion: "1.0", event: "dictionary-entry-recorded", revision, previousRevision: projection.revision, committedAt, entry: committed, previousEntryHash: previous ? hashObject(previous) : null, idempotencyKeyHash, requestHash };
       const eventHash = hashObject(event);
       const eventFile = path.join(this.paths.events, `revision-${String(revision).padStart(8, "0")}-${eventHash.slice(0, 12)}.json`);
+      this.#inject("event");
       await writeFileDurable(eventFile, `${JSON.stringify(event, null, 2)}\n`, "wx");
+      this.#inject("ledger");
       await appendLineDurable(this.paths.ledger, `${canonicalJson({ ...event, eventHash })}\n`);
       const nextProjection = { schemaVersion: "1.0", revision, entries: { ...projection.entries, [committed.id]: committed } };
       const result = { revision, entry: committed, eventHash };
       idempotency.requests[idempotencyKeyHash] = { requestHash, result, committedAt };
-      await writeJsonVersioned(this.paths.projection, nextProjection, this.paths, `r${revision}`);
-      await writeJsonVersioned(this.paths.idempotency, idempotency, this.paths, `r${revision}`);
+      this.#inject("projection");
+      await writeJsonVersioned(this.paths.projection, nextProjection, this.paths, `r${revision}`, "projection");
+      this.#inject("idempotency");
+      await writeJsonVersioned(this.paths.idempotency, idempotency, this.paths, `r${revision}`, "idempotency");
+      this.#inject("snapshot");
       await updateSnapshot(this.paths, nextProjection, `r${revision}`);
       return { ...result, replayed: false };
     } finally {
@@ -646,7 +768,25 @@ export class KgjDictionary {
   }
 
   async health() {
-    const projection = await this.projection();
+    await this.init();
+    if (this.store.state === "recovery-required") {
+      return {
+        ok: false,
+        status: "recovery-required",
+        revision: null,
+        counts: null,
+        attention: ["run verify_integrity and explicitly recover only if immutable history is valid"],
+        integrity: { ok: false, missing: this.store.missing },
+        portableIdentityClaim: false
+      };
+    }
+    if (this.store.state === "ready") {
+      const integrity = await this.verify();
+      if (!integrity.ok) {
+        return { ok: false, status: "recovery-required", revision: integrity.revision, counts: integrity.counts, attention: ["run verify_integrity and explicitly recover only if immutable history is valid"], integrity: { ok: false, issues: integrity.issues }, portableIdentityClaim: false };
+      }
+    }
+    const projection = this.store.state === "empty" ? emptyProjection() : await readJson(this.paths.projection);
     const entries = Object.values(projection.entries);
     const counts = { total: entries.length, binding: 0, pendingImports: 0, pendingInferences: 0, reviewOverdue: 0, expired: 0, inactive: 0 };
     for (const entry of entries) {
@@ -663,7 +803,7 @@ export class KgjDictionary {
     if (counts.pendingInferences) attention.push("verify or reject pending inferences before they can influence design resolution");
     if (counts.reviewOverdue) attention.push("revalidate review-overdue entries");
     if (counts.expired) attention.push("replace or revoke expired entries");
-    return { ok: true, revision: projection.revision, counts, attention, portableIdentityClaim: false };
+    return { ok: true, status: this.store.state, revision: projection.revision, counts, attention, integrity: { ok: true, missing: [] }, portableIdentityClaim: false };
   }
 
   async adoptImportedEntry({ id, expectedRevision, idempotencyKey, adoptionNote, confirmAdoptionIntent } = {}) {
@@ -714,7 +854,10 @@ export class KgjDictionary {
     if (confirmRecordIntent !== true) fail("confirmRecordIntent must be true", "CONFIRMATION_REQUIRED");
     if (typeof idempotencyKey !== "string" || !/^[A-Za-z0-9._:-]{8,200}$/.test(idempotencyKey)) fail("idempotencyKey is invalid");
     const normalizedRun = validateRun(run);
-    await this.init();
+    await this.init({ create: true });
+    if (this.store.state === "recovery-required") {
+      fail("Dictionary integrity must be recovered before mutation", "RECOVERY_REQUIRED", { missing: this.store.missing });
+    }
     const lease = await acquireLease(this.paths);
     try {
       const integrity = await this.verify();
@@ -758,7 +901,7 @@ export class KgjDictionary {
       await appendLineDurable(this.paths.runs, `${canonicalJson(runEvent)}\n`);
       const result = { receipt, receiptHash };
       idempotency.requests[idempotencyKeyHash] = { requestHash, result, committedAt: receipt.recordedAt };
-      await writeJsonVersioned(this.paths.idempotency, idempotency, this.paths, `run-${receipt.runId}`);
+      await writeJsonVersioned(this.paths.idempotency, idempotency, this.paths, `run-${receipt.runId}`, "idempotency");
       await updateSnapshot(this.paths, projection, `run-${receipt.runId}`);
       return { ...result, replayed: false };
     } finally {
@@ -767,7 +910,8 @@ export class KgjDictionary {
   }
 
   async listRuns({ limit = 50 } = {}) {
-    await this.init();
+    const store = await this.#readableStore();
+    if (store.state === "empty") return [];
     const runs = await readLines(this.paths.runs);
     return runs.slice(-Math.max(1, Math.min(Number(limit) || 50, 200))).reverse().map((item) => item.receipt ?? item);
   }
@@ -815,58 +959,39 @@ export class KgjDictionary {
 
   async verify() {
     await this.init();
-    const projection = await readJson(this.paths.projection);
-    const ledger = await readLines(this.paths.ledger);
-    const runEvents = await readLines(this.paths.runs);
-    const idempotency = await readJson(this.paths.idempotency);
-    const snapshot = await readJson(this.paths.snapshot);
+    if (this.store.state === "empty") {
+      return { ok: true, status: "empty", root: this.root, revision: 0, counts: { entries: 0, ledgerEvents: 0, designRuns: 0 }, hashes: null, issues: [] };
+    }
+    if (this.store.state === "recovery-required") {
+      return { ok: false, status: "recovery-required", root: this.root, revision: null, counts: null, hashes: null, issues: this.store.missing.map((name) => `required derived store file is missing: ${name}`) };
+    }
+    let projection, ledger, runEvents, idempotency, snapshot;
+    try {
+      projection = await readJson(this.paths.projection);
+      ledger = await readLines(this.paths.ledger);
+      runEvents = await readLines(this.paths.runs);
+      idempotency = await readJson(this.paths.idempotency);
+      snapshot = await readJson(this.paths.snapshot);
+    } catch (error) {
+      return { ok: false, status: "recovery-required", root: this.root, revision: null, counts: null, hashes: null, issues: [`store parse/read failure: ${error.message}`] };
+    }
+    if (!projection || typeof projection !== "object" || !projection.entries || typeof projection.entries !== "object" || !Number.isInteger(projection.revision) || !idempotency || typeof idempotency !== "object" || !idempotency.requests || typeof idempotency.requests !== "object" || !snapshot || typeof snapshot !== "object") {
+      return { ok: false, status: "recovery-required", root: this.root, revision: Number.isInteger(projection?.revision) ? projection.revision : null, counts: null, hashes: null, issues: ["derived store has an invalid structural shape"] };
+    }
     const current = await buildSnapshot(this.paths, projection);
     const replay = await replayLedger(this.paths, ledger);
     const issues = [...replay.issues];
+    const eventFiles = (await fs.readdir(this.paths.events)).filter((name) => /^revision-\d{8}-[a-f0-9]{12}\.json$/.test(name));
+    if (eventFiles.length !== ledger.length) issues.push("immutable event files do not match ledger length");
     if (ledger.length !== projection.revision) issues.push(`ledger events ${ledger.length} != projection revision ${projection.revision}`);
     if (hashObject(replay.projection) !== hashObject(projection)) issues.push("replayed ledger projection does not match dictionary projection");
     const expectedRequests = {};
     for (const event of ledger) {
       if (event.idempotencyKeyHash) expectedRequests[event.idempotencyKeyHash] = expectedEntryIdempotency(event);
     }
-    for (let index = 0; index < runEvents.length; index += 1) {
-      const event = runEvents[index];
-      if (event.event !== "design-run-recorded") issues.push(`run event type mismatch at line ${index + 1}`);
-      if (event.receiptHash !== hashObject(event.receipt)) issues.push(`run receipt hash mismatch at line ${index + 1}`);
-      if (typeof event.idempotencyKeyHash !== "string" || !/^[a-f0-9]{64}$/.test(event.idempotencyKeyHash)) issues.push(`run idempotency key hash missing at line ${index + 1}`);
-      const receipt = event.receipt ?? {};
-      if (receipt.schemaVersion !== "1.1") issues.push(`run receipt schema mismatch at line ${index + 1}`);
-      if (!ISO_INSTANT.test(receipt.recordedAt ?? "") || !Number.isFinite(Date.parse(receipt.recordedAt))) issues.push(`run recordedAt invalid at line ${index + 1}`);
-      if (replay.revisionHashes[receipt.dictionaryRevision] !== receipt.projectionHash) issues.push(`run projection hash mismatch at line ${index + 1}`);
-      try {
-        validateRun({
-          runId: receipt.runId,
-          productId: receipt.productId,
-          phenotype: receipt.phenotype,
-          dictionaryRevision: receipt.dictionaryRevision,
-          appliedEntryIds: receipt.appliedEntryIds,
-          rejectedEntryIds: receipt.rejectedEntryIds,
-          result: receipt.result,
-          evidenceRefs: receipt.evidenceRefs
-        });
-      } catch (error) {
-        issues.push(`run receipt contract invalid at line ${index + 1}: ${error.message}`);
-      }
-      for (const id of [...(receipt.appliedEntryIds ?? []), ...(receipt.rejectedEntryIds ?? [])]) {
-        if (!entryAtRevision(replay, id, receipt.dictionaryRevision)) issues.push(`run references unknown entry ${id} at line ${index + 1}`);
-      }
-      for (const id of receipt.appliedEntryIds ?? []) {
-        const historical = entryAtRevision(replay, id, receipt.dictionaryRevision);
-        if (historical && !bindingState(historical, new Date(receipt.recordedAt)).binding) issues.push(`run applied non-binding entry ${id} at line ${index + 1}`);
-      }
-      const bindingIds = Array.isArray(receipt.evidenceBindings) ? receipt.evidenceBindings.map((item) => item?.id) : [];
-      if (hashObject(bindingIds) !== hashObject(receipt.evidenceRefs ?? [])) issues.push(`run evidence bindings mismatch at line ${index + 1}`);
-      if ((receipt.evidenceRefs ?? []).length && !/^[a-f0-9]{64}$/.test(receipt.evidenceRegistryHash ?? "")) issues.push(`run evidence registry hash missing at line ${index + 1}`);
-      for (const binding of receipt.evidenceBindings ?? []) {
-        if (!/^[a-f0-9]{64}$/.test(binding?.artifactHash ?? "")) issues.push(`run evidence artifact hash invalid at line ${index + 1}`);
-      }
-      if (event.idempotencyKeyHash) expectedRequests[event.idempotencyKeyHash] = expectedRunIdempotency(event);
-    }
+    const runHistory = validateRunHistory(runEvents, replay);
+    issues.push(...runHistory.issues);
+    Object.assign(expectedRequests, runHistory.requests);
     for (const [key, expected] of Object.entries(expectedRequests)) {
       if (!idempotency.requests[key] || hashObject(idempotency.requests[key]) !== hashObject(expected)) issues.push(`idempotency receipt mismatch for ${key.slice(0, 12)}`);
     }
@@ -877,32 +1002,33 @@ export class KgjDictionary {
       if (snapshot.hashes?.[key] !== current.hashes[key]) issues.push(`snapshot ${key} hash mismatch`);
     }
     if (snapshot.revision !== current.revision) issues.push("snapshot revision mismatch");
-    return { ok: issues.length === 0, root: this.root, revision: projection.revision, counts: { entries: Object.keys(projection.entries).length, ledgerEvents: ledger.length, designRuns: current.designRuns }, hashes: current.hashes, issues };
+    return { ok: issues.length === 0, status: issues.length === 0 ? "ready" : "recovery-required", root: this.root, revision: projection.revision, counts: { entries: Object.keys(projection.entries).length, ledgerEvents: ledger.length, designRuns: current.designRuns }, hashes: current.hashes, issues };
   }
 
   async recover({ confirmRecoveryIntent } = {}) {
     if (confirmRecoveryIntent !== true) fail("confirmRecoveryIntent must be true", "CONFIRMATION_REQUIRED");
     await this.init();
+    await Promise.all([this.paths.root, this.paths.events, this.paths.leaseArchive, this.paths.versions].map((dir) => fs.mkdir(dir, { recursive: true })));
     const lease = await acquireLease(this.paths);
     try {
       const ledger = await readLines(this.paths.ledger);
       const runEvents = await readLines(this.paths.runs);
       const replay = await replayLedger(this.paths, ledger);
       const issues = [...replay.issues];
+      const eventFiles = (await fs.readdir(this.paths.events)).filter((name) => /^revision-\d{8}-[a-f0-9]{12}\.json$/.test(name));
+      if (eventFiles.length !== ledger.length) issues.push("cannot recover when immutable event files do not match ledger length");
       const requests = {};
       for (const event of ledger) {
         if (!event.idempotencyKeyHash) issues.push(`cannot recover idempotency at revision ${event.revision}`);
         else requests[event.idempotencyKeyHash] = expectedEntryIdempotency(event);
       }
-      for (let index = 0; index < runEvents.length; index += 1) {
-        const event = runEvents[index];
-        if (event.event !== "design-run-recorded" || event.receiptHash !== hashObject(event.receipt) || !event.idempotencyKeyHash) issues.push(`cannot recover run event at line ${index + 1}`);
-        else requests[event.idempotencyKeyHash] = expectedRunIdempotency(event);
-      }
+      const runHistory = validateRunHistory(runEvents, replay);
+      issues.push(...runHistory.issues.map((issue) => `cannot recover ${issue}`));
+      Object.assign(requests, runHistory.requests);
       if (issues.length) fail("Recovery blocked by invalid immutable history", "RECOVERY_BLOCKED", { issues });
       const idempotency = { schemaVersion: "1.0", requests };
-      await writeJsonVersioned(this.paths.projection, replay.projection, this.paths, `recovery-r${replay.projection.revision}`);
-      await writeJsonVersioned(this.paths.idempotency, idempotency, this.paths, `recovery-r${replay.projection.revision}`);
+      await writeJsonVersioned(this.paths.projection, replay.projection, this.paths, `recovery-r${replay.projection.revision}`, "projection");
+      await writeJsonVersioned(this.paths.idempotency, idempotency, this.paths, `recovery-r${replay.projection.revision}`, "idempotency");
       await updateSnapshot(this.paths, replay.projection, `recovery-r${replay.projection.revision}`);
       return { ok: true, revision: replay.projection.revision, entries: Object.keys(replay.projection.entries).length, designRuns: runEvents.length };
     } finally {

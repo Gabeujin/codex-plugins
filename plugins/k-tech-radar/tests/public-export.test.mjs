@@ -29,7 +29,8 @@ import {
   stableJson,
   taxonomyHash
 } from "../lib/integrity.mjs";
-import { pluginRoot } from "../lib/paths.mjs";
+import { createSyntheticPlugin } from "./helpers/synthetic-store.mjs";
+const pluginRoot = await createSyntheticPlugin();
 import { calculateNegativeReviewScore } from "../lib/quality-score.mjs";
 import { sha256 } from "../lib/text.mjs";
 
@@ -65,6 +66,7 @@ async function publicDictionaryFixture(
   const promotedInput = {
     ...structuredClone(previous),
     status: "verified",
+    verification: {primarySourcesChecked: true, counterEvidenceReviewed: true},
     visibility: "public",
     qualityReview: {
       reviewedAt: "2026-07-31T00:00:00.000Z",
@@ -284,7 +286,7 @@ test("public snapshot export preserves partitions but removes local evidence", a
     "await runtime.handleRequest({ method: 'initialize', params: { protocolVersion: '2025-11-25' } });",
     "const article = await runtime.handleRequest({ method: 'tools/call', params: { name: 'get_article', arguments: { articleId: process.env.K_TECH_RADAR_TEST_ARTICLE_ID } } });",
     "const fusion = await runtime.handleRequest({ method: 'tools/call', params: { name: 'prepare_fusion_evidence', arguments: { query: process.env.K_TECH_RADAR_TEST_QUERY } } });",
-    "process.stdout.write(JSON.stringify({ articleError: article.isError, fusionError: fusion.isError }));"
+    "process.stdout.write(JSON.stringify({ articleError: article.isError, fusionError: fusion.isError, details: article.isError ? article : fusion.isError ? fusion : undefined }));"
   ].join("\n");
   const runtimeResult = await execFileAsync(
     process.execPath,

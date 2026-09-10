@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { KgjDictionary } from "../lib/dictionary.mjs";
-import { sha256 } from "../lib/integrity.mjs";
+import { hashObject, sha256 } from "../lib/integrity.mjs";
 import { KgjMcpRuntime } from "../mcp/runtime.mjs";
 
 async function testRoot(label) {
@@ -255,6 +255,139 @@ test("semantic replay detects projection drift and explicit recovery rebuilds it
   assert.equal(recovered.revision, 1);
   const verified = await dictionary.verify();
   assert.equal(verified.ok, true, verified.issues.join("\n"));
+});
+
+test("missing derived projection fails closed until explicit recovery", async () => {
+  const dictionary = new KgjDictionary({ root: await testRoot("missing-projection") });
+  await dictionary.recordEntry({ entry: entry(), expectedRevision: 0, idempotencyKey: "request-missing-projection-001", confirmRecordIntent: true });
+  const fixtures = path.join(dictionary.root, "fixtures");
+  await fs.mkdir(fixtures);
+  await fs.rename(path.join(dictionary.root, "dictionary.json"), path.join(fixtures, "dictionary.json.moved"));
+  const restarted = new KgjDictionary({ root: dictionary.root });
+  const health = await restarted.health();
+  assert.equal(health.ok, false);
+  assert.equal(health.status, "recovery-required");
+  assert.deepEqual(health.integrity.missing, ["projection"]);
+  await assert.rejects(restarted.search(), (error) => error.code === "RECOVERY_REQUIRED");
+  const verification = await restarted.verify();
+  assert.equal(verification.ok, false);
+  assert.equal(verification.status, "recovery-required");
+  const recovered = await restarted.recover({ confirmRecoveryIntent: true });
+  assert.equal(recovered.revision, 1);
+  assert.equal((await restarted.verify()).ok, true);
+  assert.equal((await restarted.get("preference.compact-operations"))?.revision, 1);
+});
+
+test("missing idempotency or snapshot fails closed until explicit recovery", async () => {
+  for (const [label, file] of [["idempotency", "idempotency.json"], ["snapshot", "snapshot.json"]]) {
+    const dictionary = new KgjDictionary({ root: await testRoot(`missing-${label}`) });
+    await dictionary.recordEntry({ entry: entry(), expectedRevision: 0, idempotencyKey: `request-missing-${label}-001`, confirmRecordIntent: true });
+    await fs.mkdir(path.join(dictionary.root, "fixtures"));
+    await fs.rename(path.join(dictionary.root, file), path.join(dictionary.root, "fixtures", `${file}.moved`));
+    const restarted = new KgjDictionary({ root: dictionary.root });
+    assert.equal((await restarted.health()).status, "recovery-required", label);
+    await assert.rejects(restarted.get("preference.compact-operations"), (error) => error.code === "RECOVERY_REQUIRED", label);
+    await restarted.recover({ confirmRecoveryIntent: true });
+    assert.equal((await restarted.verify()).ok, true, label);
+  }
+});
+
+test("health and reads fail closed for stale, malformed, or inconsistent derived files", async () => {
+  const cases = ["projection", "idempotency", "snapshot"];
+  for (const kind of cases) {
+    const dictionary = new KgjDictionary({ root: await testRoot(`stale-${kind}`) });
+    await dictionary.recordEntry({ entry: entry(), expectedRevision: 0, idempotencyKey: `request-stale-${kind}-001`, confirmRecordIntent: true });
+    const file = { projection: "dictionary.json", idempotency: "idempotency.json", snapshot: "snapshot.json" }[kind];
+    await fs.writeFile(path.join(dictionary.root, file), `${JSON.stringify({ schemaVersion: "1.0", revision: 0, entries: {} })}\n`, "utf8");
+    const restarted = new KgjDictionary({ root: dictionary.root });
+    assert.equal((await restarted.health()).ok, false, kind);
+    await assert.rejects(restarted.search(), (error) => error.code === "RECOVERY_REQUIRED", kind);
+  }
+  const malformed = new KgjDictionary({ root: await testRoot("malformed-health") });
+  await malformed.recordEntry({ entry: entry(), expectedRevision: 0, idempotencyKey: "request-malformed-health-001", confirmRecordIntent: true });
+  await fs.writeFile(path.join(malformed.root, "snapshot.json"), "{not-json", "utf8");
+  const diagnostic = await new KgjDictionary({ root: malformed.root }).health();
+  assert.equal(diagnostic.ok, false);
+  assert.equal(diagnostic.status, "recovery-required");
+  assert.match(diagnostic.integrity.issues.join("\n"), /parse\/read failure/);
+});
+
+test("write-boundary faults leave a valid state or an explicitly recoverable state", async () => {
+  for (const boundary of ["event", "ledger", "projection", "idempotency", "snapshot"]) {
+    const root = await testRoot(`fault-${boundary}`);
+    const dictionary = new KgjDictionary({ root, failAt: boundary });
+    await assert.rejects(dictionary.recordEntry({ entry: entry(), expectedRevision: 0, idempotencyKey: `request-fault-${boundary}-001`, confirmRecordIntent: true }), (error) => error.code === "TEST_WRITE_BOUNDARY");
+    const restarted = new KgjDictionary({ root });
+    const verification = await restarted.verify();
+    if (!verification.ok) {
+      if (boundary === "ledger") {
+        await assert.rejects(restarted.recover({ confirmRecoveryIntent: true }), (error) => error.code === "RECOVERY_BLOCKED");
+        continue;
+      }
+      const recovered = await restarted.recover({ confirmRecoveryIntent: true });
+      assert.ok(recovered.revision >= 0, boundary);
+      assert.equal((await restarted.verify()).ok, true, boundary);
+    }
+  }
+});
+
+test("versioned-file archive-to-replace faults require explicit recovery", async () => {
+  for (const boundary of ["projection", "idempotency", "snapshot"]) {
+    const root = await testRoot(`versioned-${boundary}`);
+    const initial = new KgjDictionary({ root });
+    await initial.recordEntry({ entry: entry(), expectedRevision: 0, idempotencyKey: `request-versioned-${boundary}-001`, confirmRecordIntent: true });
+    const faulted = new KgjDictionary({ root, failAt: `${boundary}-after-archive` });
+    await assert.rejects(
+      faulted.recordEntry({ entry: entry({ id: `preference.versioned-${boundary}` }), expectedRevision: 1, idempotencyKey: `request-versioned-${boundary}-002`, confirmRecordIntent: true }),
+      (error) => error.code === "TEST_WRITE_BOUNDARY"
+    );
+    const restarted = new KgjDictionary({ root });
+    assert.equal((await restarted.verify()).ok, false, boundary);
+    await restarted.recover({ confirmRecoveryIntent: true });
+    assert.equal((await restarted.verify()).ok, true, boundary);
+  }
+});
+
+test("corrupt immutable events are diagnosed and recovery refuses to rewrite them", async () => {
+  const root = await testRoot("immutable-event-corruption");
+  const dictionary = new KgjDictionary({ root });
+  await dictionary.recordEntry({
+    entry: entry(),
+    expectedRevision: 0,
+    idempotencyKey: "request-immutable-event-001",
+    confirmRecordIntent: true
+  });
+  const eventsRoot = path.join(root, "events");
+  const [eventName] = await fs.readdir(eventsRoot);
+  const eventPath = path.join(eventsRoot, eventName);
+  const event = JSON.parse(await fs.readFile(eventPath, "utf8"));
+  event.entry.title = "Synthetic tampered immutable event";
+  await fs.writeFile(eventPath, `${JSON.stringify(event)}\n`, "utf8");
+
+  const restarted = new KgjDictionary({ root });
+  const verification = await restarted.verify();
+  assert.equal(verification.ok, false);
+  await assert.rejects(
+    restarted.recover({ confirmRecoveryIntent: true, recoveryNote: "Synthetic corruption probe" }),
+    (error) => error.code === "RECOVERY_BLOCKED"
+  );
+});
+
+test("recovery refuses malformed but internally hashed immutable run history before rewriting derived files", async () => {
+  const root = await testRoot("malformed-run-recovery");
+  const dictionary = new KgjDictionary({ root });
+  await dictionary.recordEntry({ entry: entry(), expectedRevision: 0, idempotencyKey: "request-malformed-run-001", confirmRecordIntent: true });
+  const derived = await Promise.all(["dictionary.json", "idempotency.json", "snapshot.json"].map((name) => fs.readFile(path.join(root, name))));
+  const malformedRun = { event: "design-run-recorded", receipt: {}, receiptHash: hashObject({}), idempotencyKeyHash: "a".repeat(64) };
+  await fs.writeFile(path.join(root, "design-runs.jsonl"), `${JSON.stringify(malformedRun)}\n`, "utf8");
+  const restarted = new KgjDictionary({ root });
+  await assert.rejects(
+    restarted.recover({ confirmRecoveryIntent: true }),
+    (error) => error.code === "RECOVERY_BLOCKED"
+  );
+  const after = await Promise.all(["dictionary.json", "idempotency.json", "snapshot.json"].map((name) => fs.readFile(path.join(root, name))));
+  assert.deepEqual(after, derived);
+  assert.equal((await restarted.verify()).ok, false);
 });
 
 test("run receipts use a closed schema and are linked into integrity", async () => {
