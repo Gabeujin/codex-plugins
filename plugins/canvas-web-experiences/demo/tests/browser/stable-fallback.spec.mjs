@@ -85,8 +85,21 @@ test.describe('generated starters', () => {
   });
 
   for (const kind of ['2d', '3d', 'map-diagram']) {
-    test(`${kind} starter changes its representative task from button and keyboard input`, async ({ page }) => {
+    test(`${kind} starter changes its representative task from button and keyboard input`, async ({ page }, testInfo) => {
       await page.goto(`${baseURL}/${kind}/`);
+      const noWebGL = kind === '3d' && process.platform === 'linux' && testInfo.project.name === 'firefox' && !(await page.evaluate(() => Boolean(document.createElement('canvas').getContext('webgl'))));
+      if (noWebGL) {
+        await expect(page.locator('#scene')).toBeHidden();
+        await expect(page.locator('#fallback')).toBeVisible();
+        const action = page.getByRole('button', { name: 'Advance task without Canvas' });
+        await action.click();
+        await expect(page.locator('#status')).toHaveText('rotation: 1');
+        await action.focus();
+        await page.keyboard.press('Enter');
+        await expect(page.locator('#status')).toHaveText('rotation: 2');
+        testInfo.annotations.push({ type: 'capability', description: 'Linux Firefox has no WebGL context; semantic task and keyboard fallback verified.' });
+        return;
+      }
       await expect(page.locator('#scene')).toBeVisible();
       await expect(page.locator('#fallback')).toBeHidden();
       const before = await page.locator('#status').textContent();
@@ -98,8 +111,13 @@ test.describe('generated starters', () => {
     });
   }
 
-  test('the 3d starter paints a WebGL cube rather than a labelled 2D placeholder', async ({ page }) => {
+  test('the 3d starter uses WebGL geometry and updates rotation', async ({ page }, testInfo) => {
     await page.goto(`${baseURL}/3d/`);
+    const noWebGL = process.platform === 'linux' && testInfo.project.name === 'firefox' && !(await page.evaluate(() => Boolean(document.createElement('canvas').getContext('webgl'))));
+    if (noWebGL) {
+      await expect(page.locator('#fallback')).toBeVisible();
+      test.skip(true, 'Linux Firefox runner cannot create WebGL; fallback is checked separately, WebGL rendering is unverified here.');
+    }
     await expect(page.locator('#scene')).toHaveAttribute('data-renderer', 'webgl');
     const before = await page.locator('#scene').getAttribute('data-rotation');
     await page.getByRole('button', { name: 'Advance task' }).click();
