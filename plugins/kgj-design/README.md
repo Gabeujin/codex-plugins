@@ -1,5 +1,7 @@
 # KGJ Design
 
+Install `kgj-design@gabeujin-plugins` using the [shared installation guide](../../README.md). Existing users should read [updates and data preservation](../../docs/INSTALL-AND-UPDATE.md). Copy-ready starter commands are in [First use](../../docs/FIRST-USE.md).
+
 KGJ Design is a product-DNA architecture for creating related products without making replicas.
 It preserves semantic behavior, accessibility, data truth, and evidence boundaries while letting each
 product re-express density, typography, color, shape, motion, voice, and signature moments. A local
@@ -80,7 +82,7 @@ recovery when immutable history fails semantic replay.
 
 For a safe offline first result, inspect `examples/offline-mcp-example.json`. It is synthetic, needs no network or Dictionary write, and must never be treated as research or product evidence.
 
-`preview-dna` compiles both inputs into a new output folder containing `index.html`, `before.css`, `after.css`, and `preview.json`. It rejects an existing output directory and can pin each input with `--expected-current-sha256` and `--expected-next-sha256`; a hash mismatch fails before writing the preview. The preview is informational and cannot apply a change to either source project.
+`preview-dna` compiles both inputs into a new output folder containing `index.html`, `before.css`, `after.css`, and `preview.json`. It rejects an existing output directory and can pin each input with `--expected-current-sha256` and `--expected-next-sha256`; a hash mismatch fails before writing the preview. The preview is informational and cannot apply a change to either source project. Direct and lineage inputs are re-hashed after generation; a concurrent change prevents publication of the requested folder and retains a failed staging directory with preview-status.json for inspection.
 
 `package` is deterministic, rejects output inside the plugin tree, rejects symlinks, and excludes
 runtime caches. `quality` accepts ledger schema 2.0 only; callers cannot provide scores. The runner

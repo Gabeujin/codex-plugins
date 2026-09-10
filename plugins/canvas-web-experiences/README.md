@@ -1,5 +1,7 @@
 # Canvas Web Experiences
 
+Install `canvas-web-experiences@gabeujin-plugins` using the [shared installation guide](../../README.md). Existing users should read [updates and data preservation](../../docs/INSTALL-AND-UPDATE.md). Copy-ready starter commands are in [First use](../../docs/FIRST-USE.md).
+
 Canvas Web Experiences is a Codex plugin for planning, designing, implementing, and verifying accessible Canvas web products. It covers Canvas 2D, WebGL, WebGPU, maps, diagrams, game-like scenes, and experimental HTML-in-Canvas techniques.
 
 The plugin keeps navigation, controls, forms, and status in semantic DOM. Experimental rendering paths require feature detection and a DOM or conventional-texture fallback.
@@ -26,7 +28,7 @@ The experimental path is optional. Keep task controls and semantic alternatives 
 
 ## Demo
 
-The optional Vite demo is an executable architecture sample. From `demo/`, install the locked dependencies and run `npm test` or `npm run build`. Browser checks should be performed for the target browser, viewport, and feature availability before making release claims.
+The optional Vite demo is an executable architecture sample. From `demo/`, install the locked dependencies and run `npm test` or `npm run build`. Browser checks should be performed for the target browser, viewport, and feature availability before making release claims. Follow the reproducible [three-engine browser guide](../../docs/BROWSER-TESTING.md); Playwright WebKit is separate from real Safari validation.
 
 For a small independent starting point, use `scripts/create_canvas_starter.py` with `2d`, `3d`, or `map-diagram`. The generated folder has no experimental APIs or large image dependency and includes its own build, interaction, and fallback checks.
 
