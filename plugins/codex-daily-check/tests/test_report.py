@@ -24,6 +24,14 @@ class ReportTests(unittest.TestCase):
             report.record(run,'native.response','PASS','Late reply')
         with self.assertRaises(FileExistsError): report.finalize(run)
 
+    def test_actual_approval_cannot_be_omitted_from_complete_readiness(self):
+        run=Path(report.start(self.fresh())['run'])
+        for key in report.REQUIRED:
+            if key != 'codex.approval': report.record(run,key,'PASS','Observed result')
+        report.record(run,'codex.approval','NOT_TESTED','No actual approval occurred')
+        report.finalize(run)
+        self.assertEqual(report.read(run/'final.json')['overall'],'PARTIAL')
+
     def test_new_changed_removed_surface_does_not_execute(self):
         result=report.compare([{'name':'delete','schemaHash':'a'*64},{'name':'old'}],
                               [{'name':'delete','schemaHash':'b'*64},{'name':'new'}])
