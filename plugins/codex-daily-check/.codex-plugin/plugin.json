@@ -1,0 +1,23 @@
+{
+  "name": "codex-daily-check",
+  "version": "0.3.0",
+  "description": "Five-minute evidence-based Codex readiness checks, Windows notifications and CLI version drift.",
+  "author": {
+    "name": "Gabeujin"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Codex 기능 Daily Check",
+    "shortDescription": "5분 내 핵심 기능·Windows 알림·CLI 버전 점검",
+    "longDescription": "5분 진단으로 인앱 브라우저와 실제 Chrome, 설치된 Computer Use의 실제 입력·읽기, Windows 알림·응답을 검증합니다. 실패 시 공식 문서 기반 복구와 재검증을 이어갑니다.",
+    "developerName": "Gabeujin",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": [
+      "Codex 핵심 기능을 5분 이내에 점검해 줘.",
+      "업그레이드 이후 바뀐 기능과 미검증 항목을 확인해 줘."
+    ]
+  },
+  "license": "MIT",
+  "repository": "https://github.com/Gabeujin/codex-plugins"
+}

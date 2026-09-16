@@ -73,10 +73,10 @@ class PackageReleaseRegressionTests(unittest.TestCase):
             "name": "gabeujin-plugins",
             "plugins": [
                 {"name": name, "source": {"source": "local", "path": f"./plugins/{name}"}}
-                for name in ["k-tech-radar", "canvas-web-experiences", "kgj-design"]
+                for name in ["k-tech-radar", "canvas-web-experiences", "kgj-design", "codex-daily-check"]
             ],
         }))
-        for name in ["k-tech-radar", "canvas-web-experiences", "kgj-design"]:
+        for name in ["k-tech-radar", "canvas-web-experiences", "kgj-design", "codex-daily-check"]:
             write(cls.root, f"plugins/{name}/.codex-plugin/plugin.json", json.dumps({"name": name, "version": "0.0.1", "skills": "./skills", "mcpServers": "./.mcp.json"}))
             write(cls.root, f"plugins/{name}/.mcp.json", "{}")
             write(cls.root, f"plugins/{name}/skills/README.md", "fixture\n")

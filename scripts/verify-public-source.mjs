@@ -24,7 +24,7 @@ for(const file of files){
 try{
  const market=JSON.parse(fs.readFileSync(path.join(root,'.agents/plugins/marketplace.json'),'utf8'));
  assert.equal(market.name,'gabeujin-plugins');
- assert.deepEqual(market.plugins.map(p=>p.name),['k-tech-radar','canvas-web-experiences','kgj-design']);
+ assert.deepEqual(market.plugins.map(p=>p.name),['k-tech-radar','canvas-web-experiences','kgj-design','codex-daily-check']);
  for(const entry of market.plugins){
   assert.equal(entry.source.source,'local');assert.equal(entry.source.path,`./plugins/${entry.name}`);
   const plugin=path.join(root,entry.source.path),manifest=JSON.parse(fs.readFileSync(path.join(plugin,'.codex-plugin/plugin.json'),'utf8'));

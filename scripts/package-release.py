@@ -13,8 +13,8 @@ def safe(name):
     return p
 
 def release_manifest(commit,files):
-    versions={name:json.loads(files[f'plugins/{name}/.codex-plugin/plugin.json'])['version'] for name in ['k-tech-radar','kgj-design','canvas-web-experiences']}
-    return {'schemaVersion':1,'sourceCommit':commit,'pluginVersions':versions,'dataSchemas':{'k-tech-radar':{'snapshot':2,'dictionary':2},'kgj-design':'1.0','canvas-web-experiences':None},'runtimePolicy':{'nodeMaintainedMajors':[22,24],'python':'3.12+'},'verification':{'status':'not-attested-by-packager','instruction':'Attach exact-commit test receipts separately. Packaging is not runtime certification.'},'files':[{'path':name,'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()} for name,data in sorted(files.items())]}
+    versions={name:json.loads(files[f'plugins/{name}/.codex-plugin/plugin.json'])['version'] for name in [entry['name'] for entry in json.loads(files['.agents/plugins/marketplace.json'])['plugins']]}
+    return {'schemaVersion':1,'sourceCommit':commit,'pluginVersions':versions,'dataSchemas':{'k-tech-radar':{'snapshot':2,'dictionary':2},'kgj-design':'1.0','canvas-web-experiences':None,'codex-daily-check':None},'runtimePolicy':{'nodeMaintainedMajors':[22,24],'python':'3.12+'},'verification':{'status':'not-attested-by-packager','instruction':'Attach exact-commit test receipts separately. Packaging is not runtime certification.'},'files':[{'path':name,'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()} for name,data in sorted(files.items())]}
 
 def check(archive, source_root, node='node'):
     dest=Path(tempfile.mkdtemp(prefix='codex-plugin-package-check-'))
