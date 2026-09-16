@@ -1,4 +1,4 @@
-# Codex Daily Check 0.4.0 — public readiness review
+# Codex Daily Check 0.4.1 — public readiness review
 
 Reviewed on 2026-09-16 from three perspectives: senior development (probe portability and failure handling), AI evaluation (false readiness and evidence limitations), and Codex operation (actual browser/native routes, authorization and packaging).
 
@@ -31,7 +31,7 @@ Known boundaries: runtime availability depends on installed plugins and policy; 
 
 These sources document setup and boundaries, not a universal guarantee that every installed plugin must work under every managed policy. Do not bypass security policy to turn a failed check green.
 
-## 0.4.0 corrections
+## 0.4.1 corrections
 
 The full READY gate now includes genuine approval coverage. A policy-blocked approval remains blocked, and question notifications cannot stand in for permission or completion notifications. A dedicated notification-sending tool is not required when an actual question event and user observation establish the OS notification route. The five-minute ceiling uses adaptive scheduling and reserved finalization time, not a three-minute cutoff or an artificial wait. CLI payload hashing shares the probe budget; the existing runnable copy must match the protected Appx payload without copying the binary or modifying ACLs.
 

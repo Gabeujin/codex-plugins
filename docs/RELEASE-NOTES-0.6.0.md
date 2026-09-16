@@ -1,4 +1,4 @@
-# v0.6.0 — Codex Daily Check 0.4.0
+# v0.6.0 — Codex Daily Check 0.4.1
 
 This release adds Codex Daily Check to the tagged marketplace bundle and improves the distinction between diagnostic completion and fully verified readiness. Other plugin versions remain K-Tech Radar 0.4.0, KGJ Design 1.3.0, and Canvas Web Experiences 1.7.0.
 

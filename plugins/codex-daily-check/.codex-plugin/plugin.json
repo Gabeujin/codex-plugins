@@ -1,6 +1,6 @@
 {
   "name": "codex-daily-check",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Five-minute evidence-based Codex readiness checks, Windows notifications and CLI version drift.",
   "author": {
     "name": "Gabeujin"
