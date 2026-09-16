@@ -39,6 +39,38 @@ class ProbeTests(unittest.TestCase):
         (root / "app" / "resources" / "codex.exe").write_bytes(b"ELF")
         self.assertIsNone(probe.bundled_cli_path({"install_path": str(root)}))
 
+    def test_extracted_bundled_copy_requires_exact_payload_hash(self):
+        root = self.artifact_root()
+        payload, extracted = root / "payload.exe", root / "extracted.exe"
+        payload.write_bytes(b"MZsame"); extracted.write_bytes(b"MZsame")
+        class Budget:
+            def remaining_seconds(self): return 1
+        verified = probe.verify_extracted_bundled_cli(str(payload),str(extracted),Budget())
+        self.assertEqual(verified["status"],"verified")
+        extracted.write_bytes(b"MZdifferent")
+        self.assertEqual(probe.verify_extracted_bundled_cli(str(payload),str(extracted),Budget())["reason"],"payload_hash_mismatch")
+
+    def test_hash_deadline_exhaustion_prevents_payload_execution(self):
+        root = self.artifact_root()
+        payload, extracted = root / "payload.exe", root / "extracted.exe"
+        payload.write_bytes(b"MZsame"); extracted.write_bytes(b"MZsame")
+        class Exhausted:
+            def remaining_seconds(self): return 0
+        result = probe.verify_extracted_bundled_cli(str(payload),str(extracted),Exhausted())
+        self.assertEqual(result["reason"],"hash_deadline_exhausted")
+
+    def test_fresh_configured_path_uses_fresh_powershell_result(self):
+        class Budget:
+            def run(self, command, timeout):
+                self.command, self.timeout = command, timeout
+                return probe.CommandResult(list(command),0,'{"path":"C:/local/codex.exe"}',"",0)
+        budget = Budget()
+        with mock.patch.object(probe.os,"name","nt"):
+            self.assertEqual(probe.fresh_configured_cli_path(budget),"C:/local/codex.exe")
+        self.assertEqual(budget.command[:3],["powershell.exe","-NoProfile","-NonInteractive"])
+        self.assertIn("-eq 'CODEX_CLI_PATH'",budget.command[-1])
+        self.assertNotIn("CODEX_CLI_PATH_EXTRA",budget.command[-1])
+
     def test_exclusive_json_and_korean_artifact_with_exact_readback(self):
         root = self.artifact_root() / str(uuid.uuid4())
         output = root / "probe.json"

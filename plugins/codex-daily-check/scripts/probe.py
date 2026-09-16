@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Bounded local version probe with an optional read-only npm registry check."""
 from __future__ import annotations
-import argparse, datetime as dt, json, os, re, shutil, signal, subprocess, sys, time
+import argparse, datetime as dt, hashlib, json, os, re, shutil, signal, subprocess, sys, time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Sequence
@@ -141,6 +141,43 @@ def bundled_cli_path(desktop: dict[str, Any]) -> str | None:
         with candidate.open("rb") as binary: return str(candidate) if binary.read(2) == b"MZ" else None
     except OSError: return None
 
+def sha256_file(path: Path, budget: SubprocessBudget) -> str | None:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        while True:
+            if budget.remaining_seconds() <= 0: return None
+            block = stream.read(1024 * 1024)
+            if not block: return digest.hexdigest()
+            digest.update(block)
+
+def verify_extracted_bundled_cli(payload_path: str | None, extracted_path: str | None, budget: SubprocessBudget) -> dict[str, Any]:
+    """Fail closed unless the runnable extracted copy exactly matches the Appx payload."""
+    if not payload_path or not extracted_path:
+        return {"status":"not_found","path":extracted_path,"payloadPath":payload_path}
+    try:
+        payload, extracted = Path(payload_path), Path(extracted_path)
+        if not extracted.is_file() or extracted.suffix.lower() != ".exe":
+            return {"status":"not_found","path":str(extracted),"payloadPath":str(payload)}
+        payload_hash, extracted_hash = sha256_file(payload,budget), sha256_file(extracted,budget)
+    except OSError:
+        return {"status":"failed","path":extracted_path,"payloadPath":payload_path,"reason":"hash_read_failed"}
+    if not payload_hash or not extracted_hash:
+        return {"status":"failed","path":str(extracted),"payloadPath":str(payload),"reason":"hash_deadline_exhausted"}
+    result = {"path":str(extracted),"payloadPath":str(payload),"payloadSha256":payload_hash,"extractedSha256":extracted_hash}
+    if payload_hash != extracted_hash:
+        return {**result,"status":"failed","reason":"payload_hash_mismatch"}
+    return {**result,"status":"verified","provenance":"fresh_windows_CODEX_CLI_PATH"}
+
+def fresh_configured_cli_path(budget: SubprocessBudget) -> str | None:
+    if os.name != "nt": return None
+    script = "$u=[Environment]::GetEnvironmentVariable('CODEX_CLI_PATH','User');$m=[Environment]::GetEnvironmentVariable('CODEX_CLI_PATH','Machine');$v=if($u){$u}elseif($m){$m}else{$c=Join-Path ([Environment]::GetFolderPath('UserProfile')) '.codex\\config.toml';if(Test-Path -LiteralPath $c){$x=Get-Content -LiteralPath $c|Where-Object{((($_-split '=',2)[0]).Trim() -eq 'CODEX_CLI_PATH')}|Select-Object -First 1;if($x){(($x-split '=',2)[1]).Trim().Trim([char]39,[char]34)}}};if($v){[pscustomobject]@{path=$v}|ConvertTo-Json -Compress}"
+    result = budget.run(["powershell.exe","-NoProfile","-NonInteractive","-Command",script],5)
+    if result.returncode != 0 or result.decode_failed or not result.stdout.strip(): return None
+    try:
+        candidate = json.loads(result.stdout).get("path")
+        return candidate if isinstance(candidate,str) else None
+    except (AttributeError,json.JSONDecodeError): return None
+
 def resolve_wrapper(explicit: str | None) -> Path | None:
     if explicit:
         candidate = Path(explicit).expanduser()
@@ -199,10 +236,15 @@ def build_report(output: Path, check_latest_requested: bool = False, cli_wrapper
     resolved_path = str(Path(path_snapshot).resolve()) if path_snapshot else None
     snapshot_cli = cli_version(budget,resolved_path,wrapper)
     fresh_cli = wrapper_default_version(budget,wrapper)
-    bundled_path = bundled_cli_path(desktop)
-    bundled = cli_version(budget,bundled_path,wrapper) if os.name == "nt" else {"path":None,"version":None,"status":"unsupported","reason":"Bundled Desktop CLI is Windows-only"}
+    payload_path = bundled_cli_path(desktop)
+    extracted_path = fresh_configured_cli_path(budget)
+    verification = verify_extracted_bundled_cli(payload_path,extracted_path,budget) if os.name == "nt" else {"status":"unsupported","reason":"Bundled Desktop CLI is Windows-only"}
+    if verification.get("status") == "verified":
+        bundled = {**cli_version(budget,verification["path"],wrapper),"verification":verification}
+    else:
+        bundled = {"path":verification.get("path"),"version":None,"status":verification.get("status"),"verification":verification}
     latest = check_latest(budget,snapshot_cli) if check_latest_requested else {"requested":False,"networkAttempted":False,"checkedAt":None,"sourceUrl":LATEST_URL,"date":None,"status":"not_requested","version":None,"comparison":"unknown","updateCommandSuggestion":None}
-    return {"schema_version": 3, "offline": not check_latest_requested, "desktop_appx": desktop, "path_cli_snapshot": snapshot_cli, "fresh_environment_cli": fresh_cli, "bundled_cli": bundled, "cli_version_comparison": compare_cli_versions(fresh_cli.get("version"), bundled.get("version")), "latestStandaloneCli":latest, "subprocess_budget_seconds": TOTAL_SUBPROCESS_SECONDS, "subprocess_budget_remaining_seconds": round(budget.remaining_seconds(), 3), "korean_roundtrip": korean_roundtrip_artifact(artifact)}
+    return {"schema_version": 3, "offline": not check_latest_requested, "desktop_appx": desktop, "path_cli_snapshot": snapshot_cli, "fresh_environment_cli": fresh_cli, "bundled_cli": bundled, "cli_version_comparison": compare_cli_versions(snapshot_cli.get("version"), bundled.get("version")), "latestStandaloneCli":latest, "subprocess_budget_seconds": TOTAL_SUBPROCESS_SECONDS, "subprocess_budget_remaining_seconds": round(budget.remaining_seconds(), 3), "korean_roundtrip": korean_roundtrip_artifact(artifact)}
 
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__); parser.add_argument("--output", required=True, type=Path, help="New UTF-8 JSON report path"); parser.add_argument("--check-latest",action="store_true",help="Read official npm registry only; never installs or updates"); parser.add_argument("--cli-wrapper",help="Optional existing fresh-CLI wrapper path") ; args = parser.parse_args(argv)

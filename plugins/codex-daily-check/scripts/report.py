@@ -18,7 +18,7 @@ ROWS = ('basic.exec','basic.utf8','versions','browser.interaction',
         'codex.notification','codex.approval')
 LEGACY_ROWS = ('browser.interaction',)
 COMPUTER_ACTUAL_ROWS = ('computer.read','computer.input')
-REQUIRED = tuple(x for x in ROWS if x not in ('codex.approval', *LEGACY_ROWS))
+REQUIRED = tuple(x for x in ROWS if x not in LEGACY_ROWS)
 
 def read(path):
     return json.loads(Path(path).read_text(encoding='utf-8', errors='strict'))
