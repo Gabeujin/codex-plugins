@@ -1,0 +1,6 @@
+interface:
+  display_name: "Codex 기능 Daily Check"
+  short_description: "5분 내 기본 기능·브라우저·Windows 알림·CLI 버전 점검"
+  default_prompt: "$codex-daily-check로 지금 Codex의 핵심 기능을 5분 이내에 점검하고 미검증 항목을 구분해 줘."
+policy:
+  allow_implicit_invocation: true

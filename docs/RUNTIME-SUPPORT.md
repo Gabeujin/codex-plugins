@@ -6,6 +6,7 @@
 | Node 20 | Existing MCP engines compatibility retained; upstream EOL | No new support promise; upgrade before reporting runtime issues |
 | Python | 3.12+ for KGJ governance, Canvas generator, packaging | CI uses 3.12; local interpreter version is in the execution receipt |
 | Canvas demo | Vite engine requirements in demo/package.json | Node 22.12+ or compatible newer maintained release; install optional locked dependencies |
+| Daily Check | Python 3.12+; native notification uses Windows PowerShell/WinForms | Cross-platform offline logic CI is separate from real Windows/Chrome/IAB tests; no five-minute SLA or actual approval-flow certification |
 | Codex CLI | Plugin-capable CLI; minimum version not established | Record `codex --version`, marketplace install and exact cache readback |
 | Codex Desktop | Plugin-capable Desktop; minimum version not established | CLI installation does not prove a Desktop conversation or native browser API |
 

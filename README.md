@@ -1,14 +1,15 @@
 # Codex plugins by Gabeujin
 
-한국 기술 블로그 조사, 제품 디자인, Canvas 웹 구현을 돕는 **MIT 오픈소스 Codex 플러그인 3종**입니다. GitHub 커뮤니티 마켓플레이스에서 필요한 플러그인만 설치할 수 있습니다.
+한국 기술 블로그 조사, 제품 디자인, Canvas 웹 구현을 돕는 **MIT 오픈소스 Codex 플러그인 4종**입니다. GitHub 커뮤니티 마켓플레이스에서 필요한 플러그인만 설치할 수 있습니다.
 
 | 플러그인 | 버전 | 사용 목적 | 구성 |
 |---|---|---|---|
 | [K-Tech Insight Radar](plugins/k-tech-radar) | 0.4.0 | 출처를 보존하는 기술 조사, 관심 주제 변경 브리핑 | 스킬 3개 + 로컬 MCP 도구 13개 |
 | [KGJ Design](plugins/kgj-design) | 1.3.0 | 제품 디자인 규칙, 작은 UI 개선, 디자인 변경 미리보기 | 스킬 11개 + 로컬 MCP 도구 14개 |
+| [Codex Daily Check](plugins/codex-daily-check) | 0.3.0 | 5분 목표 기능 진단, 실제 브라우저·앱 검사, CLI 업데이트 명령 안내 | 스킬 1개 + 표준 라이브러리 진단 스크립트 |
 | [Canvas Web Experiences](plugins/canvas-web-experiences) | 1.7.0 | 접근성·대체 화면을 갖춘 2D·3D·지도 구현 | 스킬 10개 + 데모·스타터 |
 
-묶음 버전은 **v0.5.0**입니다. [변경 내역](docs/RELEASE-NOTES-0.5.0.md)과 [실행환경 지원](docs/RUNTIME-SUPPORT.md)을 확인하세요. OpenAI 공식 Directory 등록과 GitHub 배포는 별개이며, 이 저장소는 GitHub 배포 경로를 제공합니다.
+최근 태그 묶음은 **v0.5.0**입니다. 현재 main에는 Codex Daily Check 0.3.0이 추가되어 있으며, v0.5.0 태그에는 포함되지 않습니다. [변경 내역](docs/RELEASE-NOTES-0.5.0.md)과 [실행환경 지원](docs/RUNTIME-SUPPORT.md)을 확인하세요. OpenAI 공식 Directory 등록과 GitHub 배포는 별개이며, 이 저장소는 GitHub 배포 경로를 제공합니다.
 
 ## 1. 설치
 
@@ -19,6 +20,7 @@ codex plugin marketplace add Gabeujin/codex-plugins
 codex plugin add k-tech-radar@gabeujin-plugins
 codex plugin add kgj-design@gabeujin-plugins
 codex plugin add canvas-web-experiences@gabeujin-plugins
+codex plugin add codex-daily-check@gabeujin-plugins
 ```
 
 원하는 플러그인의 `plugin add`만 실행해도 됩니다. CLI에 해당 명령이 없으면 지원되는 최신 Codex로 업데이트하거나 Plugins 화면에서 설치합니다. 설치 후 **새 작업을 시작**하세요. 설치만으로 데모 서버나 정기 수집이 실행되지는 않습니다.
@@ -46,6 +48,12 @@ codex plugin add canvas-web-experiences@gabeujin-plugins
 스타터는 `2d`, `3d`, `map-diagram`을 지원합니다. 큰 데모는 안정 DOM 경로에서 시작하며, 실험적인 HTML-in-Canvas 경로는 별도 선택과 검증이 필요합니다.
 
 복사해서 실행할 명령과 예상 결과는 [첫 사용 가이드](docs/FIRST-USE.md), 문제 해결은 [SUPPORT.md](SUPPORT.md)를 참고하세요. 설치된 캐시는 편집하지 않고, 개발하려면 별도 소스를 복제합니다.
+
+**Codex Daily Check**
+
+> Codex Daily Check로 인앱 브라우저와 실제 Chrome, Computer Use를 5분 목표로 점검해 줘. 실패하면 공식 문서로 확인하고 안전하게 정상화해 줘. CLI 업데이트는 명령어만 알려줘.
+
+Windows 중심이며 기본 Python 진단에는 3.12+가 필요합니다. 실제 승인 알림과 플러그인 자체 입력 창은 구분합니다. [최종 검토 범위](docs/DAILY-CHECK-REVIEW.md)를 참고하세요.
 
 ## 3. 데이터와 동작 범위
 
@@ -75,4 +83,4 @@ Canvas 데모 테스트·빌드·브라우저 검사는 별도입니다. [검증
 
 코드는 MIT 라이선스입니다. 외부 기사·이미지·브랜드의 권리는 각 출처와 플러그인의 고지를 따릅니다.
 
-English: Three independent MIT Codex plugins for Korean tech research, product design, and accessible Canvas experiences. Install using the commands above, start a fresh task, and follow the bilingual [first-use guide](docs/FIRST-USE.md). Local MCP uses Node.js; personal data is not bundled. Read the [upgrade guide](docs/INSTALL-AND-UPDATE.md) before changing versions.
+English: Four independent MIT Codex plugins for Korean tech research, product design, and accessible Canvas experiences. Install using the commands above, start a fresh task, and follow the bilingual [first-use guide](docs/FIRST-USE.md). Local MCP uses Node.js; personal data is not bundled. Read the [upgrade guide](docs/INSTALL-AND-UPDATE.md) before changing versions.
