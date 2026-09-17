@@ -24,7 +24,8 @@ $inputBox=[pscustomobject]@{Text='wrong'}
 $inputBox | Add-Member ScriptMethod Focus {}
 $inputBox | Add-Member ScriptMethod SelectAll {}
 $label=[pscustomobject]@{Text=''}
-$checkbox=[pscustomobject]@{Checked=$true}
+$visibility=[pscustomobject]@{SelectedIndex=1}
+$visibility | Add-Member ScriptMethod Focus {}
 $form=[pscustomobject]@{Closed=$false}
 $form | Add-Member ScriptMethod Close {$this.Closed=$true}
 . $handler
@@ -32,6 +33,17 @@ if ($form.Closed -or $script:matched -or $script:attempts -ne 1) { throw 'Mismat
 $inputBox.Text=' 123 '
 . $handler
 if (-not $form.Closed -or -not $script:matched -or $script:attempts -ne 2 -or $script:closedBy -ne 'submitted') { throw 'Correct code failed' }
+$form.Closed=$false
+$visibility.SelectedIndex=0
+. $handler
+if ($form.Closed) { throw 'Must explicitly select visibility' }
+foreach ($index in @(1,2,3)) {
+    $form.Closed=$false
+    $visibility.SelectedIndex=$index
+    . $handler
+    $expected=@('unknown','seen','not_seen','unknown')[$index]
+    if (-not $form.Closed -or $script:visibility -ne $expected -or $script:seen -ne ($index -eq 1)) { throw 'Visibility mapping failed' }
+}
 $source=[IO.File]::ReadAllText($Path)
 if (-not $source.Contains("^[0-9]{3}$")) { throw 'Challenge must be three digits' }
 $receipt=$source.Substring($source.IndexOf('$result ='))

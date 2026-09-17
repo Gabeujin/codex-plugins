@@ -161,6 +161,27 @@ def record_batch(run, items):
         events.append(validated_record(item['id'], item['status'], item['evidence']))
     return [append_event(run, event) for event in events]
 
+def summarize_results(rows):
+    missing_statuses = ('UNVERIFIED','UNKNOWN','NOT_TESTED','DISPATCHED')
+    actual_failures = [key for key, item in rows.items() if item['status'] == 'FAIL']
+    blocked = [key for key, item in rows.items() if item['status'] == 'BLOCKED']
+    missing_evidence = [key for key, item in rows.items() if item['status'] in missing_statuses]
+    unavailable = [key for key, item in rows.items() if item['status'] == 'UNAVAILABLE']
+    return {
+        'actualFailureRows': actual_failures,
+        'blockedRows': blocked,
+        'missingEvidenceRows': missing_evidence,
+        'sessionUnavailableRows': unavailable,
+        'counts': {
+            'totalRows': len(rows),
+            'passedRows': sum(item['status'] == 'PASS' for item in rows.values()),
+            'actualFailures': len(actual_failures),
+            'blocked': len(blocked),
+            'missingEvidence': len(missing_evidence),
+            'sessionUnavailable': len(unavailable),
+        },
+    }
+
 def finalize(run):
     run = Path(run)
     if (run/'final.json').exists() or (run/'report.md').exists():
@@ -188,6 +209,7 @@ def finalize(run):
     computer_actual_failure = computer_actual_route_known and any(
         rows[key].get('recordedEpoch') and rows[key]['status'] in ('FAIL','BLOCKED','UNAVAILABLE')
         for key in COMPUTER_ACTUAL_ROWS)
+    result_summary = summarize_results(rows)
     overview = ('ATTENTION' if any(x['status']=='FAIL' for x in rows.values()) or computer_actual_failure else
                 'READY' if all(rows[key]['status']=='PASS' for key in REQUIRED) else 'PARTIAL')
     operational = overview
@@ -199,6 +221,7 @@ def finalize(run):
               'operationalReadiness':operational,'timingStatus':'WITHIN_TARGET' if within_budget else 'OVER_BUDGET_OR_CLOCK_CHANGE',
               'evidenceTrust':'Caller-recorded observations; not independently attested or tamper-evident',
               'checks':rows,'capabilityChanges':diff,'previousPassNowNotPass':regression,
+              'resultSummary':result_summary,
               'firstBaseline':previous is None,'coverage':'Only recorded probes; not all Codex features',
               'actualApprovalCovered':rows['codex.approval']['status']=='PASS',
               'legacyRowsNotRequired':list(LEGACY_ROWS),
@@ -220,8 +243,11 @@ def finalize(run):
         result['versionReview'] = 'REVIEW_REQUIRED' if versions(result.get('system')) != versions(previous.get('system')) else 'UNCHANGED'
     else:
         result['versionReview'] = 'BASELINE' if not previous else 'UNCHANGED'
+    counts = result_summary['counts']
     lines = ['# Codex 기능 Daily Check', '',f"상태: **{overview}** · 소요: {elapsed:,.1f}초 · 5분 내: {'예' if within_budget else '아니요'}",'',
              '이 보고서는 호출자가 기록한 관찰을 집계합니다. 독립 인증이나 변조 방지 감사 기록이 아닙니다.', '',
+             f"판정 요약: 실제 실패 {counts['actualFailures']:,}건 · 차단 {counts['blocked']:,}건 · 근거 미확인 {counts['missingEvidence']:,}건 · 이 세션에서 사용 불가 {counts['sessionUnavailable']:,}건",
+             'PARTIAL은 실제 실패와 구분됩니다. 필수 점검이 모두 PASS가 아니지만, 차단·근거 미확인·세션 사용 불가만 기록된 상태일 수 있습니다.', '',
              '| 점검 | 결과 | 근거 |','| --- | --- | --- |']
     for item in rows.values():
         evidence = item['evidence'].replace('|','/').replace('\n',' ')

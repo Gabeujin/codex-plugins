@@ -1,4 +1,4 @@
-param(
+﻿param(
     [Parameter(Mandatory)][string]$OutputPath,
     [ValidateRange(5,60)][int]$TimeoutSeconds = 35,
     [ValidatePattern('^[0-9]{3}$')][string]$Token = '123'
@@ -11,41 +11,50 @@ Add-Type -AssemblyName System.Drawing
 $script:attempts = 0
 $script:matched = $false
 $script:seen = $false
+$script:visibility = 'unknown'
 $script:closedBy = 'dismissed'
 $form = [System.Windows.Forms.Form]::new()
-$form.Text = 'Codex Daily Check - Windows notification test'
+$form.Text = 'Codex Daily Check - 알림 점검'
 $form.Size = [Drawing.Size]::new(530,265)
 $form.StartPosition = 'CenterScreen'
 $form.TopMost = $true
 $label = [Windows.Forms.Label]::new()
-$label.Text = "Codex Daily Check diagnostic only (not permission approval).`r`nType $Token and click Send. No action will be authorized."
+$label.Text = "진단용 창입니다. 작업 승인이 아닙니다.`r`n숫자 $Token 입력 후 별도 알림 표시 여부를 선택해 주세요."
 $label.Location = [Drawing.Point]::new(18,18)
 $label.Size = [Drawing.Size]::new(480,48)
 $inputBox = [Windows.Forms.TextBox]::new()
 $inputBox.Location = [Drawing.Point]::new(18,78)
 $inputBox.Width = 470
-$checkbox = [Windows.Forms.CheckBox]::new()
-$checkbox.Text = 'I also saw the separate Windows balloon notification.'
-$checkbox.Location = [Drawing.Point]::new(18,117)
-$checkbox.Size = [Drawing.Size]::new(485,26)
+$visibility = [Windows.Forms.ComboBox]::new()
+$visibility.DropDownStyle = 'DropDownList'
+[void]$visibility.Items.AddRange(@('별도 알림 표시 여부를 선택하세요', '보임', '안 보임', '모르겠음'))
+$visibility.SelectedIndex = 0
+$visibility.Location = [Drawing.Point]::new(18,117)
+$visibility.Size = [Drawing.Size]::new(485,26)
 $button = [Windows.Forms.Button]::new()
-$button.Text = 'Send test response'
+$button.Text = '확인 결과 제출'
 $button.Location = [Drawing.Point]::new(18,159)
 $button.Size = [Drawing.Size]::new(175,32)
 $button.Add_Click({
     $script:attempts++
     $script:matched = $inputBox.Text.Trim() -ceq $Token
     if (-not $script:matched) {
-        $label.Text = "Please enter the 3-digit code: $Token. Try again before the timer ends."
+        $label.Text = "숫자 $Token 입력 후 다시 제출해 주세요. 제한 시간은 유지됩니다."
         $inputBox.SelectAll()
         $inputBox.Focus()
         return
     }
-    $script:seen = $checkbox.Checked
+    if ($visibility.SelectedIndex -eq 0) {
+        $label.Text = '별도 알림이 보였는지 선택해 주세요. 확인하지 못했다면 모르겠음을 선택하세요.'
+        $visibility.Focus()
+        return
+    }
+    $script:visibility = @('unknown','seen','not_seen','unknown')[$visibility.SelectedIndex]
+    $script:seen = $script:visibility -eq 'seen'
     $script:closedBy = 'submitted'
     $form.Close()
 })
-$form.Controls.AddRange(@($label,$inputBox,$checkbox,$button))
+$form.Controls.AddRange(@($label,$inputBox,$visibility,$button))
 $form.AcceptButton = $button
 $notify = [Windows.Forms.NotifyIcon]::new()
 $notify.Icon = [Drawing.SystemIcons]::Information
@@ -72,6 +81,7 @@ $result = [ordered]@{
     responseAttempts = $script:attempts
     notificationApiEvent = $script:balloonShown
     notificationUserConfirmed = $script:seen
+    notificationVisibility = $script:visibility
     codexApprovalProven = $false
 }
 $json = $result | ConvertTo-Json -Depth 5

@@ -33,6 +33,32 @@ class ReportTests(unittest.TestCase):
         report.finalize(run)
         self.assertEqual(report.read(run/'final.json')['overall'],'PARTIAL')
 
+    def test_result_summary_is_empty_of_non_pass_categories_when_all_rows_pass(self):
+        run=Path(report.start(self.fresh())['run'])
+        for key in report.ROWS:
+            report.record(run,key,'PASS','Observed result')
+        report.finalize(run)
+        final=report.read(run/'final.json')
+        self.assertEqual(final['overall'],'READY')
+        summary=final['resultSummary']
+        self.assertEqual(summary['actualFailureRows'],[])
+        self.assertEqual(summary['blockedRows'],[])
+        self.assertEqual(summary['missingEvidenceRows'],[])
+        self.assertEqual(summary['sessionUnavailableRows'],[])
+        self.assertEqual(summary['counts']['passedRows'],len(report.ROWS))
+
+    def test_blocked_without_fail_is_partial_and_not_reported_as_failure(self):
+        run=Path(report.start(self.fresh())['run'])
+        for key in report.ROWS:
+            status='BLOCKED' if key == 'basic.exec' else 'PASS'
+            report.record(run,key,status,'Observed result')
+        report.finalize(run)
+        final=report.read(run/'final.json')
+        self.assertEqual(final['overall'],'PARTIAL')
+        self.assertEqual(final['resultSummary']['actualFailureRows'],[])
+        self.assertEqual(final['resultSummary']['blockedRows'],['basic.exec'])
+        self.assertIn('PARTIAL은 실제 실패와 구분됩니다.',(run/'report.md').read_text(encoding='utf-8'))
+
     def test_new_changed_removed_surface_does_not_execute(self):
         result=report.compare([{'name':'delete','schemaHash':'a'*64},{'name':'old'}],
                               [{'name':'delete','schemaHash':'b'*64},{'name':'new'}])

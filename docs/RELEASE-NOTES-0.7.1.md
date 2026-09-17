@@ -1,0 +1,7 @@
+# v0.7.1 — Codex Daily Check 0.5.1
+
+Fix ambiguous notification observation and failure reporting. A successful response with an unchecked box previously left visibility unresolved. The Windows diagnostic now asks explicitly whether the separate notification was seen, not seen, or unknown. Three-digit response and bounded retry remain. Korean UI uses a UTF-8 BOM for Windows PowerShell compatibility; raw human responses are never persisted.
+
+Reports separate actual failures, policy blocks, unavailable session routes, and missing evidence. PARTIAL is explained as incomplete coverage, while full READY still requires every required check. The skill adapts to available host tools and does not invoke Windows-only helpers on other platforms or imply that CLI/cloud has Desktop browser tools. Missing shell/Python produces an explicit text-only checklist rather than a fabricated receipt.
+
+Validation includes actual user submission of the three-digit code and explicit notification visibility in 16.609 seconds, plus an independently observed Codex question notification with click-to-app response. These are supplemental checks, not a new full five-minute run or actual approval proof. Offline tests and CI cover code behavior separately from GUI observations. No notification settings or approval policy were changed; CLI updates remain command-only. Other plugin versions and data schemas are unchanged.
