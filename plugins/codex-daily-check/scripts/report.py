@@ -3,6 +3,7 @@ import argparse
 import datetime as dt
 import hashlib
 import json
+import math
 import os
 import re
 import socket
@@ -89,7 +90,17 @@ def previous_receipt(meta, run):
         raise ValueError('Previous receipt scope mismatch')
     return value
 
-def start(root, capabilities=None, computer_installed=False):
+def validated_started_epoch(value, now):
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise ValueError('startedEpoch must be a finite past timestamp')
+    value = float(value)
+    if not math.isfinite(value) or value >= now:
+        raise ValueError('startedEpoch must be a finite past timestamp')
+    return value
+
+def start(root, capabilities=None, computer_installed=False, started_epoch=None):
+    now = time.time()
+    started_epoch = now if started_epoch is None else validated_started_epoch(started_epoch, now)
     root = Path(root).resolve()
     root.mkdir(parents=True, exist_ok=True)
     scope = hashlib.sha256((socket.gethostname() + '|' +
@@ -104,33 +115,51 @@ def start(root, capabilities=None, computer_installed=False):
             continue
     run = root / (dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8])
     run.mkdir()
-    now = time.time()
     caps = read(capabilities) if capabilities else []
     validate_capabilities(caps)
-    save(run/'start.json', {'schemaVersion':1,'scope':scope,'startedEpoch':now,
-        'deadlineEpoch':now+300,'capabilities':caps,'inventoryProvided':bool(capabilities),
+    save(run/'start.json', {'schemaVersion':1,'scope':scope,'startedEpoch':started_epoch,
+        'deadlineEpoch':started_epoch+300,'capabilities':caps,'inventoryProvided':bool(capabilities),
         'computerInstalledInventoryEvidence':bool(computer_installed),
         'previousFinal':max(prior)[1] if prior else None})
-    return {'run':str(run),'deadlineEpoch':now+300}
+    return {'run':str(run),'deadlineEpoch':started_epoch+300}
 
-def record(run, check_id, status, evidence):
-    run = Path(run)
-    read(run/'start.json')
-    if (run/'final.json').exists():
-        raise ValueError('Run finalized; create a new follow-up receipt')
+def validated_record(check_id, status, evidence):
     if status not in STATUSES or check_id not in ROWS:
         raise ValueError('Unknown status or check ID')
-    if not evidence.strip():
+    if not isinstance(evidence, str) or not evidence.strip() or '\ufffd' in evidence:
         raise ValueError('Evidence required')
     recovery_pending = False
     if check_id in COMPUTER_ACTUAL_ROWS and status in ('FAIL','BLOCKED','UNAVAILABLE'):
         normalized = evidence.lower()
         if 'official-docs:' not in normalized or 'normalization:' not in normalized:
             recovery_pending = True
-    event = {'id':check_id,'status':status,'evidence':evidence,'recordedEpoch':time.time(),
-             'recoveryPending':recovery_pending}
+    return {'id':check_id,'status':status,'evidence':evidence,'recoveryPending':recovery_pending}
+
+def ensure_recordable(run):
+    run = Path(run)
+    read(run/'start.json')
+    if (run/'final.json').exists():
+        raise ValueError('Run finalized; create a new follow-up receipt')
+    return run
+
+def append_event(run, event):
+    event = {**event, 'recordedEpoch':time.time()}
     save(run/(str(time.time_ns())+'-'+uuid.uuid4().hex[:8]+'.event.json'),event)
     return event
+
+def record(run, check_id, status, evidence):
+    return append_event(ensure_recordable(run), validated_record(check_id, status, evidence))
+
+def record_batch(run, items):
+    run = ensure_recordable(run)
+    if not isinstance(items, list):
+        raise ValueError('Batch input must be an array')
+    events = []
+    for item in items:
+        if not isinstance(item, dict) or set(item) != {'id','status','evidence'}:
+            raise ValueError('Each batch row requires only id, status and evidence')
+        events.append(validated_record(item['id'], item['status'], item['evidence']))
+    return [append_event(run, event) for event in events]
 
 def finalize(run):
     run = Path(run)
@@ -209,12 +238,14 @@ def finalize(run):
 def main():
     parser = argparse.ArgumentParser()
     subs = parser.add_subparsers(dest='command',required=True)
-    p = subs.add_parser('start'); p.add_argument('--root',required=True); p.add_argument('--capabilities'); p.add_argument('--computer-installed',action='store_true')
+    p = subs.add_parser('start'); p.add_argument('--root',required=True); p.add_argument('--capabilities'); p.add_argument('--computer-installed',action='store_true'); p.add_argument('--started-epoch',type=float)
     p = subs.add_parser('record'); p.add_argument('run'); p.add_argument('--id',required=True,choices=ROWS); p.add_argument('--status',required=True,choices=STATUSES); p.add_argument('--evidence',required=True)
+    p = subs.add_parser('record-batch'); p.add_argument('run'); p.add_argument('--input',required=True)
     p = subs.add_parser('finalize'); p.add_argument('run')
     args = parser.parse_args()
-    if args.command=='start': result=start(args.root,args.capabilities,args.computer_installed)
+    if args.command=='start': result=start(args.root,args.capabilities,args.computer_installed,args.started_epoch)
     elif args.command=='record': result=record(args.run,args.id,args.status,args.evidence)
+    elif args.command=='record-batch': result=record_batch(args.run,read(args.input))
     else: result=finalize(args.run)
     print(json.dumps(result,ensure_ascii=True))
 

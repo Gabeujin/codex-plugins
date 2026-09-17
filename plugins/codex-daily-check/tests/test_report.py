@@ -1,5 +1,6 @@
 import importlib.util
 from pathlib import Path
+import sys
 import unittest
 import uuid
 import tempfile
@@ -107,6 +108,45 @@ class ReportTests(unittest.TestCase):
         self.assertEqual(result['overall'],'ATTENTION')
         self.assertEqual(result['operationalReadiness'],'READY')
         self.assertFalse(result['withinFiveMinutes'])
+
+    def test_supplied_start_time_includes_prior_discovery_time(self):
+        with patch.object(report.time,'time',return_value=1_000.0):
+            run=Path(report.start(self.fresh(),started_epoch=900.0)['run'])
+        meta=report.read(run/'start.json')
+        self.assertEqual(meta['startedEpoch'],900.0)
+        self.assertEqual(meta['deadlineEpoch'],1_200.0)
+        with patch.object(report.time,'time',return_value=1_201.0):
+            report.finalize(run)
+        self.assertFalse(report.read(run/'final.json')['withinFiveMinutes'])
+
+    def test_start_rejects_non_finite_or_non_past_timestamp(self):
+        with patch.object(report.time,'time',return_value=1_000.0):
+            for value in (float('nan'),float('inf'),float('-inf'),1_000.0,1_001.0,True,'999'):
+                with self.assertRaises(ValueError):
+                    report.start(self.fresh(),started_epoch=value)
+
+    def test_batch_validates_every_row_before_any_append(self):
+        run=Path(report.start(self.fresh())['run'])
+        with self.assertRaises(ValueError):
+            report.record_batch(run,[
+                {'id':'basic.exec','status':'PASS','evidence':'Observed result'},
+                {'id':'not-a-row','status':'PASS','evidence':'Invalid row'},
+            ])
+        self.assertEqual(list(run.glob('*.event.json')),[])
+        with self.assertRaises(ValueError):
+            report.record_batch(run,[
+                {'id':'basic.exec','status':'PASS','evidence':'Observed result'},
+                {'id':'basic.utf8','status':'PASS','evidence':'\ufffd'},
+            ])
+        self.assertEqual(list(run.glob('*.event.json')),[])
+        batch=run.parent/'batch.json'
+        report.save(batch,[
+            {'id':'basic.exec','status':'PASS','evidence':'Observed result'},
+            {'id':'basic.utf8','status':'PASS','evidence':'한글 readback'},
+        ])
+        with patch.object(sys,'argv',['report.py','record-batch',str(run),'--input',str(batch)]):
+            report.main()
+        self.assertEqual(len(list(run.glob('*.event.json'))),2)
 
     def test_duplicate_and_malformed_capability_hashes_rejected(self):
         with self.assertRaises(ValueError):

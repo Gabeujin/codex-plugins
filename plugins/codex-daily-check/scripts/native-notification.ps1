@@ -1,13 +1,14 @@
 param(
     [Parameter(Mandatory)][string]$OutputPath,
     [ValidateRange(5,60)][int]$TimeoutSeconds = 35,
-    [ValidatePattern('^[A-Z0-9]{4,12}$')][string]$Token = 'CHECK'
+    [ValidatePattern('^[0-9]{3}$')][string]$Token = '123'
 )
 $ErrorActionPreference = 'Stop'
 if (Test-Path -LiteralPath $OutputPath) { throw 'Output already exists; use a unique run path.' }
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 [System.Windows.Forms.Application]::EnableVisualStyles()
+$script:attempts = 0
 $script:matched = $false
 $script:seen = $false
 $script:closedBy = 'dismissed'
@@ -32,7 +33,14 @@ $button.Text = 'Send test response'
 $button.Location = [Drawing.Point]::new(18,159)
 $button.Size = [Drawing.Size]::new(175,32)
 $button.Add_Click({
-    $script:matched = $inputBox.Text -ceq $Token
+    $script:attempts++
+    $script:matched = $inputBox.Text.Trim() -ceq $Token
+    if (-not $script:matched) {
+        $label.Text = "Please enter the 3-digit code: $Token. Try again before the timer ends."
+        $inputBox.SelectAll()
+        $inputBox.Focus()
+        return
+    }
     $script:seen = $checkbox.Checked
     $script:closedBy = 'submitted'
     $form.Close()
@@ -61,6 +69,7 @@ $result = [ordered]@{
     elapsedSeconds = [math]::Round(([DateTimeOffset]::UtcNow - $started).TotalSeconds,3)
     closedBy = $script:closedBy
     responseMatched = $script:matched
+    responseAttempts = $script:attempts
     notificationApiEvent = $script:balloonShown
     notificationUserConfirmed = $script:seen
     codexApprovalProven = $false
