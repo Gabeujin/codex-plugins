@@ -1,6 +1,6 @@
 {
   "name": "kgj-design",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "A governed product-DNA architecture with project contracts, evidence graphs, lineage locks, migration plans, and a private evolving design dictionary.",
   "license": "MIT",
   "author": {
@@ -19,7 +19,7 @@
   "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "KGJ Design",
-    "shortDescription": "Inherit product DNA without producing clones.",
+    "shortDescription": "Product DNA and motion review",
     "longDescription": "KGJ Design separates invariant semantic contracts from product expression, then governs Codex projects through portable contracts, typed evidence, DNA lineage locks, pattern maturity, private dictionary adoption, and evidence-bound release audits.",
     "developerName": "Gabeujin",
     "category": "Productivity",

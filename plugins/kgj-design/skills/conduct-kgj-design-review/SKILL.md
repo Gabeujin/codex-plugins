@@ -16,6 +16,10 @@ Read these files completely before starting:
 - `../../references/quality-rubric.json`
 - `../../references/schemas/expert-review.schema.json`
 
+For motion-led or spatial artifacts, also read
+[motion and spatial review](../../references/motion-and-spatial-review.md). Inspect every distinct work
+and attach its findings to the existing rounds; this guide does not change the closed rubric.
+
 ## Workflow
 
 1. Establish the artifact boundary, release target, immutable source identity, current evidence registry, and unresolved decisions.
