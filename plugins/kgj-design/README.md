@@ -40,6 +40,14 @@ The primary entry point is `kgj-design-orchestrator`. Focused skills handle proj
 discovery, web experiences, HTML reports, Markdown artifacts, pattern lifecycle, system evolution,
 Dictionary curation, expert cross-review, and the three-round release audit.
 
+## Motion and spatial experiences
+
+For motion-led pages and exhibitions, the [motion and spatial review guide](references/motion-and-spatial-review.md)
+adds concept selection, timed storyboards, visible depth, meaningful part anatomy, typography, shared
+interaction state, and per-work browser evidence. It includes an invented assembly worksheet.
+The guidance is a candidate, not proof of performance or a promoted stable pattern, and leaves the
+existing DNA, Dictionary, tools, and three-round evidence contracts unchanged.
+
 ## Deterministic tools
 
 ```powershell

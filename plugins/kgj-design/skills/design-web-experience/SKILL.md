@@ -10,6 +10,10 @@ Read [web output contracts](../../references/web-output-contracts.md),
 [interaction and motion](../../references/interaction-and-motion.md), and
 [accessibility and data](../../references/accessibility-and-data.md).
 
+For motion-led pages, interactive exhibitions, spatial explainers, or exploded views, also read
+[motion and spatial review](../../references/motion-and-spatial-review.md). Use its concept selection,
+storyboard, part semantics, and per-work browser checks for the affected scope.
+
 ## Rendering boundary
 
 Use semantic DOM for text, navigation, forms, status, search, and accessible controls. Use SVG or
