@@ -1,0 +1,4 @@
+interface:
+  display_name: "KGJ 디자인 샘플 벤치마크"
+  short_description: "10개 인터랙티브 작품으로 플러그인과 모델의 설계·구현 결과 비교"
+  default_prompt: "$run-design-sample-benchmark로 서로 다른 10개 인터랙티브 디자인 작품이 담긴 웹앱을 만들고 실제 브라우저 검증과 재현 기록을 남겨줘."

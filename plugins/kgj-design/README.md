@@ -131,3 +131,25 @@ stdio MCP process and opens no listener; if it later becomes a persistent local 
 service through the governed AX Store runtime workflow instead of desktop auto-start.
 
 The optional fresh-session attestation workflow requires PowerShell and an operator-provided `Invoke-FreshCodexCli.ps1` under the user Codex scripts directory. This wrapper is not bundled. It is not required for ordinary local MCP use, DNA preview, or public unit tests; without it that particular attestation stays unverified.
+
+
+## Interactive benchmarks and product detail (1.6.0)
+
+`run-design-sample-benchmark` creates ten distinct interactive works using the
+[artwork-first prompt](data/prompts/design-sample-suite.md), [evaluation protocol](references/design-benchmark-evaluation.md)
+and [inspection contract](references/artwork-inspection-contract.md). The public [FORM / TEN example](../../examples/form-ten/README.md)
+demonstrates the resulting interactions and their limitations. It uses synthetic data and explanatory
+geometry; it does not call models or reconstruct hidden model reasoning.
+
+`review-korean-design-copy` adds self-contained copy and typography review. The
+[interaction motion system](references/interaction-motion-system.md) covers state ownership, interruption,
+focus and reduced motion. Research now starts with official/original sources, descends only for recorded
+gaps, and treats hidden directives and planted facts as untrusted material; see
+[reference evidence and safety](references/reference-evidence-and-safety.md).
+
+Starter request: `$run-design-sample-benchmark로 열 작품을 만들고, 각각의 조형·모션·실제 조작을 검토해 개선해줘.`
+
+The two new skills bring the total to thirteen. Existing MCP tools, DNA and Dictionary schemas,
+external storage, default prompts and the closed fifteen-check release rubric are unchanged.
+The sample suite is a development probe, not a hidden benchmark or a formal release PASS. No private
+reference page, conversation, Dictionary, browser capture or raw source article is distributed.

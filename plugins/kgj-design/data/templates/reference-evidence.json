@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "kgj-reference-evidence-v1",
+  "task": "replace with authorized evidence question",
+  "requiredClaims": [],
+  "searchLog": [
+    {
+      "claimId": "replace",
+      "tier": 1,
+      "query": "replace",
+      "gap": null,
+      "nextTierReason": null
+    }
+  ],
+  "sources": [
+    {
+      "id": "replace",
+      "title": "replace",
+      "publisher": "replace",
+      "canonicalUrl": "replace",
+      "publishedAt": null,
+      "retrievedAt": "replace",
+      "tier": 1,
+      "locator": "replace",
+      "sourceRole": "source-statement",
+      "adoptedClaim": "replace",
+      "verification": "unverified",
+      "limitations": [],
+      "originChain": "replace",
+      "snapshotSha256": null,
+      "injectionReview": {
+        "state": "not-run",
+        "categories": [],
+        "affectedClaims": [],
+        "handling": null
+      }
+    }
+  ],
+  "decisions": [],
+  "unverifiedClaims": [],
+  "proofBoundary": "Template only; no automatic verification, authorization or security certification."
+}

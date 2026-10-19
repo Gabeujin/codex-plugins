@@ -1,7 +1,7 @@
 # Source adaptation records
 
 Core design sources checked 2026-08-27; the MCP annotation specification was checked 2026-09-08.
-Sources are current official pages or official company technology blogs. KGJ adopts reasoning and
+Core sources are current official pages or official company technology blogs. User-supplied creator demonstrations are separately labelled observational evidence. KGJ adopts reasoning and
 contracts, not visual brands, assets, code, or organization-specific processes.
 
 | Source | Adopted | Intentionally rejected |
@@ -35,3 +35,23 @@ Public source records are kept independent. This package does not distribute int
 cross-source fusion results, or repository-specific release evidence.
 
 Machine-readable public-source details are in `source-catalog.json`. Internal review receipts and private catalogs are not distributed.
+
+Interaction guidance checked 2026-10-16: Toss Tech's
+[interaction design article](https://toss.tech/article/interaction_simplicity) (2025-05-30) supports
+device-appropriate controls and runtime prototypes; its conference autoplay and branded templates are
+context-specific. The [working-prototype article](https://toss.tech/article/deadend) (2026-06-16)
+supports judging motion in code and preserving current task context; its underlay effect and native
+framework are not imported. State contracts, async ownership and interruption probes in the
+[interaction motion system](interaction-motion-system.md) are KGJ synthesis. No private recording,
+frames, source wording or observation timestamps are included in this public-source record.
+
+User-supplied benchmark reference checked 2026-10-16:
+[Codefactory video, 04:08-09:01](https://www.youtube.com/watch?v=2lv5xHjLx1c&t=248s).
+Architecture assembly, on-foot/vehicle controls and a particle-led explainer are observed examples for
+separating domain fidelity, input mapping, motion continuity and runtime checks from generation time.
+The creator's model preference, price and comparative speed statements are not adopted as facts or
+rankings. The prose-reading segment is outside this design benchmark. No video, screenshot, transcript,
+layout or implementation is redistributed. The [benchmark protocol](design-benchmark-evaluation.md)
+is newly authored KGJ synthesis, with official sources still required for model/content claims.
+
+Reference handling checked 2026-10-16: [OWASP LLM01](https://genai.owasp.org/llmrisk/llm01-prompt-injection/) supports treating indirect, hidden and multimodal instructions as untrusted, with least privilege and adversarial checks. The [OWASP prevention guide](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html) supports layered separation and output verification. The official-first search tiers and claim provenance workflow in [reference evidence and safety](reference-evidence-and-safety.md) are KGJ policy reflecting the current user's request, not a source ranking dictated by OWASP. No attack code is copied; filtering and instructions do not certify resistance.

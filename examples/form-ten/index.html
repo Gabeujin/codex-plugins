@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko" data-kgj-dna="form-ten-structure-of-sense">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <link rel="icon" href="./favicon.svg"><meta name="color-scheme" content="dark light"><meta name="theme-color" content="#141816">
+ <title>FORM / TEN — 감각의 구조</title>
+ <link rel="stylesheet" href="./kgj-tokens.css"><link rel="stylesheet" href="./style.css">
+</head>
+<body>
+ <a class="skip" href="#main">작품으로 바로 가기</a>
+ <header class="masthead"><a class="brand" href="#/01" aria-label="FORM TEN 첫 작품"><b>F/T</b><span>FORM / TEN<small>감각의 구조</small></span></a><span class="edition">TEN INTERACTIVE STUDIES<span>2026 · VOL. 03</span></span><button id="gallery" class="index-button">작품 목록 <span>↗</span></button></header>
+ <main id="main" tabindex="-1">
+  <div class="work-heading"><div><span id="work-number" class="work-number">01 / 10</span><h1 id="work-title"></h1><span id="work-medium"></span></div><div class="work-nav"><button id="prev" aria-label="이전 작품">←</button><label class="sr-only" for="work-select">작품 선택</label><select id="work-select"></select><button id="next" aria-label="다음 작품">→</button></div></div>
+  <section id="stage" aria-label="작품 감상 무대"><canvas id="art" tabindex="0" role="img" aria-label="인터랙티브 작품"></canvas><div id="fallback-stage" hidden></div><div id="overlay"></div><div class="stage-corner" aria-hidden="true"><span id="stage-category"></span><span>FORM STUDIES — <b id="stage-id">01</b></span></div><span id="gesture-hint" class="gesture-hint">드래그하여 시점 이동</span></section>
+  <div class="transport"><button id="play" class="play-button" aria-label="재생" aria-pressed="false">▶<span>재생</span></button><label class="sr-only" for="timeline">작품 시간, 초</label><input id="timeline" type="range" min="0" max="20" value="0" step="0.01"><output id="time">00.00 / 20</output><span class="transport-divider"></span><button id="reset">초기화 ↺</button><button id="info">작품 노트 ↗</button></div>
+  <nav id="chapters" class="chapters" aria-label="작품 장면 선택"></nav>
+  <div class="control-area"><div id="status" class="current-state"></div><div id="controls"></div></div>
+ </main>
+ <footer><span>DESIGNED TO BE EXPLORED.</span><span>열 개의 주제. 열 개의 감각.</span><a href="./prompt-v3.md" target="_blank">제작 프롬프트 ↗</a></footer>
+ <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
+ <script type="module" src="./app.js"></script>
+</body>
+</html>

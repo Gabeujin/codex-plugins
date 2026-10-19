@@ -1,0 +1,124 @@
+{
+  "version": "3.0.0",
+  "buildId": "1a92021956209dd95fa3dfb512e61b2120ef36c20f97338f3665a53b6a7f4d3e",
+  "sourceHash": "1a92021956209dd95fa3dfb512e61b2120ef36c20f97338f3665a53b6a7f4d3e",
+  "buildMode": "Unbundled native ES modules; served source equals executable build",
+  "files": [
+    {
+      "path": "app.js",
+      "sha256": "14e94656a55073276f932b16abb9fe5cede2549735f1c3bd5645697f30e5cb78"
+    },
+    {
+      "path": "assets/cosmic-cliffs.png",
+      "sha256": "9e691dbd7ba25c0eb9c62ce7ebfadbbd8b008a97ff58576608290eab51adbf24"
+    },
+    {
+      "path": "assets/NotoSansKR.ttf",
+      "sha256": "194018e6b2b293a7964f037b25c0249ce1418bc9ab3c971060a03aa57861e252"
+    },
+    {
+      "path": "assets/OFL.txt",
+      "sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9"
+    },
+    {
+      "path": "build.mjs",
+      "sha256": "5b627e5d4ee6be8965ede881832914a41735b03884ba83a2ba6160c174f67f1a"
+    },
+    {
+      "path": "favicon.svg",
+      "sha256": "385d225f2c28b4fb006fe4ddf8fba894d0bcb4f49f48459072497f371a69617a"
+    },
+    {
+      "path": "gpu.js",
+      "sha256": "6e3c08bb00297f5495a6b6d695009dc73ddf67ac011624dd2e39ab53b6117167"
+    },
+    {
+      "path": "index.html",
+      "sha256": "2d80bbf9021fda6078bcacb2cb4b45a33249451426fdedd9776709e4b790ef29"
+    },
+    {
+      "path": "kgj-tokens.css",
+      "sha256": "a5d31f94b9df475854e98405def19641023c1ff63d36a94d142ea1912cba7909"
+    },
+    {
+      "path": "mesh.js",
+      "sha256": "c4ee77c904a4c3b2032f849268702b7c5ba1b326c4907a6ffabf9a17071cb4c1"
+    },
+    {
+      "path": "package.json",
+      "sha256": "8a09da778ae82d217447808f817deac8858a5d19e63dc2b214a1acdeebcb3f9a"
+    },
+    {
+      "path": "prompt-v3.md",
+      "sha256": "b0d4b631b064bf7dbbd2a05bd160feca5ca5148779d010043adcd74cd00ba924"
+    },
+    {
+      "path": "README.md",
+      "sha256": "36d1d04012df5ddc1afbfb9eb227d9a28d02947815ca5f387a8e67c07a12f6f9"
+    },
+    {
+      "path": "runtime.js",
+      "sha256": "a844c2a9f87a2d6af71e421d3a958d06e18b4dba614605ec24a835db656cf95b"
+    },
+    {
+      "path": "scenes.js",
+      "sha256": "4d1dbced5059abd5891223353a19ce57c2b63e93356a32f58495c57fac7551e0"
+    },
+    {
+      "path": "server.mjs",
+      "sha256": "ba4dfac652f866ecf3a8206e52696fba599675de1b03f1c8325315abae2c8932"
+    },
+    {
+      "path": "SOURCES.md",
+      "sha256": "f403d33ef0aa60307806b7b456e00cea124c79ad184014b7ee11acd6e73e43af"
+    },
+    {
+      "path": "studies.js",
+      "sha256": "0cf0eb1e43b1e59b8041ba23cdc2eef716384f3fe62c7b8595b69026b582d107"
+    },
+    {
+      "path": "style.css",
+      "sha256": "426e88396e5a79554aaa7b752547a2804480cfb2c16de240197309f4a46ebe42"
+    },
+    {
+      "path": "thumbs/01.png",
+      "sha256": "50af2febd93c6a682ebd4b134bec72f2e6964627094ae1ea258cb9ad56bed859"
+    },
+    {
+      "path": "thumbs/02.png",
+      "sha256": "0ede8829dfafe9807fead34546aa8810710e9acfbd882a2e46b99228a87cc299"
+    },
+    {
+      "path": "thumbs/03.png",
+      "sha256": "0d371a316bb285aea197df8e09a834093ce5ce54f549991eee09c39dfb33ca09"
+    },
+    {
+      "path": "thumbs/04.png",
+      "sha256": "d5b3feaefb6d0a03acd24acd43d3291a628c43f79a3895d73a0c26f330bd7685"
+    },
+    {
+      "path": "thumbs/05.png",
+      "sha256": "72f14ac37c889fc1ef728d39300a7eeee28e486daa7049f68ae19b2fae2a4a35"
+    },
+    {
+      "path": "thumbs/06.png",
+      "sha256": "2cc9c0d199009af171c4c416ac3755fd9f8f9e46e110f0df5117c6d63f6d952f"
+    },
+    {
+      "path": "thumbs/07.png",
+      "sha256": "b57908aa582ebebe1154e2348045d92654841a951f3e949ff19967447c2ad047"
+    },
+    {
+      "path": "thumbs/08.png",
+      "sha256": "6587484b0f2acb8c675a0b2c967906e7410eb5b2ba2d73b305758d621adf97ab"
+    },
+    {
+      "path": "thumbs/09.png",
+      "sha256": "fbadfeed5e41834c4514d4a05173303dd86c4742cb73ace751287a4c5c729fe3"
+    },
+    {
+      "path": "thumbs/10.png",
+      "sha256": "386d85f3144aa8ab33c68b9b1dc64a400734b5b6bc64d5c3d44e5145cd60f938"
+    }
+  ]
+}

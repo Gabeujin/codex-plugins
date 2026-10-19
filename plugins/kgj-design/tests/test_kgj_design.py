@@ -544,7 +544,7 @@ class KgjDesignTests(unittest.TestCase):
     def test_plugin_contract_validates(self):
         result = KGJ.validate_plugin(ROOT)
         self.assertTrue(result["ok"])
-        self.assertEqual(result["skills"], 11)
+        self.assertEqual(result["skills"], 13)
         self.assertGreaterEqual(result["dnaProfiles"], 4)
 
     def test_project_contract_initializes_fail_closed_then_becomes_ready(self):
