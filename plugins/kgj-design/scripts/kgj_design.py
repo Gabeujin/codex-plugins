@@ -35,6 +35,8 @@ EXPECTED_SKILLS = {
     "adopt-kgj-design",
     "govern-design-patterns",
     "conduct-kgj-design-review",
+    "run-design-sample-benchmark",
+    "review-korean-design-copy",
 }
 EXPECTED_WEIGHTS = {1: 0.40, 2: 0.35, 3: 0.25}
 DNA_SCHEMA_VERSIONS = {"1.0", "1.1", "1.2"}
@@ -1688,6 +1690,14 @@ def validate_plugin(root: Path) -> dict:
         "data/templates/evidence-registry.json",
         "data/templates/pattern-candidate.json",
         "data/templates/expert-review.json",
+        "data/prompts/design-sample-suite.md",
+        "data/templates/benchmark-run.json",
+        "data/templates/reference-evidence.json",
+        "references/design-benchmark-evaluation.md",
+        "references/reference-evidence-and-safety.md",
+        "references/artwork-inspection-contract.md",
+        "skills/review-korean-design-copy/references/korean-copy-review.md",
+        "skills/review-korean-design-copy/references/korean-typography.md",
     ]
     for relative in required_files:
         if not (root / relative).is_file():

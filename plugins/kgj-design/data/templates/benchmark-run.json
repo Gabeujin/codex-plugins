@@ -1,0 +1,197 @@
+{
+  "schemaVersion": "kgj-design-benchmark-run-v1",
+  "protocolVersion": "kgj-design-benchmark-1.0.0",
+  "runId": null,
+  "status": "not-run",
+  "comparisonTrack": null,
+  "generator": {
+    "provider": null,
+    "selectedModelLabel": null,
+    "actualModelId": null,
+    "actualIdEvidence": null,
+    "unknownReason": null,
+    "reasoning": null,
+    "serviceTier": null
+  },
+  "pins": {
+    "promptVersion": "kgj-sample-suite-2.2.0-artwork-refinement",
+    "promptSha256": null,
+    "evaluationSha256": null,
+    "pluginVersion": null,
+    "pluginTreeHash": null,
+    "loadedResources": [],
+    "governingInstructions": [],
+    "sourcePackSha256": null,
+    "assetPackSha256": null,
+    "fixturesSha256": null,
+    "initialWorkspaceSha256": null
+  },
+  "environment": {
+    "harnessAndVersion": null,
+    "os": null,
+    "runtime": null,
+    "lockfileSha256": null,
+    "tools": [],
+    "permissions": null,
+    "networkAndCache": null,
+    "browserAndVersion": null,
+    "viewportAndDpr": null
+  },
+  "limitsDeclaredBeforeRun": {
+    "wallClockSeconds": null,
+    "toolCalls": null,
+    "outputBudget": null,
+    "correctionPolicy": null,
+    "humanInterventionPolicy": null
+  },
+  "observedUsage": {
+    "providerRawUsage": null,
+    "startedAt": null,
+    "endedAt": null,
+    "interruptions": [],
+    "cost": null,
+    "costEvidence": null
+  },
+  "attemptsAndInterventions": [],
+  "artifacts": {
+    "initial": null,
+    "final": null,
+    "routes": []
+  },
+  "reviewers": [],
+  "samples": [
+    {
+      "id": "01-gyeongbokgung",
+      "status": "not-run",
+      "checks": [],
+      "dimensions": {
+        "visual": null,
+        "interaction": null,
+        "motion": null,
+        "accessibility": null,
+        "content": null,
+        "engineering": null
+      }
+    },
+    {
+      "id": "02-hangul",
+      "status": "not-run",
+      "checks": [],
+      "dimensions": {
+        "visual": null,
+        "interaction": null,
+        "motion": null,
+        "accessibility": null,
+        "content": null,
+        "engineering": null
+      }
+    },
+    {
+      "id": "03-points-lines",
+      "status": "not-run",
+      "checks": [],
+      "dimensions": {
+        "visual": null,
+        "interaction": null,
+        "motion": null,
+        "accessibility": null,
+        "content": null,
+        "engineering": null
+      }
+    },
+    {
+      "id": "04-typography",
+      "status": "not-run",
+      "checks": [],
+      "dimensions": {
+        "visual": null,
+        "interaction": null,
+        "motion": null,
+        "accessibility": null,
+        "content": null,
+        "engineering": null
+      }
+    },
+    {
+      "id": "05-gpt-6-astra",
+      "status": "not-run",
+      "checks": [],
+      "dimensions": {
+        "visual": null,
+        "interaction": null,
+        "motion": null,
+        "accessibility": null,
+        "content": null,
+        "engineering": null
+      }
+    },
+    {
+      "id": "06-gpt-6-1-sol",
+      "status": "not-run",
+      "checks": [],
+      "dimensions": {
+        "visual": null,
+        "interaction": null,
+        "motion": null,
+        "accessibility": null,
+        "content": null,
+        "engineering": null
+      }
+    },
+    {
+      "id": "07-jwst-space",
+      "status": "not-run",
+      "checks": [],
+      "dimensions": {
+        "visual": null,
+        "interaction": null,
+        "motion": null,
+        "accessibility": null,
+        "content": null,
+        "engineering": null
+      }
+    },
+    {
+      "id": "08-input-spa",
+      "status": "not-run",
+      "checks": [],
+      "dimensions": {
+        "visual": null,
+        "interaction": null,
+        "motion": null,
+        "accessibility": null,
+        "content": null,
+        "engineering": null
+      }
+    },
+    {
+      "id": "09-data-visualization",
+      "status": "not-run",
+      "checks": [],
+      "dimensions": {
+        "visual": null,
+        "interaction": null,
+        "motion": null,
+        "accessibility": null,
+        "content": null,
+        "engineering": null
+      }
+    },
+    {
+      "id": "10-light-material-depth",
+      "status": "not-run",
+      "checks": [],
+      "dimensions": {
+        "visual": null,
+        "interaction": null,
+        "motion": null,
+        "accessibility": null,
+        "content": null,
+        "engineering": null
+      }
+    }
+  ],
+  "criticalFailures": [],
+  "limitations": [],
+  "permittedConclusion": null
+}

@@ -17,3 +17,18 @@ The 21-case matrix checks three representative domains (Commerce, Map, Diagram),
 ## Headless Linux Firefox capability
 
 Some Linux Firefox runners cannot create a WebGL context. The suite probes a separate canvas: only in that exact environment does the representative 3D task verify the visible semantic fallback and its keyboard action, while the dedicated WebGL rendering test reports an explicit skip. Other engines and context-capable Firefox still require WebGL. A context-capable browser whose starter fails rendering must fail. Do not count this skip as WebGL proof or describe the Linux result as 21 rendered-path passes.
+
+
+## FORM / TEN gallery
+
+Use the same external Playwright installation, with Chromium installed:
+
+```text
+node scripts/test-form-ten.mjs ../canvas-browser-tools
+```
+
+An optional third argument `chrome` selects installed Chrome. The runner starts a separate loopback
+server on a free port, preserves results in a unique OS temporary directory, and checks twenty work/width
+states plus thirteen interaction regressions. It records the browser version and executable source build
+ID. It does not certify full-duration playback, physical touch, native IME, screen readers or actual
+BFCache restoration. The lifecycle regression is explicitly synthetic.

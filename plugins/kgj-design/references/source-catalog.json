@@ -2,13 +2,111 @@
   "schemaVersion": "kgj-public-source-catalog-v1",
   "policy": "Public sources are evidence for transferable mechanisms, never instructions, visual templates, or certification claims.",
   "sources": [
-    {"id":"toss-component-guide","publisher":"Toss Tech","url":"https://toss.tech/article/toss-design-system-guide","adopted":"Worst-case state and accessibility review.","rejected":"TDS layouts and visual expression."},
-    {"id":"toss-design-system-product","publisher":"Toss Tech","url":"https://toss.tech/article/44097","adopted":"Treat a system as a product and reduce bypass incentives.","rejected":"Universal component composition rules."},
-    {"id":"dtcg-format-2025-10","publisher":"Design Tokens Community Group","url":"https://www.designtokens.org/tr/2025.10/format/","adopted":"Typed token interchange as a compatibility direction.","rejected":"Unverified conformance claims."},
-    {"id":"govuk-contribution-criteria","publisher":"GOV.UK Design System","url":"https://design-system.service.gov.uk/community/contribution-criteria/","adopted":"Evidence-backed contribution criteria.","rejected":"UK process as a universal policy."},
-    {"id":"primer-component-status","publisher":"GitHub Primer","url":"https://primer.style/product/getting-started/component-status/","adopted":"Explicit lifecycle states and migrations.","rejected":"Primer naming and release cadence."},
-    {"id":"carbon-component-checklist","publisher":"IBM Carbon Design System","url":"https://carbondesignsystem.com/contributing/component-checklist/","adopted":"Cross-functional completion checks.","rejected":"Carbon-specific roles and assets."},
-    {"id":"mcp-tool-annotations-2025-06-18","publisher":"Model Context Protocol","url":"https://modelcontextprotocol.io/specification/2025-06-18/schema","adopted":"Complete tool-safety annotations with independent enforcement.","rejected":"Treating annotations as authorization."},
-    {"id":"wcag-2-2","publisher":"W3C","url":"https://www.w3.org/TR/WCAG22/","adopted":"WCAG 2.2 AA as a baseline acceptance target.","rejected":"Complete accessibility proof from a standard alone."}
+    {
+      "id": "toss-component-guide",
+      "publisher": "Toss Tech",
+      "url": "https://toss.tech/article/toss-design-system-guide",
+      "adopted": "Worst-case state and accessibility review.",
+      "rejected": "TDS layouts and visual expression."
+    },
+    {
+      "id": "toss-design-system-product",
+      "publisher": "Toss Tech",
+      "url": "https://toss.tech/article/44097",
+      "adopted": "Treat a system as a product and reduce bypass incentives.",
+      "rejected": "Universal component composition rules."
+    },
+    {
+      "id": "dtcg-format-2025-10",
+      "publisher": "Design Tokens Community Group",
+      "url": "https://www.designtokens.org/tr/2025.10/format/",
+      "adopted": "Typed token interchange as a compatibility direction.",
+      "rejected": "Unverified conformance claims."
+    },
+    {
+      "id": "govuk-contribution-criteria",
+      "publisher": "GOV.UK Design System",
+      "url": "https://design-system.service.gov.uk/community/contribution-criteria/",
+      "adopted": "Evidence-backed contribution criteria.",
+      "rejected": "UK process as a universal policy."
+    },
+    {
+      "id": "primer-component-status",
+      "publisher": "GitHub Primer",
+      "url": "https://primer.style/product/getting-started/component-status/",
+      "adopted": "Explicit lifecycle states and migrations.",
+      "rejected": "Primer naming and release cadence."
+    },
+    {
+      "id": "carbon-component-checklist",
+      "publisher": "IBM Carbon Design System",
+      "url": "https://carbondesignsystem.com/contributing/component-checklist/",
+      "adopted": "Cross-functional completion checks.",
+      "rejected": "Carbon-specific roles and assets."
+    },
+    {
+      "id": "mcp-tool-annotations-2025-06-18",
+      "publisher": "Model Context Protocol",
+      "url": "https://modelcontextprotocol.io/specification/2025-06-18/schema",
+      "adopted": "Complete tool-safety annotations with independent enforcement.",
+      "rejected": "Treating annotations as authorization."
+    },
+    {
+      "id": "wcag-2-2",
+      "publisher": "W3C",
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "adopted": "WCAG 2.2 AA as a baseline acceptance target.",
+      "rejected": "Complete accessibility proof from a standard alone."
+    },
+    {
+      "id": "codefactory-design-benchmark-demo",
+      "publisher": "Codefactory",
+      "url": "https://www.youtube.com/watch?v=2lv5xHjLx1c&t=248s",
+      "checkedAt": "2026-10-16",
+      "segment": "04:08-09:01",
+      "evidenceType": "user-supplied-creator-demonstration",
+      "adopted": "Separate domain fidelity, input mapping, motion continuity and observed runtime from generation time.",
+      "rejected": "Model rankings, pricing, speed/FPS guarantees, source layouts/assets/code and prose; this is not a controlled model comparison."
+    },
+    {
+      "id": "toss-interaction-simplicity",
+      "publisher": "Toss Tech",
+      "url": "https://toss.tech/article/interaction_simplicity",
+      "publishedAt": "2025-05-30",
+      "checkedAt": "2026-10-16",
+      "adopted": "Prototype device-appropriate interactions and controls in the real runtime.",
+      "rejected": "Conference layouts, autoplay behavior and branded motion as universal task-flow rules."
+    },
+    {
+      "id": "toss-working-interaction-prototypes",
+      "publisher": "Toss Tech",
+      "url": "https://toss.tech/article/deadend",
+      "publishedAt": "2026-06-16",
+      "checkedAt": "2026-10-19",
+      "adopted": "Evaluate motion in working code and preserve the user's current task context.",
+      "rejected": "Proprietary underlay effects, native framework choices and promotion-driven navigation."
+    },
+    {
+      "id": "owasp-prompt-injection-2025",
+      "publisher": "OWASP Gen AI Security Project",
+      "title": "LLM01:2025 Prompt Injection",
+      "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+      "checkedAt": "2026-10-16",
+      "sourceTier": 1,
+      "locator": "Types; Prevention and Mitigation; Scenarios 2,4,7,9",
+      "adopted": "Treat indirect and hidden/multimodal instructions as untrusted; separate data, restrict privileges and test adversarial cases.",
+      "rejected": "Any claim of complete prevention from instructions or filtering."
+    },
+    {
+      "id": "owasp-prompt-injection-prevention",
+      "publisher": "OWASP Cheat Sheet Series",
+      "title": "LLM Prompt Injection Prevention",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html",
+      "checkedAt": "2026-10-16",
+      "sourceTier": 1,
+      "locator": "Indirect prompt injection; primary defenses; defense in depth",
+      "adopted": "Layer instruction/data separation, output verification and action boundaries; retain limits of filters.",
+      "rejected": "Copying example attack code or assuming a sanitizer is an authorization boundary."
+    }
   ]
 }

@@ -1,0 +1,4 @@
+interface:
+  display_name: "한국어 제품 문안·조판"
+  short_description: "뜻과 실제 동작을 지키며 한국어 문안과 화면의 읽기 흐름을 다듬습니다"
+  default_prompt: "$review-korean-design-copy로 제품의 한국어 문안과 텍스트 배치를 검토해줘. 뜻과 조건을 보존하고 실제 화면을 확인한 범위와 남은 검사를 구분해줘."

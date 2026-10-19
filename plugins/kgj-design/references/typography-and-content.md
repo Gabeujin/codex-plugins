@@ -1,5 +1,9 @@
 # Typography and content
 
+For Korean copy or text-layout changes, use the bundled
+[review-korean-design-copy](../skills/review-korean-design-copy/SKILL.md) skill. Its references are
+self-contained; no machine-specific skill or prior project context is required.
+
 ## Typography is a role system
 
 Define display, title, body, label, code, and numeric roles before choosing sizes. Preserve hierarchy at

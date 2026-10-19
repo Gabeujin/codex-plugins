@@ -26,6 +26,11 @@ a `{semantic.*}` alias with the same `$type`; it cannot become a shortcut for un
 
 ## Rules
 
+Motion recipes compose existing semantic duration and easing roles; see
+[interaction motion system](interaction-motion-system.md). Direction, interruption, request ownership,
+focus and completion are component behavior, not token values. Direct state updates remain usable
+without motion; new required motion roles need a versioned compatibility review.
+
 - Product code uses semantic tokens; component internals may use their owned component tokens.
 - No raw color, spacing, type, radius, duration, or easing values outside foundation allowlists.
 - No component-token import outside its owner without a declared derivative.
