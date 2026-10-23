@@ -1,5 +1,17 @@
 # KGJ Design
 
+Current community marketplace version: **KGJ Design 1.6.1**, included in **v0.9.1**.
+This patch adds conditional editor-feedback guidance for elastic object/group motion, dialog exits
+and visible toasts. See [release notes](../../docs/RELEASE-NOTES-0.9.1.md).
+
+```powershell
+codex plugin marketplace upgrade gabeujin-plugins
+codex plugin add kgj-design@gabeujin-plugins
+```
+
+Confirm version 1.6.1 and start a new Codex task after updating. `personal` is a separate source;
+its installation and private Dictionary are not switched by these commands.
+
 Install `kgj-design@gabeujin-plugins` using the [shared installation guide](https://github.com/Gabeujin/codex-plugins/blob/main/README.md). Existing users should read [updates and data preservation](https://github.com/Gabeujin/codex-plugins/blob/main/docs/INSTALL-AND-UPDATE.md). Copy-ready starter commands are in [First use](https://github.com/Gabeujin/codex-plugins/blob/main/docs/FIRST-USE.md).
 
 KGJ Design is a product-DNA architecture for creating related products without making replicas.
@@ -153,3 +165,13 @@ The two new skills bring the total to thirteen. Existing MCP tools, DNA and Dict
 external storage, default prompts and the closed fifteen-check release rubric are unchanged.
 The sample suite is a development probe, not a hidden benchmark or a formal release PASS. No private
 reference page, conversation, Dictionary, browser capture or raw source article is distributed.
+
+## Develop and improve (1.6.1)
+
+Use `design-web-experience` for existing-interface develop/improve work. Its conditional
+[editor feedback guide](references/editor-feedback-and-elastic-motion.md) covers bounded elastic
+object/proxy motion, interruption-safe dialog exits, visible unobtrusive toasts, and targeted
+failure probes. The [worksheet](data/templates/interaction-motion-spec.md) has optional owner,
+close, notification and fallback fields. These remain candidate recipes; product style,
+runtime tools, data schemas and release gates are unchanged. No private case artifacts or
+performance guarantees are included.

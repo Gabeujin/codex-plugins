@@ -38,6 +38,19 @@ genome while letting density, hierarchy, palette, typography, shape, copy, and s
 fit the product's domain. Avoid generic card grids, arbitrary gradients, ornamental glass, and motion
 that exists only to appear advanced.
 
+## Develop and improve existing surfaces
+
+Use this route for a "develop & improve" request on an existing interface. Name the observed friction,
+preserve the current product contracts, choose the smallest coherent correction, and define its
+visible success check before implementation. Use refinement mode for bounded fixes; a changed flow
+or state model still needs its applicable required-state checks.
+
+For object motion, toast visibility or dialog transitions, read
+[editor feedback and elastic motion](../../references/editor-feedback-and-elastic-motion.md).
+Select only the affected recipes and probes. Elastic motion is an opt-in product expression;
+do not turn a product's style or measured values into global defaults. Keep verification proportional
+and honor explicit opt-in boundaries for large-document stress tests.
+
 ## Refinement mode
 
 Use refinement mode for a bounded change to an existing surface, such as spacing, copy, one control,

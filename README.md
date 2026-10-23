@@ -5,11 +5,11 @@
 | 플러그인 | 버전 | 사용 목적 | 구성 |
 |---|---|---|---|
 | [K-Tech Insight Radar](plugins/k-tech-radar) | 0.4.0 | 출처를 보존하는 기술 조사, 관심 주제 변경 브리핑 | 스킬 3개 + 로컬 MCP 도구 13개 |
-| [KGJ Design](plugins/kgj-design) | 1.6.0 | 제품 DNA, 작품·모션 벤치마크, 공식자료 우선 조사, 한국어 문안 | 스킬 13개 + 로컬 MCP 도구 14개 |
+| [KGJ Design](plugins/kgj-design) | 1.6.1 | 제품 DNA, 작품·모션 벤치마크, 공식자료 우선 조사, 한국어 문안 | 스킬 13개 + 로컬 MCP 도구 14개 |
 | [Codex Daily Check](plugins/codex-daily-check) | 0.5.1 | 5분 목표 기능 진단, 실제 브라우저·앱 검사, CLI 업데이트 명령 안내 | 스킬 1개 + 표준 라이브러리 진단 스크립트 |
 | [Canvas Web Experiences](plugins/canvas-web-experiences) | 1.7.0 | 접근성·대체 화면을 갖춘 2D·3D·지도 구현 | 스킬 10개 + 데모·스타터 |
 
-최신 릴리스 묶음은 **v0.9.0**이며 KGJ Design 1.6.0과 [FORM / TEN 인터랙티브 전시](examples/form-ten/README.md)를 포함합니다. [변경 내역](docs/RELEASE-NOTES-0.9.0.md)과 [실행환경 지원](docs/RUNTIME-SUPPORT.md)을 확인하세요. OpenAI 공식 Directory 등록과 GitHub 배포는 별개이며, 이 저장소는 GitHub 배포 경로를 제공합니다.
+최신 릴리스 묶음은 **v0.9.1**이며 KGJ Design **1.6.1**을 포함합니다. [에디터 피드백 가이드](docs/KGJ-EDITOR-FEEDBACK.md)에 탄성 모션·모달 전환·토스트 시인성 개선 방법을 정리했습니다. 기존 [FORM / TEN 인터랙티브 전시](examples/form-ten/README.md)도 함께 제공됩니다. [변경 내역](docs/RELEASE-NOTES-0.9.1.md)과 [실행환경 지원](docs/RUNTIME-SUPPORT.md)을 확인하세요. OpenAI 공식 Directory 등록과 GitHub 배포는 별개이며, 이 저장소는 GitHub 배포 경로를 제공합니다.
 
 ## 1. 설치
 
@@ -25,7 +25,16 @@ codex plugin add codex-daily-check@gabeujin-plugins
 
 원하는 플러그인의 `plugin add`만 실행해도 됩니다. CLI에 해당 명령이 없으면 지원되는 최신 Codex로 업데이트하거나 Plugins 화면에서 설치합니다. 설치 후 **새 작업을 시작**하세요. 설치만으로 데모 서버나 정기 수집이 실행되지는 않습니다.
 
-이미 설치했다면 [데이터 보존 및 업데이트 가이드](docs/INSTALL-AND-UPDATE.md)를 먼저 읽으세요. 특히 Radar의 이전 캐시 안에 데이터를 저장했다면 경로를 확인해야 합니다. 처음부터 버전을 고정하려면 등록 명령에 `--ref v0.9.0`을 추가합니다. 고정 ref는 자동으로 다음 릴리스로 바뀌지 않습니다.
+이미 설치했다면 [데이터 보존 및 업데이트 가이드](docs/INSTALL-AND-UPDATE.md)를 먼저 읽으세요. 특히 Radar의 이전 캐시 안에 데이터를 저장했다면 경로를 확인해야 합니다. 처음부터 버전을 고정하려면 등록 명령에 `--ref v0.9.1`을 추가합니다. 고정 ref는 자동으로 다음 릴리스로 바뀌지 않습니다.
+
+KGJ Design 기존 사용자는 marketplace 원본을 갱신한 뒤 플러그인을 업데이트합니다.
+
+```powershell
+codex plugin marketplace upgrade gabeujin-plugins
+codex plugin add kgj-design@gabeujin-plugins
+```
+
+설치 버전 **1.6.1**을 확인하고 새 Codex 작업에서 사용하세요. `personal`은 별도 원본이며 이 명령으로 자동 전환되지 않습니다. 고정 ref 사용자는 [버전 고정 안내](docs/INSTALL-AND-UPDATE.md#버전-고정과-zip)를 확인하세요.
 
 ## 2. 작은 첫 작업
 

@@ -1,6 +1,6 @@
 # 설치·업데이트·데이터 보존
 
-명령은 Codex CLI 0.153.4의 도움말을 확인해 작성했습니다. Desktop과 CLI의 기능 제공 시점은 다를 수 있습니다. 플러그인 사용에는 저장소 복제가 필요하지 않으며, 스크립트 개발·테스트에는 별도 체크아웃을 사용합니다.
+명령은 Codex CLI 0.163.0의 도움말을 확인해 작성했습니다. Desktop과 CLI의 기능 제공 시점은 다를 수 있습니다. 플러그인 사용에는 저장소 복제가 필요하지 않으며, 스크립트 개발·테스트에는 별도 체크아웃을 사용합니다.
 
 ## 새 설치
 
@@ -9,9 +9,10 @@ codex plugin marketplace add Gabeujin/codex-plugins
 codex plugin add k-tech-radar@gabeujin-plugins
 codex plugin add kgj-design@gabeujin-plugins
 codex plugin add canvas-web-experiences@gabeujin-plugins
+codex plugin add codex-daily-check@gabeujin-plugins
 ```
 
-세 add 명령 중 필요한 것만 실행합니다. 설치 후 새 Codex 작업에서 플러그인 이름을 명시해 작은 과업을 요청하세요. `personal` 원본과 `gabeujin-plugins`는 별개입니다. 같은 플러그인을 둘 다 설치했다면 Plugins 화면에서 이번 작업에 사용할 원본을 확인하세요.
+각 plugin add 명령 중 필요한 것만 실행합니다. 설치 후 새 Codex 작업에서 플러그인 이름을 명시해 작은 과업을 요청하세요. `personal` 원본과 `gabeujin-plugins`는 별개입니다. 같은 플러그인을 둘 다 설치했다면 Plugins 화면에서 이번 작업에 사용할 원본을 확인하세요.
 
 ## 기존 사용자 업데이트
 
@@ -24,6 +25,7 @@ codex plugin marketplace upgrade gabeujin-plugins
 codex plugin add k-tech-radar@gabeujin-plugins
 codex plugin add kgj-design@gabeujin-plugins
 codex plugin add canvas-web-experiences@gabeujin-plugins
+codex plugin add codex-daily-check@gabeujin-plugins
 ```
 
 `marketplace upgrade`는 소스 갱신 명령입니다. 이어서 필요한 plugin add를 실행하고 결과의 설치 버전을 확인합니다. 버전이 그대로라면 고정 ref 및 marketplace 원본을 확인하세요. 자동 삭제·강제 재설치를 해결책으로 사용하지 않습니다. 새 작업을 시작한 뒤 읽기 전용 상태 확인을 먼저 실행하세요.
@@ -48,7 +50,7 @@ python -X utf8 -B scripts/check-data-compatibility.py current-release-manifest.j
 
 ## 버전 고정과 ZIP
 
-처음 등록할 때 `codex plugin marketplace add Gabeujin/codex-plugins --ref v0.5.0`으로 고정할 수 있습니다. 고정 태그는 upgrade해도 다음 태그로 바뀌지 않습니다. 이미 등록된 원본을 바꿀 때는 CLI 도움말과 현재 설정을 확인하고 변경 전 데이터를 보존하세요.
+처음 등록할 때 `codex plugin marketplace add Gabeujin/codex-plugins --ref v0.9.1`으로 고정할 수 있습니다. 고정 태그는 upgrade해도 다음 태그로 바뀌지 않습니다. 이미 등록된 원본을 바꿀 때는 CLI 도움말과 현재 설정을 확인하고 변경 전 데이터를 보존하세요.
 
 릴리스 ZIP은 테스트한 소스와 `release-manifest.json`을 담습니다. 새 폴더에 풀고 `codex plugin marketplace add <압축을-푼-폴더>`로 로컬 소스를 등록할 수도 있습니다. npm 의존성·빌드 산출물·개인 데이터는 들어 있지 않습니다. ZIP 검증은 해당 커밋이 있는 체크아웃에서 `python -X utf8 -B scripts/package-release.py --check <ZIP>`으로 실행합니다.
 

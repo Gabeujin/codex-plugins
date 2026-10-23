@@ -119,3 +119,7 @@ Public influences: [Toss interaction design, 2025-05-30](https://toss.tech/artic
 supports device-appropriate controls and runtime prototypes; [Toss working prototypes, 2026-06-16](https://toss.tech/article/deadend)
 supports evaluating motion in working code. Do not reproduce branding, native framework choices,
 promotional flows or proprietary effects. KGJ's task-state rules above are synthesis.
+
+For object/proxy motion, notification placement or dialog exit failures, also use the conditional
+[editor feedback guide](editor-feedback-and-elastic-motion.md). It adds concrete failure probes without
+changing this task/state contract or promoting a stable pattern.

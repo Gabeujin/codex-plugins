@@ -49,3 +49,16 @@ Use pass, fail, not run, or not applicable with a reason. A planned probe is not
 - Source/build identity, browser/device and actual checks:
 - Unverified behavior, residual findings and reversal condition:
 - Scope of claim: recommendation, static check, runtime, browser, install or deployment:
+
+## Optional editor, notification and dialog detail
+
+Fill only for an affected recipe in [editor feedback](../../references/editor-feedback-and-elastic-motion.md).
+
+- Canonical geometry/input owner versus temporary visual deformation owner:
+- Preview-to-commit, composite-proxy handoff, capture failure and inert deletion-copy lifetime:
+- Current-pose snapshot, property/fill ownership, monotonic alpha and independent shape curve:
+- Accepted/rejected close handshake, backdrop, focus return and reversal cleanup:
+- Auto-dismiss versus explicit close, reading during exit, message/host replacement:
+- Toast contrast/hierarchy, narrow full-width body and controls/obstacles to avoid:
+- Supported top-layer path, feature-disabled fallback and coordinate owner:
+- Targeted probes; stress test opt-in/contract, unmeasured performance and reversal condition:
