@@ -1,4 +1,4 @@
-# KGJ Design 1.6.1 source candidate
+# KGJ Design 1.6.1 editor feedback
 
 This compatible guidance update adds an existing-interface develop/improve route and conditional
 editor-feedback recipes. It covers bounded elastic object/group motion, inert deletion copies,
@@ -11,6 +11,6 @@ large-document and long memory/latency tests honor explicit opt-in or active pro
 
 Only generalized guidance and empty authoring fields are included. Private product source, images,
 conversations, paths, account data and execution receipts are excluded. Existing runtime tools,
-thirteen skills, data schemas, default prompts and release rubric are unchanged. Prior published
-marketplace v0.9.0 remains a separate identity; this document does not publish a new bundle or certify
-future generated interfaces. Follow RELEASING.md for exact-commit packaging, review and publication.
+thirteen skills, data schemas, default prompts and release rubric are unchanged. This update is distributed in marketplace v0.9.1. Candidate recipes are optional design guidance,
+not certification of future generated interfaces. See RELEASE-NOTES-0.9.1.md and follow RELEASING.md
+for exact-commit packaging, review and publication.
