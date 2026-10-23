@@ -153,3 +153,13 @@ The two new skills bring the total to thirteen. Existing MCP tools, DNA and Dict
 external storage, default prompts and the closed fifteen-check release rubric are unchanged.
 The sample suite is a development probe, not a hidden benchmark or a formal release PASS. No private
 reference page, conversation, Dictionary, browser capture or raw source article is distributed.
+
+## Develop and improve (1.6.1)
+
+Use `design-web-experience` for existing-interface develop/improve work. Its conditional
+[editor feedback guide](references/editor-feedback-and-elastic-motion.md) covers bounded elastic
+object/proxy motion, interruption-safe dialog exits, visible unobtrusive toasts, and targeted
+failure probes. The [worksheet](data/templates/interaction-motion-spec.md) has optional owner,
+close, notification and fallback fields. These remain candidate recipes; product style,
+runtime tools, data schemas and release gates are unchanged. No private case artifacts or
+performance guarantees are included.

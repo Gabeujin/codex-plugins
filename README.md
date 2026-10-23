@@ -5,9 +5,11 @@
 | 플러그인 | 버전 | 사용 목적 | 구성 |
 |---|---|---|---|
 | [K-Tech Insight Radar](plugins/k-tech-radar) | 0.4.0 | 출처를 보존하는 기술 조사, 관심 주제 변경 브리핑 | 스킬 3개 + 로컬 MCP 도구 13개 |
-| [KGJ Design](plugins/kgj-design) | 1.6.0 | 제품 DNA, 작품·모션 벤치마크, 공식자료 우선 조사, 한국어 문안 | 스킬 13개 + 로컬 MCP 도구 14개 |
+| [KGJ Design](plugins/kgj-design) | 1.6.1 | 제품 DNA, 작품·모션 벤치마크, 공식자료 우선 조사, 한국어 문안 | 스킬 13개 + 로컬 MCP 도구 14개 |
 | [Codex Daily Check](plugins/codex-daily-check) | 0.5.1 | 5분 목표 기능 진단, 실제 브라우저·앱 검사, CLI 업데이트 명령 안내 | 스킬 1개 + 표준 라이브러리 진단 스크립트 |
 | [Canvas Web Experiences](plugins/canvas-web-experiences) | 1.7.0 | 접근성·대체 화면을 갖춘 2D·3D·지도 구현 | 스킬 10개 + 데모·스타터 |
+
+현재 소스의 KGJ Design 1.6.1은 [에디터 피드백 개선안](docs/KGJ-EDITOR-FEEDBACK.md)을 포함한 다음 배포 후보입니다.
 
 최신 릴리스 묶음은 **v0.9.0**이며 KGJ Design 1.6.0과 [FORM / TEN 인터랙티브 전시](examples/form-ten/README.md)를 포함합니다. [변경 내역](docs/RELEASE-NOTES-0.9.0.md)과 [실행환경 지원](docs/RUNTIME-SUPPORT.md)을 확인하세요. OpenAI 공식 Directory 등록과 GitHub 배포는 별개이며, 이 저장소는 GitHub 배포 경로를 제공합니다.
 
