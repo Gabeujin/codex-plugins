@@ -80,9 +80,17 @@ class PackageReleaseRegressionTests(unittest.TestCase):
             write(cls.root, f"plugins/{name}/.codex-plugin/plugin.json", json.dumps({"name": name, "version": "0.0.1", "skills": "./skills", "mcpServers": "./.mcp.json"}))
             write(cls.root, f"plugins/{name}/.mcp.json", "{}")
             write(cls.root, f"plugins/{name}/skills/README.md", "fixture\n")
-        for script in ["public-safety.mjs", "verify-public-source.mjs"]:
+        for script in ["public-safety.mjs", "public-inventory.mjs", "verify-public-source.mjs"]:
             write(cls.root, f"scripts/{script}", (REPO / "scripts" / script).read_text(encoding="utf-8"))
         write(cls.root, "README.md", "first exact tree\n")
+        source_names = sorted(str(p.relative_to(cls.root)).replace('\\', '/')
+                              for p in cls.root.rglob('*') if p.is_file() and '.git' not in p.parts)
+        source_names.append('docs/PUBLIC-SOURCE-INVENTORY.json')
+        write(cls.root, 'docs/PUBLIC-SOURCE-INVENTORY.json', json.dumps({
+            'schemaVersion': 1, 'baselineCommit': 'a' * 40,
+            'files': [{'path': name, 'origin': 'synthetic-fixture'} for name in sorted(source_names)],
+            'mediaReviews': [],
+        }))
         cls.first = commit(cls.root, "first")
         write(cls.root, "README.md", "second exact tree\n")
         cls.second = commit(cls.root, "second")

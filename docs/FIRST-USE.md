@@ -1,6 +1,6 @@
 # First use / 첫 사용
 
-Run these script examples from a separate repository checkout, not by editing an installed plugin cache. Replace angle-bracket output placeholders with a new folder path and quote paths containing spaces. See [installation and updates](INSTALL-AND-UPDATE.md).
+Run the script examples from a separate repository checkout, not by editing an installed plugin cache. Replace angle-bracket output placeholders with a new folder path and quote paths containing spaces. The Daily Check row is a request for a new Codex task. See [installation and updates](INSTALL-AND-UPDATE.md).
 
 These are small, local starting tasks. They do not establish publication, production, or browser-proof claims.
 
@@ -9,10 +9,11 @@ These are small, local starting tasks. They do not establish publication, produc
 | K-Tech Radar | Run `node plugins/k-tech-radar/scripts/offline-demo.mjs`. | `node plugins/k-tech-radar/scripts/offline-demo.mjs`를 실행합니다. | Output says `SYNTHETIC — NOT FOR RESEARCH`, `networkUsed: false`, and `userDataWritten: false`. / 가상 데이터, 네트워크·사용자 데이터 미사용이 표시됩니다. | Check Node is available, then run from the repository root. Do not treat fixture output as a citation. / Node 설치와 저장소 루트를 확인하고, 결과를 실제 근거로 쓰지 않습니다. |
 | KGJ Design | Compare examples without changing either input: `python -X utf8 -B plugins/kgj-design/scripts/kgj_design.py preview-dna plugins/kgj-design/examples/dna/operations-console.json plugins/kgj-design/examples/dna/research-report.json --output <new-folder-outside-repo>`. | 입력을 바꾸지 않고 위 명령으로 DNA 미리보기를 만듭니다. | A new folder contains `index.html`, both CSS files, and `preview.json` with source hashes. / 새 폴더에 HTML, 두 CSS, 해시가 있는 JSON이 생깁니다. | Choose a new output folder; existing folders and stale expected hashes are rejected. / 새 출력 폴더를 쓰고, 기존 폴더·오래된 해시는 거부됩니다. |
 | Canvas Web Experiences | Create a small starter: `python -X utf8 -B plugins/canvas-web-experiences/scripts/create_canvas_starter.py --kind 2d --output <new-folder>`. | 작은 스타터를 만듭니다: 위 명령을 실행합니다. | A dependency-free starter with keyboard controls and semantic fallback is created. / 키보드 조작과 의미적 대체 경로가 있는 의존성 없는 스타터가 생성됩니다. | Use a non-existing output path whose parent exists; then run `node --check app.js` in the starter. / 부모 폴더가 있는 새 경로를 지정하고 생성 후 `node --check app.js`를 실행합니다. |
+| Codex Daily Check | In a new Codex task, ask: "Use Codex Daily Check to diagnose this session only. Do not repair settings or update the CLI." | 새 Codex 작업에서 요청합니다: "Codex Daily Check로 현재 세션을 진단만 해줘. 복구·설정 변경·CLI 업데이트는 실행하지 마." | Observed results distinguish failures, policy blocks, unavailable routes and missing evidence. Completion alone never means READY. New local receipts are saved only when the host supports the helpers. / 실제 실패·정책 차단·사용 불가·근거 미확인을 구분합니다. 진단 완료만으로 READY가 되지 않으며, 실행 환경이 도우미를 지원하면 새 로컬 보고서를 저장합니다. | If Python or a native/browser route is unavailable, keep that limit in a text checklist; do not install tools or invent a pass. Follow reported failures with a separately requested repair. / Python이나 앱·브라우저 조작 경로가 없으면 해당 한계를 명시한 목록을 받고, 도구를 설치하거나 통과로 바꾸지 않습니다. 복구는 실패 내역을 확인한 뒤 별도로 요청합니다. |
 
 ## Evaluation kit / 평가 키트
 
-`docs/evaluations/scenarios.json` defines 24 routed fixtures: five positive and three negative cases for each plugin, plus cross-plugin overlap prompts. They are expected-behavior definitions, not a claim that a model was evaluated.
+`docs/evaluations/scenarios.json` defines 32 routed fixtures across four plugins: five positive and three negative cases per plugin, plus four cross-plugin overlap prompts. They are expected-behavior definitions, not a claim that a model was evaluated. Daily Check cases include host fallback, command-only updates, approval boundaries and allowlisted sharing.
 
 After collecting real transcripts, run:
 

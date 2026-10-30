@@ -67,10 +67,10 @@ test("current runtime preserves tool contract and historical evaluation provenan
         readFile(join(pluginRoot, path), "utf8")
       )
     ]);
-  assert.equal(packageManifest.version, "0.4.0");
+  assert.equal(packageManifest.version, "0.4.1");
   assert.match(
     pluginManifest.version,
-    /^0\.4\.0(?:\+codex\.[a-z0-9-]+)?$/u
+    /^0\.4\.1(?:\+codex\.[a-z0-9-]+)?$/u
   );
   assert.equal(evals.pluginVersion, "0.3.0");
   const localTools = createMcpRuntime().tools.map(

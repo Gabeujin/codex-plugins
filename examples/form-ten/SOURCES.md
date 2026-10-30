@@ -14,6 +14,7 @@
 ## 외부 자산
 
 - `assets/cosmic-cliffs.png`: Image credit **NASA, ESA, CSA, STScI**. 위 NASA 원문에서 제공한 영상. [NASA 이미지 이용 지침](https://www.nasa.gov/nasa-brand-center/images-and-media/)에 따라 교육·정보 목적의 관측 영상 탐색에 사용하며 기관의 보증·제휴를 뜻하지 않습니다. 이 파일은 저장소 MIT 코드 라이선스로 재허가하지 않습니다.
+  배포본은 연락처·편집 이력이 들어갈 수 있는 PNG 텍스트 메타데이터를 제거했습니다. 영상의 픽셀과 크기·색상 프로필은 유지하며 위 출처와 크레딧은 계속 적용합니다.
 - `assets/NotoSansKR.ttf`: Noto Sans KR, [Google Fonts 원본](https://github.com/google/fonts/tree/main/ofl/notosanskr). SIL Open Font License 1.1. 원문 라이선스는 `assets/OFL.txt`에 포함합니다.
 - `thumbs/*.png`: 이 전시에서 파생한 내비게이션용 축소 이미지입니다. 검증 증거가 아닙니다. 07 이미지의 크레딧은 위와 같습니다.
 - 나머지 기하·노드·워크플로·숫자는 자체 작성한 설명용 모형 또는 합성 데이터입니다.

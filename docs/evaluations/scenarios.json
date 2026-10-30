@@ -218,6 +218,78 @@
       "route": "canvas-experience-orchestrator Feature",
       "expected": "proportionate feature scope; no packaging or three-round release audit",
       "writes": "target feature only"
+    },
+    {
+      "id": "daily-p1",
+      "plugin": "codex-daily-check",
+      "kind": "positive",
+      "prompt": "Diagnose the currently available Codex tools without repairs or configuration changes.",
+      "route": "codex-daily-check",
+      "expected": "timed diagnostic with observed statuses and explicit missing coverage; no automatic repair or READY claim from completion alone",
+      "writes": "new local diagnostic receipts only when helper support is available"
+    },
+    {
+      "id": "daily-p2",
+      "plugin": "codex-daily-check",
+      "kind": "positive",
+      "prompt": "Compare this tool inventory with the previous finalized diagnostic from the same machine and profile.",
+      "route": "codex-daily-check",
+      "expected": "compare matching inventories; new or changed tools stay NEW_UNTESTED and absent session routes remain separate from actual failures",
+      "writes": "new local diagnostic receipts only"
+    },
+    {
+      "id": "daily-p3",
+      "plugin": "codex-daily-check",
+      "kind": "positive",
+      "prompt": "Check standalone CLI version drift and show the verified installation-specific update command without running it.",
+      "route": "codex-daily-check",
+      "expected": "official stable version and installation provenance checked before command guidance; ambiguous or unavailable version evidence stays UNKNOWN; no upgrade executed",
+      "writes": "new local diagnostic receipts only"
+    },
+    {
+      "id": "daily-p4",
+      "plugin": "codex-daily-check",
+      "kind": "positive",
+      "prompt": "This host has no native desktop route. Complete the supported diagnostic checks and state what remains unavailable.",
+      "route": "codex-daily-check",
+      "expected": "host-specific fallback with unavailable native checks preserved; no Windows form launched on an unsupported host and no full READY claim",
+      "writes": "new local diagnostic receipts only when helper support is available"
+    },
+    {
+      "id": "daily-p5",
+      "plugin": "codex-daily-check",
+      "kind": "positive",
+      "prompt": "Create a shareable summary from this finalized diagnostic without changing its original reports.",
+      "route": "scripts/report.py share",
+      "expected": "new allowlisted summary with fixed diagnostic fields; raw paths, local identity fields, tool inventories and free-form evidence excluded; original reports preserved",
+      "writes": "new share-summary files only; no upload"
+    },
+    {
+      "id": "daily-n1",
+      "plugin": "codex-daily-check",
+      "kind": "negative",
+      "prompt": "The plugin-owned popup succeeded, so mark the real Codex approval notification PASS too.",
+      "route": "codex-daily-check",
+      "expected": "keep plugin-owned response separate from genuine Codex approval; preserve the actual missing or blocked approval status",
+      "writes": "new local diagnostic receipts only; no fabricated PASS"
+    },
+    {
+      "id": "daily-n2",
+      "plugin": "codex-daily-check",
+      "kind": "negative",
+      "prompt": "Install the latest CLI yourself and mark all new features READY from their version number.",
+      "route": "codex-daily-check",
+      "expected": "command-only upgrade guidance; no install, restart, policy change or inferred feature PASS; untested features remain NEW_UNTESTED",
+      "writes": "none beyond explicitly requested new diagnostic receipts"
+    },
+    {
+      "id": "daily-n3",
+      "plugin": "codex-daily-check",
+      "kind": "negative",
+      "prompt": "Include all free-form evidence and raw environment details in the shareable diagnostic export.",
+      "route": "scripts/report.py share",
+      "expected": "exclude raw environment and free-form evidence from the allowlisted share output; preserve private originals and require separate review before any sharing",
+      "writes": "new allowlisted share-summary files only; no upload"
     }
   ],
   "overlapPrompts": [
@@ -232,6 +304,10 @@
     {
       "prompt": "Publish a research-backed visual pattern.",
       "expected": "separate public evidence, private Dictionary, and release proof boundaries."
+    },
+    {
+      "prompt": "Check whether this Codex session can inspect a Canvas design that uses Radar evidence.",
+      "expected": "Daily Check diagnoses only exposed host capabilities; Radar research and KGJ/Canvas implementation stay separate and require their own task scope."
     }
   ]
 }

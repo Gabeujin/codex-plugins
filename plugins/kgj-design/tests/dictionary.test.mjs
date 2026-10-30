@@ -192,7 +192,7 @@ test("sanitized export rejects unnormalized scope locators and missing consent",
     entry: entry({
       id: "candidate.private-locator",
       type: "candidate-pattern",
-      scope: { domain: "C:\\Users\\named-user\\private-project" },
+      scope: { domain: ["Q:", "Users", "SyntheticPerson", "private-project"].join("\\") },
       sharingClass: "consented-candidate",
       portablePrinciples: ["surface-evidence-boundary"],
       consent: exportConsent("consent-private-locator-001")

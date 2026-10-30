@@ -165,7 +165,7 @@ test("quality gate requires an exact hash-pinned three-round 9.9 closeout", asyn
     /content-addressed evidence/
   );
   for (const unsafeOutput of [
-    "C:\\Users\\Administrator\\private\\review.log",
+    "Z:\\Synthetic\\private\\review.log",
     "Leak at /workspace/internal/review.log",
     "Leak at /root/internal/review.log",
     "Leak at /tmp/internal/review.log",

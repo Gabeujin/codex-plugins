@@ -9,7 +9,7 @@ const environment={...process.env,KGJ_DESIGN_DATA_DIR:path.join(isolated,'kgj'),
 const steps=[
  ['codex-daily-check','offline-readiness-regressions','python',['-X','utf8','-B','-m','unittest','discover','-s','tests','-v'],'plugins/codex-daily-check'],
  ['common','source',process.execPath,['scripts/verify-public-source.mjs'],'.'],
- ['common','security-and-adapter',process.execPath,['--test','scripts/public-safety.test.mjs','scripts/evidence-adapter.test.mjs'],'.'],
+ ['common','security-and-adapter',process.execPath,['--test','scripts/public-safety.test.mjs','scripts/public-inventory.test.mjs','scripts/doctor.test.mjs','docs/evaluations/scenarios.test.mjs','scripts/evidence-adapter.test.mjs'],'.'],
  ['common','artifact-and-rollback','python',['-X','utf8','-B','-m','unittest','discover','-s','scripts','-p','test_*.py','-v'],'.'],
  ['k-tech-radar','public-core-mutation-protocol',process.execPath,['scripts/test-public.mjs'],'plugins/k-tech-radar'],
  ['kgj-design','core-mutation-protocol',process.execPath,['--test','tests/*.test.mjs'],'plugins/kgj-design'],
