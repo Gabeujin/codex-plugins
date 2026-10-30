@@ -4,6 +4,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {inspectFile} from './public-safety.mjs';
+import {verifyPublicInventory} from './public-inventory.mjs';
 const args=process.argv.slice(2),index=args.indexOf('--directory');
 const root=index>=0?path.resolve(args[index+1]):fileURLToPath(new URL('../',import.meta.url));
 const mode=index>=0?'complete-directory':'git-tracked-source';
@@ -14,6 +15,14 @@ function walk(dir){for(const item of fs.readdirSync(dir,{withFileTypes:true})){
  if(item.isDirectory())walk(absolute);else files.push(name);
 }}
 if(index>=0)walk(root);else files=execFileSync('git',['ls-files','-z'],{cwd:root}).toString('utf8').split('\0').filter(Boolean);
+try {
+ const inventory=JSON.parse(fs.readFileSync(path.join(root,'docs/PUBLIC-SOURCE-INVENTORY.json'),'utf8'));
+ // 패키징 도구가 만드는 manifest를 제외한 공개 소스는 모두 검토 목록에 포함
+ const sourceFiles=index>=0?files.filter(name=>name!=='release-manifest.json'):files;
+ findings.push(...verifyPublicInventory(inventory,sourceFiles,name=>fs.readFileSync(path.join(root,name))));
+} catch {
+ findings.push({file:'docs/PUBLIC-SOURCE-INVENTORY.json',reasons:['public-inventory-missing-or-unreadable']});
+}
 for(const file of files){
  const absolute=path.join(root,file);
  let reasons;
@@ -34,5 +43,5 @@ try{
   }
  }
 }catch{findings.push({file:'.agents/plugins/marketplace.json',reasons:['structure-or-reference-error']});}
-console.log(JSON.stringify({schemaVersion:1,status:findings.length?'failed':'passed',mode,files:files.length,findings,scope:'Bounded credential and file-class heuristics, strict UTF-8, links and manifest references. Not a security guarantee; review newly added data.'},null,2));
+console.log(JSON.stringify({schemaVersion:1,status:findings.length?'failed':'passed',mode,files:files.length,findings,generatedManifest:index>=0&&files.includes('release-manifest.json')?'Excluded from source inventory; exact-commit binding requires package-release.py --check.':null,scope:'Reviewed source file inventory/provenance, hash-bound media review and bounded source heuristics. Declarations and static checks do not establish semantic privacy, ownership or history clearance.'},null,2));
 process.exitCode=findings.length?1:0;

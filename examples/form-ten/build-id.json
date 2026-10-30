@@ -1,7 +1,7 @@
 {
   "version": "3.0.0",
-  "buildId": "1a92021956209dd95fa3dfb512e61b2120ef36c20f97338f3665a53b6a7f4d3e",
-  "sourceHash": "1a92021956209dd95fa3dfb512e61b2120ef36c20f97338f3665a53b6a7f4d3e",
+  "buildId": "cf28b5a66fda6cd835760075fdcb6a160ad4b29f95a727b045aee5d4fd87b5d5",
+  "sourceHash": "cf28b5a66fda6cd835760075fdcb6a160ad4b29f95a727b045aee5d4fd87b5d5",
   "buildMode": "Unbundled native ES modules; served source equals executable build",
   "files": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "path": "assets/cosmic-cliffs.png",
-      "sha256": "9e691dbd7ba25c0eb9c62ce7ebfadbbd8b008a97ff58576608290eab51adbf24"
+      "sha256": "754e260dfbcaf8aee176e6502f07978561de9f76b8675d50682f68b8989030cc"
     },
     {
       "path": "assets/NotoSansKR.ttf",
@@ -70,7 +70,7 @@
     },
     {
       "path": "SOURCES.md",
-      "sha256": "f403d33ef0aa60307806b7b456e00cea124c79ad184014b7ee11acd6e73e43af"
+      "sha256": "3918811b4f5c3499969ab0757bd70b68a45249cd82861d18b2ab283697eba077"
     },
     {
       "path": "studies.js",

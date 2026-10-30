@@ -1,6 +1,6 @@
 # KGJ Design
 
-Current community marketplace version: **KGJ Design 1.6.1**, included in **v0.9.1**.
+Current community marketplace version: **KGJ Design 1.6.2**, included in **v0.10.0**.
 This patch adds conditional editor-feedback guidance for elastic object/group motion, dialog exits
 and visible toasts. See [release notes](../../docs/RELEASE-NOTES-0.9.1.md).
 
@@ -9,7 +9,7 @@ codex plugin marketplace upgrade gabeujin-plugins
 codex plugin add kgj-design@gabeujin-plugins
 ```
 
-Confirm version 1.6.1 and start a new Codex task after updating. `personal` is a separate source;
+Confirm version 1.6.2 and start a new Codex task after updating. `personal` is a separate source;
 its installation and private Dictionary are not switched by these commands.
 
 Install `kgj-design@gabeujin-plugins` using the [shared installation guide](https://github.com/Gabeujin/codex-plugins/blob/main/README.md). Existing users should read [updates and data preservation](https://github.com/Gabeujin/codex-plugins/blob/main/docs/INSTALL-AND-UPDATE.md). Copy-ready starter commands are in [First use](https://github.com/Gabeujin/codex-plugins/blob/main/docs/FIRST-USE.md).
@@ -140,7 +140,7 @@ checks including 200% zoom and long Korean content, a clean console, determinist
 and distinct marketplace/install/version/source-cache readback. An install audit compares every cache
 file with the package and fails on ignored executable residue. KGJ Design runs as an on-demand Codex
 stdio MCP process and opens no listener; if it later becomes a persistent local service, publish that
-service through the governed AX Store runtime workflow instead of desktop auto-start.
+service with explicit start/stop controls, scoped permissions and preserved user data. Do not add desktop auto-start implicitly.
 
 The optional fresh-session attestation workflow requires PowerShell and an operator-provided `Invoke-FreshCodexCli.ps1` under the user Codex scripts directory. This wrapper is not bundled. It is not required for ordinary local MCP use, DNA preview, or public unit tests; without it that particular attestation stays unverified.
 

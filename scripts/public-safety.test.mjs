@@ -17,3 +17,12 @@ test('new tests do not inherit an absolute-path exception',()=>{
  assert(inspectFile('plugins/k-tech-radar/tests/new.test.mjs',Buffer.from(value)).includes('developer-absolute-path'));
  assert(inspectFile('plugins/k-tech-radar/tests/new.test.mjs',Buffer.from(JSON.stringify(value))).includes('developer-absolute-path'));
 });
+test('user-directory rejection applies to synthetic non-default drive and account names',()=>{
+ const value=['Q:', 'Users', 'SyntheticPerson', 'example.txt'].join('/');
+ assert(inspectFile('docs/new-example.md',Buffer.from(value)).includes('developer-absolute-path'));
+});
+test('URL schemes are not Windows drive prefixes',()=>{
+ for(const value of ['file:///workspace/synthetic.txt','https://public.example.invalid/workspace/example']){
+  assert(!inspectFile('docs/synthetic-url.md',Buffer.from(value)).includes('developer-absolute-path'));
+ }
+});

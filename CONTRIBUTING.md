@@ -1,6 +1,6 @@
 # Contributing
 
-This public repository is the release source of truth for all three plugins. Bring changes from personal development copies as reviewed patches; never replace a plugin folder wholesale with a private working copy.
+This public repository is the release source of truth for the plugins listed in `.agents/plugins/marketplace.json`. Bring changes from personal development copies as reviewed patches; never replace a plugin folder wholesale with a private working copy.
 
 1. Create a branch and reproduce the issue using synthetic data. Keep runtime folders outside Git.
 2. Use maintained Node 22/24 and Python 3.12+. Run `node scripts/verify-release.mjs` from the repository root.

@@ -50,7 +50,7 @@ python -X utf8 -B scripts/check-data-compatibility.py current-release-manifest.j
 
 ## 버전 고정과 ZIP
 
-처음 등록할 때 `codex plugin marketplace add Gabeujin/codex-plugins --ref v0.9.1`으로 고정할 수 있습니다. 고정 태그는 upgrade해도 다음 태그로 바뀌지 않습니다. 이미 등록된 원본을 바꿀 때는 CLI 도움말과 현재 설정을 확인하고 변경 전 데이터를 보존하세요.
+처음 등록할 때 `codex plugin marketplace add Gabeujin/codex-plugins --ref v0.10.0`으로 고정할 수 있습니다. 고정 태그는 upgrade해도 다음 태그로 바뀌지 않습니다. 이미 등록된 원본을 바꿀 때는 CLI 도움말과 현재 설정을 확인하고 변경 전 데이터를 보존하세요.
 
 릴리스 ZIP은 테스트한 소스와 `release-manifest.json`을 담습니다. 새 폴더에 풀고 `codex plugin marketplace add <압축을-푼-폴더>`로 로컬 소스를 등록할 수도 있습니다. npm 의존성·빌드 산출물·개인 데이터는 들어 있지 않습니다. ZIP 검증은 해당 커밋이 있는 체크아웃에서 `python -X utf8 -B scripts/package-release.py --check <ZIP>`으로 실행합니다.
 

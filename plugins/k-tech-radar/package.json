@@ -1,6 +1,6 @@
 {
   "name": "k-tech-radar",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "private": true,
   "type": "module",
   "description": "Local MCP-backed index of official Korean technology blogs.",

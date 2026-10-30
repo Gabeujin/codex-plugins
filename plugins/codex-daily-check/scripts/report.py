@@ -20,6 +20,10 @@ ROWS = ('basic.exec','basic.utf8','versions','browser.interaction',
 LEGACY_ROWS = ('browser.interaction',)
 COMPUTER_ACTUAL_ROWS = ('computer.read','computer.input')
 REQUIRED = tuple(x for x in ROWS if x not in LEGACY_ROWS)
+SHARE_MAX_BYTES = 2 * 1024 * 1024
+SHARE_MAX_DEPTH = 32
+SHARE_MAX_NODES = 20_000
+SHARE_OVERALL = ('READY', 'PARTIAL', 'ATTENTION')
 
 def read(path):
     return json.loads(Path(path).read_text(encoding='utf-8', errors='strict'))
@@ -261,18 +265,141 @@ def finalize(run):
     save(run/'final.json',result)
     return {'overall':overview,'elapsedSeconds':elapsed,'report':str(run/'report.md')}
 
+def share_unique_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError('Duplicate JSON key in share input')
+        result[key] = value
+    return result
+
+def share_finite_number(value):
+    number = float(value)
+    if not math.isfinite(number):
+        raise ValueError('Non-finite number in share input')
+    return number
+
+def share_invalid_constant(value):
+    raise ValueError('Non-standard JSON number in share input')
+
+def read_share_source(run):
+    source = Path(run) / 'final.json'
+    if source.is_symlink() or not source.is_file():
+        raise ValueError('A regular finalized receipt is required')
+    with source.open('rb') as stream:
+        payload = stream.read(SHARE_MAX_BYTES + 1)
+    if len(payload) > SHARE_MAX_BYTES:
+        raise ValueError('Share input exceeds the size limit')
+    try:
+        value = json.loads(payload.decode('utf-8', errors='strict'),
+                           object_pairs_hook=share_unique_object,
+                           parse_float=share_finite_number,
+                           parse_constant=share_invalid_constant)
+    except (UnicodeError, RecursionError) as error:
+        raise ValueError('Invalid share input encoding or nesting') from error
+    # 제외할 필드도 구조 한도를 확인해 과도한 중첩이나 손상된 문자열을 받지 않음
+    pending = [(value, 0)]
+    inspected = 0
+    while pending:
+        item, depth = pending.pop()
+        inspected += 1
+        if depth > SHARE_MAX_DEPTH or inspected > SHARE_MAX_NODES:
+            raise ValueError('Share input exceeds the structure limit')
+        if isinstance(item, dict):
+            pending.extend((part, depth + 1) for pair in item.items() for part in pair)
+        elif isinstance(item, list):
+            pending.extend((part, depth + 1) for part in item)
+        elif isinstance(item, str) and any(ord(char) == 0xfffd or 0xd800 <= ord(char) <= 0xdfff for char in item):
+            raise ValueError('Invalid Unicode in share input')
+    return value
+
+def share_projection(value):
+    if not isinstance(value, dict) or type(value.get('schemaVersion')) is not int or value['schemaVersion'] != 1:
+        raise ValueError('Unsupported finalized receipt schema')
+    checks = value.get('checks')
+    if not isinstance(checks, dict) or set(checks) != set(ROWS):
+        raise ValueError('Finalized receipt must contain exactly the known checks')
+    overall = value.get('overall')
+    if not isinstance(overall, str) or overall not in SHARE_OVERALL:
+        raise ValueError('Invalid overall status')
+    # 공유본에는 시간을 싣지 않지만 원본의 시간 판정이 전체 상태와 맞는지 확인
+    elapsed = value.get('elapsedSeconds')
+    within = value.get('withinFiveMinutes')
+    timing = value.get('timingStatus')
+    if type(elapsed) not in (int, float) or (isinstance(elapsed, float) and not math.isfinite(elapsed)):
+        raise ValueError('Invalid elapsed time')
+    expected_within = 0 <= elapsed <= 300
+    expected_timing = 'WITHIN_TARGET' if expected_within else 'OVER_BUDGET_OR_CLOCK_CHANGE'
+    if type(within) is not bool or within != expected_within or timing != expected_timing:
+        raise ValueError('Conflicting timing fields')
+    if not within and overall != 'ATTENTION':
+        raise ValueError('Overall status conflicts with the timing result')
+    # 원본 객체를 복사하지 않고 공개 가능한 ID와 상태만 새 객체로 구성
+    rows = {}
+    for check_id in ROWS:
+        item = checks[check_id]
+        if not isinstance(item, dict) or item.get('id') != check_id:
+            raise ValueError('Invalid check identity')
+        status = item.get('status')
+        if not isinstance(status, str) or status not in STATUSES:
+            raise ValueError('Invalid check status')
+        rows[check_id] = {'id':check_id, 'status':status}
+    if overall == 'READY' and any(rows[key]['status'] != 'PASS' for key in REQUIRED):
+        raise ValueError('READY conflicts with the required check statuses')
+    if overall != 'ATTENTION' and any(item['status'] == 'FAIL' for item in rows.values()):
+        raise ValueError('Overall status conflicts with a failed check')
+    return {'schemaVersion':1, 'reportType':'codex-daily-check-share',
+            'overall':overall, 'checks':list(rows.values()),
+            'counts':summarize_results(rows)['counts']}
+
+def share_markdown(value):
+    counts = value['counts']
+    lines = ['# Codex Daily Check 공유 요약', '', f"상태: **{value['overall']}**", '',
+             '호출자가 기록한 점검 상태를 요약했습니다. 독립 인증이나 전체 기능의 정상 동작을 보장하지 않습니다.',
+             '자유 입력 근거, 경로, URL, 시각, 도구 이름, 시스템 정보는 포함하지 않습니다.', '',
+             f"전체 {counts['totalRows']:,}건 · 통과 {counts['passedRows']:,}건 · 실제 실패 {counts['actualFailures']:,}건 · 차단 {counts['blocked']:,}건 · 근거 미확인 {counts['missingEvidence']:,}건 · 세션 사용 불가 {counts['sessionUnavailable']:,}건", '',
+             '| 점검 ID | 결과 |', '| --- | --- |']
+    lines.extend(f"| {item['id']} | {item['status']} |" for item in value['checks'])
+    return '\n'.join(lines) + '\n'
+
+def export_share(run, output):
+    run = Path(run).resolve()
+    output = Path(output)
+    if output.exists() or output.is_symlink():
+        raise FileExistsError('Share output already exists')
+    output = output.resolve()
+    if output == run or run in output.parents:
+        raise ValueError('Share output must be outside the original run')
+    value = share_projection(read_share_source(run))
+    markdown = share_markdown(value)
+    # 입력 검사를 마친 뒤 새 폴더만 생성하며 실패한 출력도 자동 삭제하지 않음
+    output.mkdir(parents=True, exist_ok=False)
+    save(output / 'share.json', value)
+    with (output / 'share.md').open('x', encoding='utf-8', newline='\n') as stream:
+        stream.write(markdown)
+    if (output / 'share.md').read_text(encoding='utf-8', errors='strict') != markdown:
+        raise ValueError('Share Markdown readback mismatch')
+    return {'status':'EXPORTED', 'files':['share.json', 'share.md']}
+
 def main():
+    # 공유본은 명시적인 별도 명령에서만 생성하고 기존 원본 보고서 명령은 유지
     parser = argparse.ArgumentParser()
     subs = parser.add_subparsers(dest='command',required=True)
     p = subs.add_parser('start'); p.add_argument('--root',required=True); p.add_argument('--capabilities'); p.add_argument('--computer-installed',action='store_true'); p.add_argument('--started-epoch',type=float)
     p = subs.add_parser('record'); p.add_argument('run'); p.add_argument('--id',required=True,choices=ROWS); p.add_argument('--status',required=True,choices=STATUSES); p.add_argument('--evidence',required=True)
     p = subs.add_parser('record-batch'); p.add_argument('run'); p.add_argument('--input',required=True)
     p = subs.add_parser('finalize'); p.add_argument('run')
+    p = subs.add_parser('share'); p.add_argument('run'); p.add_argument('--output',required=True)
     args = parser.parse_args()
     if args.command=='start': result=start(args.root,args.capabilities,args.computer_installed,args.started_epoch)
     elif args.command=='record': result=record(args.run,args.id,args.status,args.evidence)
     elif args.command=='record-batch': result=record_batch(args.run,read(args.input))
-    else: result=finalize(args.run)
+    elif args.command=='finalize': result=finalize(args.run)
+    else:
+        try:
+            result=export_share(args.run,args.output)
+        except (ValueError, OSError):
+            parser.exit(2, 'Share export failed; use a valid finalized receipt and a new output directory.\n')
     print(json.dumps(result,ensure_ascii=True))
 
 if __name__=='__main__': main()

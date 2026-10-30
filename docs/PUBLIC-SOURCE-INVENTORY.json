@@ -1,0 +1,1922 @@
+{
+  "schemaVersion": 1,
+  "baselineCommit": "02c8425b13587561cea0fcec79259e289a559162",
+  "files": [
+    {
+      "path": ".agents/plugins/marketplace.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": ".gitattributes",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": ".github/CODEOWNERS",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": ".github/workflows/verify.yml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": ".gitignore",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "LICENSE",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "README.md",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "SECURITY.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "SUPPORT.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/BROWSER-TESTING.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/DAILY-CHECK-REVIEW.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/DISTRIBUTION.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/EVIDENCE-ADAPTER.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/FIRST-USE.md",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "docs/INSTALL-AND-UPDATE.md",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "docs/KGJ-EDITOR-FEEDBACK.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/PUBLIC-SOURCE-INVENTORY.json",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "docs/PUBLIC-SOURCE-REVIEW.md",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "docs/RELEASE-NOTES-0.10.0.md",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "docs/RELEASE-NOTES-0.5.0.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/RELEASE-NOTES-0.6.0.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/RELEASE-NOTES-0.7.0.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/RELEASE-NOTES-0.7.1.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/RELEASE-NOTES-0.8.0.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/RELEASE-NOTES-0.9.0.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/RELEASE-NOTES-0.9.1.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/RELEASING.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/RUNTIME-SUPPORT.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/evaluations/run-transcript-evaluation.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "docs/evaluations/scenarios.json",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "docs/evaluations/scenarios.test.mjs",
+      "origin": "synthetic-fixture"
+    },
+    {
+      "path": "examples/form-ten/README.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/SOURCES.md",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "examples/form-ten/app.js",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/assets/NotoSansKR.ttf",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/assets/OFL.txt",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/assets/cosmic-cliffs.png",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "examples/form-ten/build-id.json",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "examples/form-ten/build.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/favicon.svg",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/gpu.js",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/index.html",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/kgj-tokens.css",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/mesh.js",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/package.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/prompt-v3.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/runtime.js",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/scenes.js",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/server.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/studies.js",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/style.css",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/thumbs/01.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/thumbs/02.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/thumbs/03.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/thumbs/04.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/thumbs/05.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/thumbs/06.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/thumbs/07.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/thumbs/08.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/thumbs/09.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "examples/form-ten/thumbs/10.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/.codex-plugin/plugin.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/ATTRIBUTIONS.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/LICENSE",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/README.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/assets/templates/canvas-architecture-decision.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/assets/templates/canvas-experience-spec.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/assets/templates/canvas-feature-brief.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/assets/templates/canvas-qa-ledger.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/assets/templates/one-call-receipt.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/canvas-experience.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/README.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/index.html",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/package-lock.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/package.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/playwright.config.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/assets/commerce-scene-plate.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/assets/signal-runner-scene-plate.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/assets/signal-runner-sprites.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/assets/spatial-lamp.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/concepts/concept-atlas-expression-data.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/concepts/concept-atlas-spatial-operations.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/concepts/concept-atlas-worldmaking.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/concepts/concept-mobile-interaction-states.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/concepts/html-in-canvas-architecture-triptych-v3-20260824.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/concepts/html-in-canvas-reconcept-triptych-20260824.png",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/favicon.svg",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/App.tsx",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/catalog.test.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/catalog.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/main.tsx",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/mathml.d.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/commerceMetrics.test.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/demoMetrics.test.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/demoMetrics.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/experiencePath.test.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/experiencePath.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/format.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/htmlInCanvas.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/interactionContracts.test.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/interactionContracts.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/responsiveTransformGuard.test.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/responsiveTransformGuard.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/runtime.test.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/sceneKeyboard.test.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/sceneKeyboard.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/surfaceBindings.test.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/surfaceBindings.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/surfaceCatalog.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/runtime/surfaceExpansion.test.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/scene/Canvas2dSurface.tsx",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/scene/WebGLSurface.tsx",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/scene/WebGpuSurface.tsx",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/scene/WorkerSurface.tsx",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/scene/canvas2dCompositePlan.test.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/scene/canvas2dCompositePlan.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/scene/drawScene.diagram.test.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/scene/drawScene.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/scene/productMesh.test.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/scene/productMesh.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/scene/workerLifecycle.test.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/scene/workerRetirement.test.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/styles.css",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/surface/DomainHtmlSurface.tsx",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/surface/SemanticDomainSurface.tsx",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/surface/SurfacePipelineHud.tsx",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/surface/surfaceContracts.test.tsx",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/types.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/src/workers/htmlSurface.worker.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/tests/browser/stable-fallback.spec.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/tsconfig.app.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/tsconfig.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/tsconfig.node.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/vite.config.ts",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/references/architecture-patterns.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/references/codebase-catalog.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/references/demo-modernization-ledger-v3.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/references/design-quality-system.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/references/domain-routing.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/references/early-adopter-playbook.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/references/html-in-canvas-capability-contract-v2.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/references/html-in-canvas-recipes.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/references/official-sources.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/references/one-shot-operating-system.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/references/qa-gates.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/references/source-catalog.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/references/task-first-improvement-contract.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/references/work-ontology.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/schemas/canvas-experience.schema.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/schemas/one-call-receipt.schema.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/scripts/canvas_experience.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/scripts/check_canvas_sources.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/scripts/create_canvas_starter.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/scripts/package_canvas_plugin.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/scripts/query_canvas_catalog.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/scripts/test_canvas_experience.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/scripts/test_create_canvas_starter.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/scripts/test_package_canvas_plugin.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/scripts/validate_canvas_plugin.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/scripts/validate_public_source.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-2d-graphics/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-2d-graphics/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-3d-spatial/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-3d-spatial/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-demo-lab/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-demo-lab/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-experience-design/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-experience-design/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-experience-orchestrator/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-experience-orchestrator/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-html-in-canvas/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-html-in-canvas/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-maps-diagrams/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-maps-diagrams/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-project-router/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-project-router/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-quality-audit/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-quality-audit/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-runtime-architecture/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/skills/canvas-runtime-architecture/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/starters/README.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/codex-daily-check/.codex-plugin/plugin.json",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/codex-daily-check/README.md",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/codex-daily-check/assets/browser-check.html",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/codex-daily-check/scripts/native-notification.ps1",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/codex-daily-check/scripts/probe.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/codex-daily-check/scripts/report.py",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/codex-daily-check/skills/codex-daily-check/SKILL.md",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/codex-daily-check/skills/codex-daily-check/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/codex-daily-check/skills/codex-daily-check/references/cli-update.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/codex-daily-check/skills/codex-daily-check/references/recovery.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/codex-daily-check/tests/test_native_notification.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/codex-daily-check/tests/test_probe.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/codex-daily-check/tests/test_report.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/codex-daily-check/tests/test_share_report.py",
+      "origin": "synthetic-fixture"
+    },
+    {
+      "path": "plugins/k-tech-radar/.codex-plugin/plugin.json",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/k-tech-radar/.dockerignore",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/.github/workflows/ci.yml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/.mcp.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/CHANGELOG.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/LICENSE",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/QUALITY-GATE.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/README.md",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/k-tech-radar/SECURITY.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/THIRD_PARTY_NOTICES.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/assets/radar-mark.svg",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/config/public-release-files.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/config/sources.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/PUBLIC-SNAPSHOT-MANIFEST.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/catalog.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/dictionary.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/insight-runs.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/partitions/banksalad-tech/articles.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/partitions/kakao-tech/articles.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/partitions/kakaopay-tech/articles.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/partitions/kurly-helloworld/articles.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/partitions/lycorp-tech-ko/articles.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/partitions/naver-d2/articles.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/partitions/socar-tech/articles.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/partitions/toss-tech/articles.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/partitions/woowahan-tech/articles.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/search-index.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/snapshot.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/data/source-state.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/deployment/Dockerfile",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/docs/ARCHITECTURE.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/docs/DATA-GOVERNANCE.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/docs/DISTRIBUTION.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/docs/PRIVACY.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/docs/SUPPORT.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/docs/TERMS.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/collector.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/dictionary.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/engine.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/http.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/index.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/insight-runs.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/integrity.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/mutations.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/parsers.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/paths.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/public-data.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/public-export.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/quality-score.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/review-evidence.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/taxonomy.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/text.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/watch-brief.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/lib/work-identity.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/mcp/http-server.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/mcp/http-transport.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/mcp/output-schemas.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/mcp/runtime.mjs",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/k-tech-radar/mcp/server.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/ontology/domain-taxonomy.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/ontology/ontology.schema.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/package-lock.json",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/k-tech-radar/package.json",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/k-tech-radar/sbom.cdx.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/scripts/build-public-release-v3.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/scripts/build-public-release.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/scripts/check-quality-gate.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/scripts/export-public-snapshot.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/scripts/migrate-v3-data.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/scripts/offline-demo.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/scripts/offline-test-guard.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/scripts/query-catalog.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/scripts/refresh-catalog.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/scripts/scan-secrets.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/scripts/seed-public-data.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/scripts/test-public.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/scripts/verify.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/scripts/watch-topic.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/skills/apply-k-tech-insights/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/skills/apply-k-tech-insights/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/skills/apply-k-tech-insights/references/fusion-and-application-contract.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/skills/maintain-k-tech-catalog/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/skills/maintain-k-tech-catalog/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/skills/maintain-k-tech-catalog/references/source-and-curation-policy.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/skills/research-k-tech-blogs/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/skills/research-k-tech-blogs/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/skills/research-k-tech-blogs/references/evidence-response-contract.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/submission/annotation-justifications.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/submission/evals.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/submission/publication-checklist.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/submission/release-notes.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/collector.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/dictionary-ledger.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/dictionary-legacy-recommit.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/dictionary.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/fusion.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/helpers/synthetic-store.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/http.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/insight-runs.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/integrity.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/mcp.test.mjs",
+      "origin": "synthetic-fixture"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/mutations.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/offline-guard.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/output-schemas.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/parsers.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/paths.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/public-export.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/public-http.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/public-release.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/quality-gate.test.mjs",
+      "origin": "synthetic-fixture"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/release.test.mjs",
+      "origin": "synthetic-fixture"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/taxonomy.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/trust-boundary.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/verify-commit-ledger.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/k-tech-radar/tests/watch-brief.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/.codex-plugin/plugin.json",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/kgj-design/.mcp.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/LICENSE",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/README.md",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/kgj-design/assets/demo/app.js",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/assets/demo/index.html",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/assets/demo/styles.css",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/assets/templates/html-report/index.html",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/assets/templates/markdown-artifact.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/data/prompts/design-sample-suite.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/data/templates/benchmark-run.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/data/templates/decision-record.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/data/templates/design-brief.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/data/templates/evidence-registry.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/data/templates/expert-review.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/data/templates/interaction-motion-spec.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/data/templates/pattern-candidate.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/data/templates/product-dna.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/data/templates/project-contract.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/data/templates/quality-ledger.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/data/templates/reference-evidence.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/examples/compiled/operations-console.css",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/examples/compiled/research-report.css",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/examples/compiled/spatial-studio.css",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/examples/dna/operations-console.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/examples/dna/regulated-operations.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/examples/dna/research-report.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/examples/dna/spatial-studio.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/examples/offline-mcp-example.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/lib/dictionary.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/lib/evidence.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/lib/integrity.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/lib/json-schema-lite.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/lib/paths.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/mcp/runtime.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/mcp/server.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/ontology/kgj-ontology.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/package.json",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/kgj-design/references/accessibility-and-data.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/architecture.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/artwork-inspection-contract.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/design-benchmark-evaluation.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/editor-feedback-and-elastic-motion.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/evolution-governance.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/expert-review-board.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/interaction-and-motion.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/interaction-motion-system.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/motion-and-spatial-review.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/ontology-and-dictionary.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/pattern-lifecycle.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/product-dna.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/productization-insights.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/project-contract-and-evidence.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/quality-gates.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/quality-rubric.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/reference-evidence-and-safety.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/schemas/dictionary-entry.schema.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/schemas/evidence-registry.schema.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/schemas/expert-review.schema.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/schemas/pattern-candidate.schema.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/schemas/product-dna.schema.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/schemas/project-contract.schema.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/schemas/quality-ledger.schema.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/source-adaptation-records.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/source-catalog.json",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/token-system.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/typography-and-content.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/web-output-contracts.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/scripts/Invoke-KgjBrowserReplay.ps1",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/scripts/kgj_attest.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/scripts/kgj_design.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/scripts/kgj_dictionary.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/scripts/verify-public-package.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/adopt-kgj-design/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/adopt-kgj-design/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/audit-kgj-design/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/audit-kgj-design/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/conduct-kgj-design-review/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/conduct-kgj-design-review/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/curate-kgj-dictionary/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/curate-kgj-dictionary/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/design-html-report/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/design-html-report/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/design-markdown-artifact/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/design-markdown-artifact/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/design-web-experience/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/design-web-experience/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/evolve-kgj-design/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/evolve-kgj-design/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/govern-design-patterns/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/govern-design-patterns/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/inherit-product-dna/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/inherit-product-dna/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/kgj-design-orchestrator/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/kgj-design-orchestrator/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/review-korean-design-copy/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/review-korean-design-copy/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/review-korean-design-copy/references/korean-copy-review.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/review-korean-design-copy/references/korean-typography.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/run-design-sample-benchmark/SKILL.md",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/skills/run-design-sample-benchmark/agents/openai.yaml",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/tests/browser/round2-replay.js",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/tests/dictionary.test.mjs",
+      "origin": "synthetic-fixture"
+    },
+    {
+      "path": "plugins/kgj-design/tests/mcp.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/tests/test_kgj_design.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/tests/windows-process-identity.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "scripts/check-data-compatibility.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "scripts/doctor.mjs",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "scripts/doctor.ps1",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "scripts/doctor.test.mjs",
+      "origin": "synthetic-fixture"
+    },
+    {
+      "path": "scripts/evidence-adapter.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "scripts/evidence-adapter.test.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "scripts/package-release.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "scripts/public-inventory.mjs",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "scripts/public-inventory.test.mjs",
+      "origin": "synthetic-fixture"
+    },
+    {
+      "path": "scripts/public-safety.mjs",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "scripts/public-safety.test.mjs",
+      "origin": "synthetic-fixture"
+    },
+    {
+      "path": "scripts/test-canvas-browser.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "scripts/test-form-ten.mjs",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "scripts/test_data_compatibility.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "scripts/test_package_release.py",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "scripts/verify-installed.py",
+      "origin": "existing-public-repository"
+    },
+    {
+      "path": "scripts/verify-public-source.mjs",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "scripts/verify-release.mjs",
+      "origin": "public-repository-change"
+    }
+  ],
+  "mediaReviews": [
+    {
+      "path": "examples/form-ten/assets/NotoSansKR.ttf",
+      "sha256": "194018e6b2b293a7964f037b25c0249ce1418bc9ab3c971060a03aa57861e252",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "examples/form-ten/SOURCES.md"
+    },
+    {
+      "path": "examples/form-ten/assets/cosmic-cliffs.png",
+      "sha256": "754e260dfbcaf8aee176e6502f07978561de9f76b8675d50682f68b8989030cc",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "examples/form-ten/SOURCES.md"
+    },
+    {
+      "path": "examples/form-ten/thumbs/01.png",
+      "sha256": "50af2febd93c6a682ebd4b134bec72f2e6964627094ae1ea258cb9ad56bed859",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "examples/form-ten/SOURCES.md"
+    },
+    {
+      "path": "examples/form-ten/thumbs/02.png",
+      "sha256": "0ede8829dfafe9807fead34546aa8810710e9acfbd882a2e46b99228a87cc299",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "examples/form-ten/SOURCES.md"
+    },
+    {
+      "path": "examples/form-ten/thumbs/03.png",
+      "sha256": "0d371a316bb285aea197df8e09a834093ce5ce54f549991eee09c39dfb33ca09",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "examples/form-ten/SOURCES.md"
+    },
+    {
+      "path": "examples/form-ten/thumbs/04.png",
+      "sha256": "d5b3feaefb6d0a03acd24acd43d3291a628c43f79a3895d73a0c26f330bd7685",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "examples/form-ten/SOURCES.md"
+    },
+    {
+      "path": "examples/form-ten/thumbs/05.png",
+      "sha256": "72f14ac37c889fc1ef728d39300a7eeee28e486daa7049f68ae19b2fae2a4a35",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "examples/form-ten/SOURCES.md"
+    },
+    {
+      "path": "examples/form-ten/thumbs/06.png",
+      "sha256": "2cc9c0d199009af171c4c416ac3755fd9f8f9e46e110f0df5117c6d63f6d952f",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "examples/form-ten/SOURCES.md"
+    },
+    {
+      "path": "examples/form-ten/thumbs/07.png",
+      "sha256": "b57908aa582ebebe1154e2348045d92654841a951f3e949ff19967447c2ad047",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "examples/form-ten/SOURCES.md"
+    },
+    {
+      "path": "examples/form-ten/thumbs/08.png",
+      "sha256": "6587484b0f2acb8c675a0b2c967906e7410eb5b2ba2d73b305758d621adf97ab",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "examples/form-ten/SOURCES.md"
+    },
+    {
+      "path": "examples/form-ten/thumbs/09.png",
+      "sha256": "fbadfeed5e41834c4514d4a05173303dd86c4742cb73ace751287a4c5c729fe3",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "examples/form-ten/SOURCES.md"
+    },
+    {
+      "path": "examples/form-ten/thumbs/10.png",
+      "sha256": "386d85f3144aa8ab33c68b9b1dc64a400734b5b6bc64d5c3d44e5145cd60f938",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "examples/form-ten/SOURCES.md"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/assets/commerce-scene-plate.png",
+      "sha256": "34c9b53fc4a078fb9319a1788847c48af42b120bb5646d2f2d7a099836dba58d",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "plugins/canvas-web-experiences/README.md"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/assets/signal-runner-scene-plate.png",
+      "sha256": "23eec4c4c3d025cdf4b26b9f92d5fc268c80d40039a0664079ead4fd97a469d6",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "plugins/canvas-web-experiences/README.md"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/assets/signal-runner-sprites.png",
+      "sha256": "0d729bbeea7c311b2533c047de4f190a14b08e01f51d31578777aac6d0e4d2fe",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "plugins/canvas-web-experiences/README.md"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/assets/spatial-lamp.png",
+      "sha256": "62082bb38de8e66b25fa16ca8038f1502f784fb5e2b0839aeba96d9e441d53fb",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "plugins/canvas-web-experiences/README.md"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/concepts/concept-atlas-expression-data.png",
+      "sha256": "97d4f4651bf8cc223b4c277ec04ec95c52de7bb27ff515bcb9b128ac8e378e54",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "plugins/canvas-web-experiences/README.md"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/concepts/concept-atlas-spatial-operations.png",
+      "sha256": "8545f63584bbacdb1a7f3f06dc814b2626ccf99662f3f7f971e1027b117ad41c",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "plugins/canvas-web-experiences/README.md"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/concepts/concept-atlas-worldmaking.png",
+      "sha256": "32e72e77ac9aaa3fa4838a08e8db68bca636e98f68f866213103c22c8c835eec",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "plugins/canvas-web-experiences/README.md"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/concepts/concept-mobile-interaction-states.png",
+      "sha256": "f9f92b37d5a6b31f90d536aca3dec6ed2f285769596f1bcece3a738d477ea07b",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "plugins/canvas-web-experiences/README.md"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/concepts/html-in-canvas-architecture-triptych-v3-20260824.png",
+      "sha256": "71df78b2c5bb712aeadce28dad5883f9038e6fb9c523bf31ecb03b90d13251ad",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "plugins/canvas-web-experiences/README.md"
+    },
+    {
+      "path": "plugins/canvas-web-experiences/demo/public/concepts/html-in-canvas-reconcept-triptych-20260824.png",
+      "sha256": "072dfd552d6b74c6af07fa661ee79f0e7f2b9478772a4fca646ac640fc70f567",
+      "reviewedOn": "2026-10-30",
+      "review": "content-and-metadata-reviewed",
+      "sourceReference": "plugins/canvas-web-experiences/README.md"
+    }
+  ]
+}

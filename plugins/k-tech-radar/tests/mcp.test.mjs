@@ -71,7 +71,8 @@ test("MCP server initializes and exposes the expected tools", async (t) => {
   }
 
   assert.equal(responses.get(1)?.result?.serverInfo?.name, "k-tech-radar");
-  assert.equal(responses.get(1)?.result?.serverInfo?.version, "0.4.0");
+  const manifest = JSON.parse(await readFile(join(pluginRoot, ".codex-plugin", "plugin.json"), "utf8"));
+  assert.equal(responses.get(1)?.result?.serverInfo?.version, manifest.version);
   assert.equal(responses.get(1)?.result?.protocolVersion, "2025-11-25");
   assert.match(
     responses.get(1)?.result?.instructions ?? "",

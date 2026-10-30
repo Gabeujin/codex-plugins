@@ -15,8 +15,7 @@ export function inspectFile(name,bytes){
   if(credentials.test(text))errors.push('potential-credential');
   // Developer-machine identifiers are never needed in a published source tree.
   // Explicit negative parser fixtures are reviewed separately, not blanket-exempted for secrets.
-  const knownPathFixture=name==='plugins/k-tech-radar/tests/quality-gate.test.mjs'&&createHash('sha256').update(bytes).digest('hex')==='a3c6b3eb4cf454c8fd2841a69362338adf76269c341c1e48f251d78fa3676aea';
-  if(!knownPathFixture&&/(?:C:[\\/]+Users[\\/]+(?:Administrator|ADMINI~1)|D:[\\/]+workspace[\\/]+)/i.test(text))errors.push('developer-absolute-path');
+  if(/(?:\b[A-Z]:[\\/]+Users[\\/]+[^\\/\s"']+|\b[A-Z]:[\\/]+workspace[\\/]+)/i.test(text))errors.push('developer-absolute-path');
  }
  return errors;
 }
