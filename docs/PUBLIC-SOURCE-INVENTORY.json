@@ -32,7 +32,7 @@
     },
     {
       "path": ".github/workflows/verify.yml",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": ".gitignore",
