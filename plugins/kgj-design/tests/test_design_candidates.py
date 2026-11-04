@@ -240,6 +240,22 @@ class DesignCandidateTests(unittest.TestCase):
         self.packet["brief"]["path"] = "linked.md"
         self.assert_invalid(self.packet)
 
+    def test_packet_root_symlink_alias_uses_canonical_root(self):
+        alias = Path(tempfile.mkdtemp(prefix="kgj-candidate-root-alias-")) / "packet-root"
+        try:
+            alias.symlink_to(self.root, target_is_directory=True)
+        except (OSError, NotImplementedError):
+            self.skipTest("Host does not permit synthetic directory symlink creation.")
+        # 패킷 루트의 별칭 허용을 내부 산출물 링크 차단과 구별해 검증
+        result = REVIEW.evaluate(self.packet, alias)
+        self.assertEqual((result["status"], result["selectedCandidate"]), ("ranked", "candidate-d"))
+        (self.root / "packet.json").write_text(json.dumps(self.packet), encoding="utf-8")
+        run = subprocess.run([sys.executable, "-B", str(SCRIPT), str(alias / "packet.json")],
+                             capture_output=True, encoding="utf-8", timeout=20)
+        self.assertEqual(run.returncode, 0)
+        self.assertEqual(json.loads(run.stdout)["selectedCandidate"], "candidate-d")
+        self.assertEqual(run.stderr, "")
+
     def test_strict_reader_rejects_malformed_duplicate_nonfinite_and_unicode(self):
         payloads = [b'{', b'{"key":1,"key":2}', b'{"value":NaN}', b'{"value":Infinity}',
                     b'{"value":1e999}', b'"\xff"', b'"\\ud800"', b'"\\u0000"', b'"\\ufffd"']

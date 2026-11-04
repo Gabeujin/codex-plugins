@@ -87,8 +87,9 @@ def binding(value, root):
             ":" not in name and not name.startswith("/") and
             all(p not in ("", ".", "..") for p in name.split("/")), "ARTIFACT_PATH")
     require(type(value["sha256"]) is str and HEX.fullmatch(value["sha256"]), "ARTIFACT_HASH")
-    target = root.joinpath(*PurePosixPath(name).parts)
     try:
+        root = root.resolve(strict=True)
+        target = root.joinpath(*PurePosixPath(name).parts)
         # 패킷 밖의 파일이나 링크를 따라 개인 자료를 읽지 않도록 실제 대상을 제한
         require(not any(p.is_symlink() or (hasattr(p, "is_junction") and p.is_junction())
                         for p in (target, *target.parents)), "ARTIFACT_LINK")
