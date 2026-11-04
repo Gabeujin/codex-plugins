@@ -7,6 +7,11 @@ description: Select and orchestrate evidence-bound expert reviewers for a KGJ De
 
 Use this skill when a product or plugin needs an independent, cross-examined expert review before the KGJ 9.9 gate.
 
+Pre-implementation UI R&D uses the separate
+[five-lens candidate comparison](../../references/design-candidate-workflow.md). Its design scores
+do not replace this release board, expand its 2–4-role schema, or close any release check. During
+development, attach negative-review findings and fixes to the original task and affected round.
+
 ## Required references
 
 Read these files completely before starting:

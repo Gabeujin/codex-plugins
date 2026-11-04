@@ -1,0 +1,600 @@
+{
+  "schemaVersion": "1.0",
+  "rubricVersion": "kgj-candidates-1.0",
+  "taskId": "original-task",
+  "authorId": "maker-local",
+  "brief": {
+    "path": "brief.md",
+    "sha256": "replace-with-actual-sha256"
+  },
+  "candidates": [
+    {
+      "id": "draft-alpha",
+      "direction": "Describe a distinct design direction",
+      "distinction": "Explain structural differences against the same frozen brief",
+      "source": [
+        {
+          "path": "alpha/prototype.html",
+          "sha256": "replace-with-actual-sha256"
+        }
+      ],
+      "assets": [
+        {
+          "id": "main-art",
+          "purpose": "Explain the relevant asset role",
+          "variants": [
+            {
+              "file": {
+                "path": "alpha/art-one.svg",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "origin": "authored",
+              "rights": "Record actual authorship and usage rights",
+              "review": {
+                "path": "alpha/art-one-review.md",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "clearance": "hold"
+            },
+            {
+              "file": {
+                "path": "alpha/art-two.svg",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "origin": "authored",
+              "rights": "Record actual authorship and usage rights",
+              "review": {
+                "path": "alpha/art-two-review.md",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "clearance": "hold"
+            }
+          ],
+          "selected": "alpha/art-one.svg",
+          "rationale": "Explain why this variant fits the composition"
+        }
+      ],
+      "previews": [
+        {
+          "image": {
+            "path": "alpha/desktop.png",
+            "sha256": "replace-with-actual-sha256"
+          },
+          "observation": {
+            "path": "alpha/browser-observation.md",
+            "sha256": "replace-with-actual-sha256"
+          },
+          "sourceSha256": "replace-after-actual-render-and-snapshot"
+        }
+      ],
+      "reviews": [
+        {
+          "role": "designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "alpha/review-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "ui-designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "alpha/review-ui-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "ux-designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "alpha/review-ux-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "ui-ux-engineer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "alpha/review-ui-ux-engineer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "product-designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "alpha/review-product-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "draft-beta",
+      "direction": "Describe a distinct design direction",
+      "distinction": "Explain structural differences against the same frozen brief",
+      "source": [
+        {
+          "path": "beta/prototype.html",
+          "sha256": "replace-with-actual-sha256"
+        }
+      ],
+      "assets": [
+        {
+          "id": "main-art",
+          "purpose": "Explain the relevant asset role",
+          "variants": [
+            {
+              "file": {
+                "path": "beta/art-one.svg",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "origin": "authored",
+              "rights": "Record actual authorship and usage rights",
+              "review": {
+                "path": "beta/art-one-review.md",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "clearance": "hold"
+            },
+            {
+              "file": {
+                "path": "beta/art-two.svg",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "origin": "authored",
+              "rights": "Record actual authorship and usage rights",
+              "review": {
+                "path": "beta/art-two-review.md",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "clearance": "hold"
+            }
+          ],
+          "selected": "beta/art-one.svg",
+          "rationale": "Explain why this variant fits the composition"
+        }
+      ],
+      "previews": [
+        {
+          "image": {
+            "path": "beta/desktop.png",
+            "sha256": "replace-with-actual-sha256"
+          },
+          "observation": {
+            "path": "beta/browser-observation.md",
+            "sha256": "replace-with-actual-sha256"
+          },
+          "sourceSha256": "replace-after-actual-render-and-snapshot"
+        }
+      ],
+      "reviews": [
+        {
+          "role": "designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "beta/review-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "ui-designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "beta/review-ui-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "ux-designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "beta/review-ux-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "ui-ux-engineer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "beta/review-ui-ux-engineer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "product-designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "beta/review-product-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "draft-gamma",
+      "direction": "Describe a distinct design direction",
+      "distinction": "Explain structural differences against the same frozen brief",
+      "source": [
+        {
+          "path": "gamma/prototype.html",
+          "sha256": "replace-with-actual-sha256"
+        }
+      ],
+      "assets": [
+        {
+          "id": "main-art",
+          "purpose": "Explain the relevant asset role",
+          "variants": [
+            {
+              "file": {
+                "path": "gamma/art-one.svg",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "origin": "authored",
+              "rights": "Record actual authorship and usage rights",
+              "review": {
+                "path": "gamma/art-one-review.md",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "clearance": "hold"
+            },
+            {
+              "file": {
+                "path": "gamma/art-two.svg",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "origin": "authored",
+              "rights": "Record actual authorship and usage rights",
+              "review": {
+                "path": "gamma/art-two-review.md",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "clearance": "hold"
+            }
+          ],
+          "selected": "gamma/art-one.svg",
+          "rationale": "Explain why this variant fits the composition"
+        }
+      ],
+      "previews": [
+        {
+          "image": {
+            "path": "gamma/desktop.png",
+            "sha256": "replace-with-actual-sha256"
+          },
+          "observation": {
+            "path": "gamma/browser-observation.md",
+            "sha256": "replace-with-actual-sha256"
+          },
+          "sourceSha256": "replace-after-actual-render-and-snapshot"
+        }
+      ],
+      "reviews": [
+        {
+          "role": "designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "gamma/review-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "ui-designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "gamma/review-ui-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "ux-designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "gamma/review-ux-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "ui-ux-engineer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "gamma/review-ui-ux-engineer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "product-designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "gamma/review-product-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "draft-delta",
+      "direction": "Describe a distinct design direction",
+      "distinction": "Explain structural differences against the same frozen brief",
+      "source": [
+        {
+          "path": "delta/prototype.html",
+          "sha256": "replace-with-actual-sha256"
+        }
+      ],
+      "assets": [
+        {
+          "id": "main-art",
+          "purpose": "Explain the relevant asset role",
+          "variants": [
+            {
+              "file": {
+                "path": "delta/art-one.svg",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "origin": "authored",
+              "rights": "Record actual authorship and usage rights",
+              "review": {
+                "path": "delta/art-one-review.md",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "clearance": "hold"
+            },
+            {
+              "file": {
+                "path": "delta/art-two.svg",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "origin": "authored",
+              "rights": "Record actual authorship and usage rights",
+              "review": {
+                "path": "delta/art-two-review.md",
+                "sha256": "replace-with-actual-sha256"
+              },
+              "clearance": "hold"
+            }
+          ],
+          "selected": "delta/art-one.svg",
+          "rationale": "Explain why this variant fits the composition"
+        }
+      ],
+      "previews": [
+        {
+          "image": {
+            "path": "delta/desktop.png",
+            "sha256": "replace-with-actual-sha256"
+          },
+          "observation": {
+            "path": "delta/browser-observation.md",
+            "sha256": "replace-with-actual-sha256"
+          },
+          "sourceSha256": "replace-after-actual-render-and-snapshot"
+        }
+      ],
+      "reviews": [
+        {
+          "role": "designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "delta/review-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "ui-designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "delta/review-ui-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "ux-designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "delta/review-ux-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "ui-ux-engineer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "delta/review-ui-ux-engineer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        },
+        {
+          "role": "product-designer",
+          "reviewerId": "reviewer-local",
+          "mode": "single-agent-lens",
+          "candidateSha256": "replace-with-current-candidate-snapshot",
+          "score": null,
+          "rationale": "Record actual observed strengths, gaps and scope",
+          "evidence": [
+            {
+              "path": "delta/review-product-designer.md",
+              "sha256": "replace-with-actual-sha256"
+            }
+          ],
+          "blockers": [
+            "Not reviewed yet"
+          ]
+        }
+      ]
+    }
+  ]
+}

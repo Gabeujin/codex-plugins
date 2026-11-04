@@ -28,9 +28,18 @@ Capture:
 
 ## Route the phenotype
 
+Before every UI R&D engagement, read and complete the
+[design candidate workflow](../../references/design-candidate-workflow.md): 4–5 distinct rendered
+drafts, relevant asset alternatives, five design lenses, and the unique highest eligible score.
+This applies to small R&D refinements too. Only a specified repair without a design choice,
+text-only correction or read-only audit uses the narrow exception recorded in that workflow.
+Keep candidate ranking separate from release scores and model benchmarks. During implementation,
+use its bounded negative review → R&D probe → improve → recheck loop.
+
 For a small refinement to an existing web surface, route to `design-web-experience` in refinement
 mode: read the governing token/contract files, make the bounded change, and verify the affected
-viewport and keyboard path when applicable. Do not create DNA, write the Dictionary, package, or
+viewport and keyboard path when applicable. Refinement mode does not bypass the UI R&D comparison.
+Do not create DNA, write the Dictionary, package, or
 run release quality rounds. Use the full web workflow for a feature, changed flow, responsive
 redesign, or release.
 

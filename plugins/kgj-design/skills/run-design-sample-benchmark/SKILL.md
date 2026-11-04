@@ -9,6 +9,12 @@ Read the [copy-ready request](../../data/prompts/design-sample-suite.md) when bu
 Use `design-web-experience` for implementation and its affected interaction/motion guidance.
 Load the spatial guide only for works that need it. Ordinary web work does not need this benchmark.
 
+For the actual UI R&D engagement, complete the
+[design candidate workflow](../../references/design-candidate-workflow.md) before product implementation.
+Its five-lens score compares design directions for the same brief only; it never aggregates model or
+plugin performance. Compare the coherent collection direction once, not five whole galleries or five
+variants per work. Preserve per-work inspection and the existing benchmark reporting limits below.
+
 For a requested evaluation or comparison, read the
 [evaluation protocol](../../references/design-benchmark-evaluation.md) and fill a new copy of the
 [run template](../../data/templates/benchmark-run.json). The template is an authoring aid, not a test
