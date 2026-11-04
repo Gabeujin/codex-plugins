@@ -1,15 +1,15 @@
 # KGJ Design
 
-Current community marketplace version: **KGJ Design 1.6.2**, included in **v0.10.0**.
-This patch adds conditional editor-feedback guidance for elastic object/group motion, dialog exits
-and visible toasts. See [release notes](../../docs/RELEASE-NOTES-0.9.1.md).
+Current community marketplace version: **KGJ Design 1.7.0**, included in **v0.11.0**.
+This release adds pre-implementation design candidates and bounded development review.
+See [release notes](../../docs/RELEASE-NOTES-0.11.0.md).
 
 ```powershell
 codex plugin marketplace upgrade gabeujin-plugins
 codex plugin add kgj-design@gabeujin-plugins
 ```
 
-Confirm version 1.6.2 and start a new Codex task after updating. `personal` is a separate source;
+Confirm version 1.7.0 and start a new Codex task after updating. `personal` is a separate source;
 its installation and private Dictionary are not switched by these commands.
 
 Install `kgj-design@gabeujin-plugins` using the [shared installation guide](https://github.com/Gabeujin/codex-plugins/blob/main/README.md). Existing users should read [updates and data preservation](https://github.com/Gabeujin/codex-plugins/blob/main/docs/INSTALL-AND-UPDATE.md). Copy-ready starter commands are in [First use](https://github.com/Gabeujin/codex-plugins/blob/main/docs/FIRST-USE.md).
@@ -19,6 +19,30 @@ It preserves semantic behavior, accessibility, data truth, and evidence boundari
 product re-express density, typography, color, shape, motion, voice, and signature moments. A local
 Ontology and Dictionary learn each user's scoped preferences, rejections, experiments, and verified
 outcomes without pooling personal identities.
+
+## Compare before UI R&D
+
+Create **4–5 distinct rendered drafts** with relevant asset alternatives before product implementation.
+Review each through designer, UI designer, UX designer, UI/UX engineer and product designer lenses:
+20 points each, 100 total. Select the unique highest eligible score; blockers and missing or stale
+evidence take priority, and ties stay on HOLD. Roles describe actual review lenses, not fictitious
+professional participation. During development, repeat negative review → R&D probe → minimum
+improvement → current-candidate verification for at most three corrective passes.
+
+The [candidate workflow](references/design-candidate-workflow.md),
+[packet template](data/templates/design-candidates.json) and
+[development record](data/templates/development-review.md) cover scope, assets, independence and
+stop conditions. Keep filled packets private, outside the plugin and public source. No Dictionary
+or memory write is implied. Specified repairs without a design choice have a recorded narrow exception.
+
+```powershell
+python scripts/review_design_candidates.py <private-packet.json> --snapshot
+python scripts/review_design_candidates.py <private-packet.json>
+```
+
+The read-only checker validates declared local hashes, completeness and ranking. It cannot certify
+visual quality, rendering truth, asset rights or independent reviewers, and is separate from release
+scores and cross-model benchmarks. The existing release rubric, MCP catalog and data schemas remain.
 
 ## Architecture
 

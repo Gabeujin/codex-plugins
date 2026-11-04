@@ -99,6 +99,10 @@
       "origin": "public-repository-change"
     },
     {
+      "path": "docs/RELEASE-NOTES-0.11.0.md",
+      "origin": "public-repository-change"
+    },
+    {
       "path": "docs/RELEASE-NOTES-0.5.0.md",
       "origin": "existing-public-repository"
     },
@@ -1316,7 +1320,15 @@
     },
     {
       "path": "plugins/kgj-design/data/templates/design-brief.md",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/kgj-design/data/templates/design-candidates.json",
+      "origin": "synthetic-fixture"
+    },
+    {
+      "path": "plugins/kgj-design/data/templates/development-review.md",
+      "origin": "synthetic-fixture"
     },
     {
       "path": "plugins/kgj-design/data/templates/evidence-registry.json",
@@ -1435,6 +1447,10 @@
       "origin": "existing-public-repository"
     },
     {
+      "path": "plugins/kgj-design/references/design-candidate-workflow.md",
+      "origin": "public-repository-change"
+    },
+    {
       "path": "plugins/kgj-design/references/editor-feedback-and-elastic-motion.md",
       "origin": "existing-public-repository"
     },
@@ -1456,7 +1472,7 @@
     },
     {
       "path": "plugins/kgj-design/references/motion-and-spatial-review.md",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": "plugins/kgj-design/references/ontology-and-dictionary.md",
@@ -1548,11 +1564,15 @@
     },
     {
       "path": "plugins/kgj-design/scripts/kgj_design.py",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": "plugins/kgj-design/scripts/kgj_dictionary.mjs",
       "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/scripts/review_design_candidates.py",
+      "origin": "public-repository-change"
     },
     {
       "path": "plugins/kgj-design/scripts/verify-public-package.mjs",
@@ -1576,7 +1596,7 @@
     },
     {
       "path": "plugins/kgj-design/skills/conduct-kgj-design-review/SKILL.md",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": "plugins/kgj-design/skills/conduct-kgj-design-review/agents/openai.yaml",
@@ -1592,7 +1612,7 @@
     },
     {
       "path": "plugins/kgj-design/skills/design-html-report/SKILL.md",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": "plugins/kgj-design/skills/design-html-report/agents/openai.yaml",
@@ -1608,7 +1628,7 @@
     },
     {
       "path": "plugins/kgj-design/skills/design-web-experience/SKILL.md",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": "plugins/kgj-design/skills/design-web-experience/agents/openai.yaml",
@@ -1640,7 +1660,7 @@
     },
     {
       "path": "plugins/kgj-design/skills/kgj-design-orchestrator/SKILL.md",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": "plugins/kgj-design/skills/kgj-design-orchestrator/agents/openai.yaml",
@@ -1664,7 +1684,7 @@
     },
     {
       "path": "plugins/kgj-design/skills/run-design-sample-benchmark/SKILL.md",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": "plugins/kgj-design/skills/run-design-sample-benchmark/agents/openai.yaml",
@@ -1681,6 +1701,10 @@
     {
       "path": "plugins/kgj-design/tests/mcp.test.mjs",
       "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/tests/test_design_candidates.py",
+      "origin": "synthetic-fixture"
     },
     {
       "path": "plugins/kgj-design/tests/test_kgj_design.py",

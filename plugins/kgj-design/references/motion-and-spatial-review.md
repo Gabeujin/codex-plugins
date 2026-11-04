@@ -6,7 +6,7 @@ Status: candidate expression guidance. Owner: KGJ Design maintainers. Consumers:
 
 ## Plan the collection before styling it
 
-Give each concept a distinct explanatory job, composition, material language, and interaction. A collection of recolored copies is not a diverse exhibition. Compare alternatives in a brief concept table, choose the ones that explain different ideas, and retain the reason for selection. A framing system can unify navigation and controls while each work retains its own visual language.
+Give each concept a distinct explanatory job, composition, material language, and interaction. A collection of recolored copies is not a diverse exhibition. Before UI R&D, complete the [4–5-draft candidate workflow](design-candidate-workflow.md), including asset alternatives and five-lens selection. Keep one coherent collection comparison and retain each work's distinct explanatory purpose. A framing system can unify navigation and controls while each work retains its own visual language.
 
 Before implementation, write a storyboard with start/end time, visible copy, object state, camera, transition, input behavior, and reduced-motion equivalent. Name the opening, development, resolved composition, and loop seam. Fix acceptance criteria before critique; do not award a perfect score from a plan.
 

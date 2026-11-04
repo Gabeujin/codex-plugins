@@ -33,6 +33,12 @@ not become the only carrier of meaning.
 
 ## Express the product
 
+Before UI R&D or choosing a new visual/interaction direction, complete the
+[design candidate workflow](../../references/design-candidate-workflow.md), including 4–5 rendered
+drafts, asset alternatives and five-lens ranking. Start product implementation with the selected
+eligible source/assets. Use the same guide's bounded negative review, R&D and improvement loop
+during development; preserve initial failures and invalidate stale proof after changes.
+
 Compile the selected DNA profile or map its semantic tokens into the host system. Preserve the
 genome while letting density, hierarchy, palette, typography, shape, copy, and signature interaction
 fit the product's domain. Avoid generic card grids, arbitrary gradients, ornamental glass, and motion
@@ -55,7 +61,8 @@ and honor explicit opt-in boundaries for large-document stress tests.
 
 Use refinement mode for a bounded change to an existing surface, such as spacing, copy, one control,
 or a localized accessibility fix. First read the existing token and contract files that govern that
-surface, then change only the affected implementation. Do not create product DNA, record a KGJ
+surface. A specified repair with no design choice may use the candidate guide's recorded exception;
+small UI R&D still requires comparison. Then change only the affected implementation. Do not create product DNA, record a KGJ
 Dictionary entry, package a release, or run the release three-round gate for this mode.
 
 Check the affected viewport and, when interaction or focus changed, complete the affected keyboard

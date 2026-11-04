@@ -11,6 +11,12 @@ Read [web output contracts](../../references/web-output-contracts.md),
 
 ## Build the reading contract
 
+When this report involves UI R&D or a new visual/interaction direction, first complete the
+[design candidate workflow](../../references/design-candidate-workflow.md). Compare 4–5 rendered
+drafts and relevant asset alternatives through all five lenses before applying the highest eligible
+direction. Follow its bounded negative review/R&D/improve loop during development. Text-only edits
+and specified repairs without a design choice use only its recorded narrow exception.
+
 Start with the reader's decision, not decoration. Make status, scope, evidence boundary, key finding,
 and next action scannable before supporting detail. Use semantic headings, landmarks, tables for exact
 mappings, and progressive disclosure for secondary evidence.
