@@ -28,7 +28,7 @@
     },
     {
       "path": ".github/pull_request_template.md",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": ".github/workflows/verify.yml",
@@ -37,6 +37,10 @@
     {
       "path": ".gitignore",
       "origin": "existing-public-repository"
+    },
+    {
+      "path": "AGENTS.md",
+      "origin": "public-repository-change"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -132,7 +136,7 @@
     },
     {
       "path": "docs/RELEASING.md",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": "docs/RUNTIME-SUPPORT.md",
