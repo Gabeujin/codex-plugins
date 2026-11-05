@@ -1,8 +1,8 @@
 # KGJ Design
 
-Development candidate: **KGJ Design 1.8.0**. Published v0.11.0 remains KGJ Design 1.7.0.
-This candidate adds private personal insight capture/reuse across design engagements.
-See [release notes](../../docs/RELEASE-NOTES-0.11.0.md).
+Community marketplace version: **KGJ Design 1.8.1**, included in **v0.12.0**.
+This release adds private personal insight capture/reuse across design engagements.
+See [release notes](../../docs/RELEASE-NOTES-0.12.0.md).
 
 ```powershell
 codex plugin marketplace upgrade gabeujin-plugins
@@ -44,7 +44,7 @@ The read-only checker validates declared local hashes, completeness and ranking.
 visual quality, rendering truth, asset rights or independent reviewers, and is separate from release
 scores and cross-model benchmarks. The existing release rubric, MCP catalog and data schemas remain.
 
-## Personal design memory (1.8.0 candidate)
+## Personal design memory
 
 Design engagements prepare project-scoped insights before drafting, then capture reusable feedback
 and observed outcomes into the private durable Dictionary. Project isolation is the default; explicit
