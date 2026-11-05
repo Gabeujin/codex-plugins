@@ -5,6 +5,11 @@ description: Design, implement, or refine a distinctive web application, dashboa
 
 # Design a Web Experience
 
+For authorized personal learning, follow [personal insights](../../references/personal-insights.md):
+call `prepare_personal_design` before design choices and `capture_design_insight` after meaningful
+feedback or observed outcomes. Keep default project isolation, honor opt-out, and never import Codex
+memory or task bodies. This is a real storage/reuse step, not an instruction-file update.
+
 Read [web output contracts](../../references/web-output-contracts.md),
 [token system](../../references/token-system.md),
 [interaction and motion](../../references/interaction-and-motion.md), and
@@ -62,8 +67,8 @@ and honor explicit opt-in boundaries for large-document stress tests.
 Use refinement mode for a bounded change to an existing surface, such as spacing, copy, one control,
 or a localized accessibility fix. First read the existing token and contract files that govern that
 surface. A specified repair with no design choice may use the candidate guide's recorded exception;
-small UI R&D still requires comparison. Then change only the affected implementation. Do not create product DNA, record a KGJ
-Dictionary entry, package a release, or run the release three-round gate for this mode.
+small UI R&D still requires comparison. Then change only the affected implementation. Do not create product DNA, manually curate the KGJ
+Dictionary, package a release, or run the release three-round gate for this mode.
 
 Check the affected viewport and, when interaction or focus changed, complete the affected keyboard
 path. Use the full required-state and browser checklist below for a new feature, a changed flow or

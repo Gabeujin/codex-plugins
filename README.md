@@ -55,6 +55,8 @@ codex plugin add codex-daily-check@gabeujin-plugins
 
 **KGJ Design — 제품에 맞는 디자인**
 
+개발 후보 1.8.0은 작업 간 개인 인사이트 적재·프로젝트별 재사용을 추가합니다. 현재 게시된 v0.11.0에는 1.7.0이 포함돼 있습니다. [개인 인사이트 구조와 사용 범위](docs/KGJ-PERSONAL-INSIGHTS.md)를 참고하세요.
+
 > KGJ Design으로 이 화면을 개선해줘. 먼저 디자인 초안 4~5개와 에셋 대안을 만들고, 다섯 디자인 관점으로 평가해 적격 최고점 안을 적용해줘. 개발 중에는 부정적 검토와 개선을 반복하고 실제 검증 범위를 알려줘.
 
 UI R&D는 초안 비교부터 시작합니다. 각 관점은 20점, 총점은 100점이며, 결함이나 근거 부족으로 보류된 안은 선정하지 않습니다. 개발 중 개선·재검토는 최대 3회입니다. [후보 평가 절차](plugins/kgj-design/references/design-candidate-workflow.md)를 참고하세요. [에디터 피드백 가이드](docs/KGJ-EDITOR-FEEDBACK.md)와 [FORM / TEN 인터랙티브 전시](examples/form-ten/README.md)에서 활용 범위를 살펴보세요.

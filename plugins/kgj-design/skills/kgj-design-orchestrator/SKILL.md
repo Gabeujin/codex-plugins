@@ -5,6 +5,11 @@ description: Orchestrate a complete KGJ Design engagement for a new or existing 
 
 # KGJ Design Orchestrator
 
+For authorized personal learning, follow [personal insights](../../references/personal-insights.md):
+call `prepare_personal_design` before design choices and `capture_design_insight` after meaningful
+feedback or observed outcomes. Keep default project isolation, honor opt-out, and never import Codex
+memory or task bodies. This is a real storage/reuse step, not an instruction-file update.
+
 Create family resemblance without cloning. Inherit meaning and validated behavior; re-derive the
 product's expression from its domain, users, risk, content, and environment.
 
@@ -39,7 +44,7 @@ use its bounded negative review → R&D probe → improve → recheck loop.
 For a small refinement to an existing web surface, route to `design-web-experience` in refinement
 mode: read the governing token/contract files, make the bounded change, and verify the affected
 viewport and keyboard path when applicable. Refinement mode does not bypass the UI R&D comparison.
-Do not create DNA, write the Dictionary, package, or
+Do not create DNA, manually curate the Dictionary, package, or
 run release quality rounds. Use the full web workflow for a feature, changed flow, responsive
 redesign, or release.
 

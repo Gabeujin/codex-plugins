@@ -5,6 +5,11 @@ description: Build the KGJ ten-sample interactive gallery or compare generated d
 
 # Run Design Sample Benchmark
 
+For authorized personal learning, follow [personal insights](../../references/personal-insights.md):
+call `prepare_personal_design` before design choices and `capture_design_insight` after meaningful
+feedback or observed outcomes. Keep default project isolation, honor opt-out, and never import Codex
+memory or task bodies. This is a real storage/reuse step, not an instruction-file update.
+
 Read the [copy-ready request](../../data/prompts/design-sample-suite.md) when building the suite.
 Use `design-web-experience` for implementation and its affected interaction/motion guidance.
 Load the spatial guide only for works that need it. Ordinary web work does not need this benchmark.

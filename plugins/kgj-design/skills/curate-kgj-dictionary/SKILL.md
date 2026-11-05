@@ -21,6 +21,11 @@ which entry influenced the decision and how to disable or reject it.
 
 ## Record only with intent
 
+Authorized engagement-level automatic capture uses [personal insights](../../references/personal-insights.md)
+and `capture_design_insight`. It does not require a separate remember prompt for every insight.
+The direct Dictionary administration workflow below still requires explicit intent; never use it
+to bypass private capture scope, inference review or export consent.
+
 Use `record_dictionary_entry` only when the user explicitly asks KGJ Design to remember, learn, record,
 or update a preference or outcome. Require `confirmRecordIntent: true`, the current expected revision,
 and a stable idempotency key. Classify the entry as exactly one of:

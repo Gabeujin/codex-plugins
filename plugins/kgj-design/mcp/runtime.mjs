@@ -1,5 +1,6 @@
 import { KgjDictionary } from "../lib/dictionary.mjs";
 import { validateJsonSchema } from "../lib/json-schema-lite.mjs";
+import { PersonalInsights, captureSchema, prepareSchema } from "../lib/personal-insights.mjs";
 
 const CLOSED_READ = Object.freeze({
   readOnlyHint: true,
@@ -16,6 +17,8 @@ const ADDITIVE_IDEMPOTENT_WRITE = Object.freeze({
 });
 
 const TOOL_SAFETY = new Map([
+  ["capture_design_insight", ADDITIVE_IDEMPOTENT_WRITE],
+  ["prepare_personal_design", CLOSED_READ],
   ["get_ontology", CLOSED_READ],
   ["get_dictionary_health", CLOSED_READ],
   ["list_pending_imports", CLOSED_READ],
@@ -33,6 +36,16 @@ const TOOL_SAFETY = new Map([
 ]);
 
 const TOOL_DEFINITIONS = [
+  {
+    name: "capture_design_insight",
+    description: "Capture a minimal private design insight after authorized task feedback or evaluation. Project scoped by default; never exports or reads Codex memory.",
+    inputSchema: captureSchema
+  },
+  {
+    name: "prepare_personal_design",
+    description: "Read project-matched personal insights and explicitly shared user preferences before drafting. Returns current revision and influence; never writes.",
+    inputSchema: prepareSchema
+  },
   {
     name: "get_ontology",
     description: "Read the static KGJ Design ontology and privacy/resolution contract.",
@@ -200,6 +213,7 @@ if (TOOLS.length !== TOOL_SAFETY.size) {
 export class KgjMcpRuntime {
   constructor(options = {}) {
     this.dictionary = new KgjDictionary(options);
+    this.personalInsights = new PersonalInsights({ dictionary: this.dictionary });
   }
 
   tools() {
@@ -215,6 +229,8 @@ export class KgjMcpRuntime {
     }
     validateJsonSchema(args, tool.inputSchema);
     switch (name) {
+      case "capture_design_insight": return this.personalInsights.capture(args);
+      case "prepare_personal_design": return this.personalInsights.prepare(args);
       case "get_ontology": return this.dictionary.ontology();
       case "get_dictionary_health": return this.dictionary.health();
       case "list_pending_imports": return { entries: await this.dictionary.pendingImports(args) };
