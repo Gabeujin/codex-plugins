@@ -5,6 +5,11 @@ description: Create or refine a self-contained KGJ HTML report for code review, 
 
 # Design an HTML Report
 
+For authorized personal learning, follow [personal insights](../../references/personal-insights.md):
+call `prepare_personal_design` before design choices and `capture_design_insight` after meaningful
+feedback or observed outcomes. Keep default project isolation, honor opt-out, and never import Codex
+memory or task bodies. This is a real storage/reuse step, not an instruction-file update.
+
 Read [web output contracts](../../references/web-output-contracts.md),
 [typography and content](../../references/typography-and-content.md), and
 [accessibility and data](../../references/accessibility-and-data.md).

@@ -28,7 +28,7 @@ const completeAnnotations = tools.every((tool) =>
 );
 
 const result = {
-  status: tools.length === 14 &&
+  status: tools.length === 16 &&
     completeAnnotations &&
     ontology?.version === "1.2.0" &&
     invalidRejected

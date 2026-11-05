@@ -91,6 +91,10 @@
       "origin": "existing-public-repository"
     },
     {
+      "path": "docs/KGJ-PERSONAL-INSIGHTS.md",
+      "origin": "public-repository-change"
+    },
+    {
       "path": "docs/PUBLIC-SOURCE-INVENTORY.json",
       "origin": "public-repository-change"
     },
@@ -104,6 +108,10 @@
     },
     {
       "path": "docs/RELEASE-NOTES-0.11.0.md",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "docs/RELEASE-NOTES-0.12.0.md",
       "origin": "public-repository-change"
     },
     {
@@ -1419,8 +1427,12 @@
       "origin": "existing-public-repository"
     },
     {
+      "path": "plugins/kgj-design/lib/personal-insights.mjs",
+      "origin": "public-repository-change"
+    },
+    {
       "path": "plugins/kgj-design/mcp/runtime.mjs",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": "plugins/kgj-design/mcp/server.mjs",
@@ -1485,6 +1497,10 @@
     {
       "path": "plugins/kgj-design/references/pattern-lifecycle.md",
       "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/references/personal-insights.md",
+      "origin": "public-repository-change"
     },
     {
       "path": "plugins/kgj-design/references/product-dna.md",
@@ -1580,7 +1596,7 @@
     },
     {
       "path": "plugins/kgj-design/scripts/verify-public-package.mjs",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": "plugins/kgj-design/skills/adopt-kgj-design/SKILL.md",
@@ -1608,7 +1624,7 @@
     },
     {
       "path": "plugins/kgj-design/skills/curate-kgj-dictionary/SKILL.md",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": "plugins/kgj-design/skills/curate-kgj-dictionary/agents/openai.yaml",
@@ -1624,7 +1640,7 @@
     },
     {
       "path": "plugins/kgj-design/skills/design-markdown-artifact/SKILL.md",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": "plugins/kgj-design/skills/design-markdown-artifact/agents/openai.yaml",
@@ -1704,7 +1720,11 @@
     },
     {
       "path": "plugins/kgj-design/tests/mcp.test.mjs",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/kgj-design/tests/personal-insights.test.mjs",
+      "origin": "synthetic-fixture"
     },
     {
       "path": "plugins/kgj-design/tests/test_design_candidates.py",

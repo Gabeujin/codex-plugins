@@ -1663,6 +1663,8 @@ def validate_plugin(root: Path) -> dict:
         "references/ontology-and-dictionary.md",
         "references/quality-gates.md",
         "references/design-candidate-workflow.md",
+        "references/personal-insights.md",
+        "lib/personal-insights.mjs",
         "references/source-catalog.json",
         "references/schemas/product-dna.schema.json",
         "references/schemas/dictionary-entry.schema.json",

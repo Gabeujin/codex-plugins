@@ -616,6 +616,8 @@ test("MCP runtime exposes the bounded Codex tool contract", async () => {
   const runtime = new KgjMcpRuntime({ root: await testRoot("runtime") });
   const names = runtime.tools().map((tool) => tool.name);
   assert.deepEqual(names, [
+    "capture_design_insight",
+    "prepare_personal_design",
     "get_ontology",
     "get_dictionary_health",
     "list_pending_imports",

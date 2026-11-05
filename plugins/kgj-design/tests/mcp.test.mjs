@@ -11,6 +11,7 @@ const INITIALIZE = { jsonrpc: "2.0", id: 1, method: "initialize", params: { prot
 const LIST_TOOLS = { jsonrpc: "2.0", id: 2, method: "tools/list", params: {} };
 const EXPECTED_TOOLS = [
   "adopt_imported_entry",
+  "capture_design_insight",
   "export_sanitized_dictionary",
   "get_dictionary_entry",
   "get_dictionary_health",
@@ -19,6 +20,7 @@ const EXPECTED_TOOLS = [
   "list_pending_imports",
   "list_pending_inferences",
   "prepare_design_application",
+  "prepare_personal_design",
   "record_design_run",
   "record_dictionary_entry",
   "review_inferred_entry",
@@ -26,6 +28,7 @@ const EXPECTED_TOOLS = [
   "verify_integrity"
 ];
 const READ_ONLY_TOOLS = new Set([
+  "prepare_personal_design",
   "export_sanitized_dictionary",
   "get_dictionary_entry",
   "get_dictionary_health",
@@ -38,8 +41,8 @@ const READ_ONLY_TOOLS = new Set([
   "verify_integrity"
 ]);
 
-async function exchange(requests) {
-  const dataDir = await fs.mkdtemp(path.join(os.tmpdir(), "kgj-mcp-test-"));
+async function exchange(requests, existingDataDir) {
+  const dataDir = existingDataDir ?? await fs.mkdtemp(path.join(os.tmpdir(), "kgj-mcp-test-"));
   const child = spawn(process.execPath, [path.join(ROOT, "mcp", "server.mjs")], {
     cwd: ROOT,
     env: { ...process.env, KGJ_DESIGN_DATA_DIR: dataDir },
@@ -60,6 +63,38 @@ async function exchange(requests) {
   assert.equal(exitCode, 0, stderr);
   return { stdout, stderr, dataDir, lines: stdout.trim().split(/\r?\n/).filter(Boolean).map((line) => JSON.parse(line)) };
 }
+
+test("two stdio design tasks capture, reuse and revise taste while isolating projects", async () => {
+  const call = (id, name, args) => ({ jsonrpc: "2.0", id, method: "tools/call", params: { name, arguments: args } });
+  const capture = { projectId: "sample-alpha", taskId: "design-one", insightKey: "row-density",
+    kind: "preference", signal: "user-feedback", title: "Synthetic row density",
+    guidance: "Prefer spacious rows for this synthetic product.", traitAxes: ["density"],
+    evidenceRefs: ["synthetic.feedback.one"], expectedRevision: 0,
+    idempotencyKey: "synthetic-wire-one", confirmCaptureIntent: true };
+  // 서로 다른 서버 프로세스로 작업을 나눠 메모리에만 남은 값이 아니라 실제 저장·재사용 경로를 검증
+  const first = await exchange([INITIALIZE,
+    call(2, "prepare_personal_design", { projectId: "sample-alpha" }),
+    call(3, "capture_design_insight", capture)]);
+  assert.equal(first.lines[1].result.structuredContent.dictionaryRevision, 0);
+  assert.equal(first.lines[2].result.structuredContent.revision, 1);
+  const second = await exchange([INITIALIZE,
+    call(2, "prepare_personal_design", { projectId: "sample-alpha" }),
+    call(3, "prepare_personal_design", { projectId: "sample-beta" })], first.dataDir);
+  const prepared = second.lines[1].result.structuredContent;
+  assert.equal(prepared.matches[0].guidance, capture.guidance);
+  assert.equal(prepared.matches[0].insightKey, "row-density");
+  const density = prepared.matches[0].guidance.includes("spacious") ? "spacious" : "compact";
+  assert.equal(density, "spacious");
+  assert.deepEqual(second.lines[2].result.structuredContent.matches, []);
+  const corrected = { ...capture, taskId: "design-two", insightKey: prepared.matches[0].insightKey,
+    guidance: "Prefer compact rows for this synthetic product.", expectedRevision: prepared.dictionaryRevision,
+    supersedesRevision: prepared.matches[0].revision, idempotencyKey: "synthetic-wire-two" };
+  const third = await exchange([INITIALIZE, call(2, "capture_design_insight", corrected),
+    call(3, "capture_design_insight", corrected), call(4, "prepare_personal_design", { projectId: "sample-alpha" })], first.dataDir);
+  assert.equal(third.lines[2].result.structuredContent.replayed, true);
+  assert.equal(third.lines[3].result.structuredContent.dictionaryRevision, 2);
+  assert.equal(third.lines[3].result.structuredContent.matches[0].guidance, corrected.guidance);
+});
 
 test("stdio initialization binds the manifest identity", async () => {
   const { lines } = await exchange([INITIALIZE]);
@@ -131,7 +166,7 @@ test("stdio drains an in-flight read before EOF and ignores request-like notific
   assert.deepEqual(await fs.readdir(dataDir), []);
 });
 
-test("stdio tools/list exposes the closed fourteen-tool contract", async () => {
+test("stdio tools/list exposes the closed sixteen-tool contract", async () => {
   const { lines } = await exchange([INITIALIZE, LIST_TOOLS]);
   const tools = lines[1].result.tools;
   assert.equal(tools.length, EXPECTED_TOOLS.length);

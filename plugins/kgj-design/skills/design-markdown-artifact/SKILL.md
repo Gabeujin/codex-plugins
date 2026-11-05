@@ -5,6 +5,11 @@ description: Structure or refine a KGJ Markdown artifact for repositories, opera
 
 # Design a Markdown Artifact
 
+For authorized personal learning, follow [personal insights](../../references/personal-insights.md):
+call `prepare_personal_design` before design choices and `capture_design_insight` after meaningful
+feedback or observed outcomes. Keep default project isolation, honor opt-out, and never import Codex
+memory or task bodies. This is a real storage/reuse step, not an instruction-file update.
+
 Read [typography and content](../../references/typography-and-content.md) and
 [web output contracts](../../references/web-output-contracts.md).
 

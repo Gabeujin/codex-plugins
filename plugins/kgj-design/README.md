@@ -1,15 +1,15 @@
 # KGJ Design
 
-Current community marketplace version: **KGJ Design 1.7.0**, included in **v0.11.0**.
-This release adds pre-implementation design candidates and bounded development review.
-See [release notes](../../docs/RELEASE-NOTES-0.11.0.md).
+Community marketplace version: **KGJ Design 1.8.1**, included in **v0.12.0**.
+This release adds private personal insight capture/reuse across design engagements.
+See [release notes](../../docs/RELEASE-NOTES-0.12.0.md).
 
 ```powershell
 codex plugin marketplace upgrade gabeujin-plugins
 codex plugin add kgj-design@gabeujin-plugins
 ```
 
-Confirm version 1.7.0 and start a new Codex task after updating. `personal` is a separate source;
+Confirm the intended installed version and start a new Codex task after updating. `personal` is a separate source;
 its installation and private Dictionary are not switched by these commands.
 
 Install `kgj-design@gabeujin-plugins` using the [shared installation guide](https://github.com/Gabeujin/codex-plugins/blob/main/README.md). Existing users should read [updates and data preservation](https://github.com/Gabeujin/codex-plugins/blob/main/docs/INSTALL-AND-UPDATE.md). Copy-ready starter commands are in [First use](https://github.com/Gabeujin/codex-plugins/blob/main/docs/FIRST-USE.md).
@@ -43,6 +43,17 @@ python scripts/review_design_candidates.py <private-packet.json>
 The read-only checker validates declared local hashes, completeness and ranking. It cannot certify
 visual quality, rendering truth, asset rights or independent reviewers, and is separate from release
 scores and cross-model benchmarks. The existing release rubric, MCP catalog and data schemas remain.
+
+## Personal design memory
+
+Design engagements prepare project-scoped insights before drafting, then capture reusable feedback
+and observed outcomes into the private durable Dictionary. Project isolation is the default; explicit
+user-wide preferences, pending inference, corrections and revocations preserve their existing guards.
+Read [personal insights](references/personal-insights.md) for the two new MCP tools and automatic
+workflow boundaries. The catalog grows from fourteen to sixteen tools; the original tools and
+Dictionary1.0 format remain compatible. No personal data or Codex memory is bundled or imported.
+Automatic calls depend on the active skill/agent following the workflow and existing write authority;
+there is no background task observer or hidden write on a read.
 
 ## Architecture
 

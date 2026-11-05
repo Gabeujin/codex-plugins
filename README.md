@@ -11,11 +11,11 @@
 | 하고 싶은 일 | 플러그인 | 버전 |
 | --- | --- | --- |
 | 한국 기술 블로그를 조사하고 출처와 변경 내용을 정리하기 | [K-Tech Insight Radar](plugins/k-tech-radar) | 0.4.1 |
-| 디자인 후보를 비교하고 화면·모션·한국어 문안을 다듬기 | [KGJ Design](plugins/kgj-design) | 1.7.0 |
+| 디자인 후보를 비교하고 화면·모션·한국어 문안을 다듬기 | [KGJ Design](plugins/kgj-design) | 1.8.1 |
 | 접근성과 대체 화면을 갖춘 2D·3D·지도 경험 만들기 | [Canvas Web Experiences](plugins/canvas-web-experiences) | 1.7.0 |
 | Codex의 브라우저·앱 조작·알림 기능을 점검하기 | [Codex Daily Check](plugins/codex-daily-check) | 0.6.0 |
 
-네 플러그인은 각각 사용할 수 있습니다. 이번 릴리스 묶음은 **v0.11.0**입니다. [변경 내역](docs/RELEASE-NOTES-0.11.0.md)을 확인하세요.
+네 플러그인은 각각 사용할 수 있습니다. 이번 릴리스 묶음은 **v0.12.0**입니다. [변경 내역](docs/RELEASE-NOTES-0.12.0.md)을 확인하세요.
 
 ## 설치
 
@@ -55,6 +55,8 @@ codex plugin add codex-daily-check@gabeujin-plugins
 
 **KGJ Design — 제품에 맞는 디자인**
 
+KGJ Design 1.8.1은 학습이 허용된 작업에서 개인 인사이트를 적재하고 다음 작업에서 프로젝트별로 재사용합니다. [개인 인사이트 구조와 사용 범위](docs/KGJ-PERSONAL-INSIGHTS.md)를 참고하세요.
+
 > KGJ Design으로 이 화면을 개선해줘. 먼저 디자인 초안 4~5개와 에셋 대안을 만들고, 다섯 디자인 관점으로 평가해 적격 최고점 안을 적용해줘. 개발 중에는 부정적 검토와 개선을 반복하고 실제 검증 범위를 알려줘.
 
 UI R&D는 초안 비교부터 시작합니다. 각 관점은 20점, 총점은 100점이며, 결함이나 근거 부족으로 보류된 안은 선정하지 않습니다. 개발 중 개선·재검토는 최대 3회입니다. [후보 평가 절차](plugins/kgj-design/references/design-candidate-workflow.md)를 참고하세요. [에디터 피드백 가이드](docs/KGJ-EDITOR-FEEDBACK.md)와 [FORM / TEN 인터랙티브 전시](examples/form-ten/README.md)에서 활용 범위를 살펴보세요.
@@ -87,7 +89,7 @@ codex plugin add kgj-design@gabeujin-plugins
 위 예시는 KGJ Design 업데이트입니다. 다른 플러그인도 해당 `plugin add` 명령을 실행한 뒤 설치 버전을 확인하고 새 작업을 시작하세요.
 
 - `personal`과 `gabeujin-plugins`는 별도 원본입니다. 자동으로 전환되지 않습니다.
-- 고정 ref는 다음 릴리스로 자동 변경되지 않습니다. 처음 등록할 때 `--ref v0.11.0`으로 버전을 고정할 수 있습니다.
+- 고정 ref는 다음 릴리스로 자동 변경되지 않습니다. 처음 등록할 때 `--ref v0.12.0`으로 버전을 고정할 수 있습니다.
 - Radar는 기존 데이터를 자동 이전하지 않습니다. 이전 캐시에 데이터가 있다면 [데이터 보존·업데이트 가이드](docs/INSTALL-AND-UPDATE.md)를 먼저 읽으세요.
 
 ## 데이터와 공개 범위
@@ -116,7 +118,7 @@ node scripts/verify-release.mjs
 
 ## 더 알아보기
 
-[설치·데이터 보존](docs/INSTALL-AND-UPDATE.md) · [변경 내역](docs/RELEASE-NOTES-0.11.0.md) · [공개 소스 검토](docs/PUBLIC-SOURCE-REVIEW.md) · [기여](CONTRIBUTING.md) · [보안 신고](SECURITY.md) · [릴리스 절차](docs/RELEASING.md)
+[설치·데이터 보존](docs/INSTALL-AND-UPDATE.md) · [변경 내역](docs/RELEASE-NOTES-0.12.0.md) · [공개 소스 검토](docs/PUBLIC-SOURCE-REVIEW.md) · [기여](CONTRIBUTING.md) · [보안 신고](SECURITY.md) · [릴리스 절차](docs/RELEASING.md)
 
 코드는 [MIT 라이선스](LICENSE)입니다. 외부 기사·이미지·브랜드의 권리는 각 출처의 고지를 따릅니다. 이 저장소는 GitHub 커뮤니티 배포 경로이며 OpenAI 공식 Directory 등록과는 별개입니다.
 
