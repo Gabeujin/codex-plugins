@@ -4,6 +4,12 @@ Protocol version: `kgj-design-benchmark-1.0.0`. Use only for a requested sample 
 The public ten-sample suite is a development probe, not an unseen test or a new KGJ release rubric.
 Use a new copy of the [run template](../data/templates/benchmark-run.json). Empty fields are not proof.
 
+Every benchmark request also requires the [telemetry workflow](benchmark-telemetry.md): begin the
+active-agent ledger before planning and disclose per-artifact phases, observed model and usage,
+API-equivalent pricing, shared/unattributed work and source-bound primary-screen Lighthouse reports.
+The additive v1 `telemetry` extension preserves legacy runs; missing historical attribution stays
+null with a reason. Validation is not collection, provider verification or a release attestation.
+
 ## Freeze the comparison before generation
 
 - **equal-packet:** provide identical versioned prompt, selected KGJ instructions, factual source text,

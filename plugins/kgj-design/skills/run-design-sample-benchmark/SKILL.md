@@ -5,6 +5,13 @@ description: Build the KGJ ten-sample interactive gallery or compare generated d
 
 # Run Design Sample Benchmark
 
+For **every requested benchmark**, before the first planning action read
+[mandatory telemetry](../../references/benchmark-telemetry.md), initialize its per-artifact ledger,
+and name the active agent who records boundaries and usage. Disclose planning/design/development/
+completion time, observed models, input/cache/output tokens, API-equivalent cost and source-bound
+primary-screen Lighthouse snapshots. Missing observations remain null with reasons and shared
+buckets; this skill and its read-only CLI do not collect them automatically.
+
 For authorized personal learning, follow [personal insights](../../references/personal-insights.md):
 call `prepare_personal_design` before design choices and `capture_design_insight` after meaningful
 feedback or observed outcomes. Keep default project isolation, honor opt-out, and never import Codex

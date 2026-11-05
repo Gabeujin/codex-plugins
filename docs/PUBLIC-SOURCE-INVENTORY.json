@@ -115,6 +115,10 @@
       "origin": "public-repository-change"
     },
     {
+      "path": "docs/RELEASE-NOTES-0.13.0.md",
+      "origin": "public-repository-change"
+    },
+    {
       "path": "docs/RELEASE-NOTES-0.5.0.md",
       "origin": "existing-public-repository"
     },
@@ -1459,6 +1463,10 @@
       "origin": "existing-public-repository"
     },
     {
+      "path": "plugins/kgj-design/references/benchmark-telemetry.md",
+      "origin": "public-repository-change"
+    },
+    {
       "path": "plugins/kgj-design/references/design-benchmark-evaluation.md",
       "origin": "existing-public-repository"
     },
@@ -1577,6 +1585,10 @@
     {
       "path": "plugins/kgj-design/scripts/Invoke-KgjBrowserReplay.ps1",
       "origin": "existing-public-repository"
+    },
+    {
+      "path": "plugins/kgj-design/scripts/benchmark_telemetry.py",
+      "origin": "public-repository-change"
     },
     {
       "path": "plugins/kgj-design/scripts/kgj_attest.py",
@@ -1724,6 +1736,10 @@
     },
     {
       "path": "plugins/kgj-design/tests/personal-insights.test.mjs",
+      "origin": "synthetic-fixture"
+    },
+    {
+      "path": "plugins/kgj-design/tests/test_benchmark_telemetry.py",
       "origin": "synthetic-fixture"
     },
     {

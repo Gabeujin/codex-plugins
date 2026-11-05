@@ -1,8 +1,8 @@
 # KGJ Design
 
-Community marketplace version: **KGJ Design 1.8.1**, included in **v0.12.0**.
-This release adds private personal insight capture/reuse across design engagements.
-See [release notes](../../docs/RELEASE-NOTES-0.12.0.md).
+Community marketplace version: **KGJ Design 1.9.0**, included in **v0.13.0**.
+This release adds mandatory benchmark telemetry and optional Forma reference routing while preserving private personal insight capture/reuse.
+See [release notes](../../docs/RELEASE-NOTES-0.13.0.md).
 
 ```powershell
 codex plugin marketplace upgrade gabeujin-plugins
@@ -43,6 +43,12 @@ python scripts/review_design_candidates.py <private-packet.json>
 The read-only checker validates declared local hashes, completeness and ranking. It cannot certify
 visual quality, rendering truth, asset rights or independent reviewers, and is separate from release
 scores and cross-model benchmarks. The existing release rubric, MCP catalog and data schemas remain.
+
+## Benchmark records users can inspect
+
+For every requested benchmark, track app-level planning, design, development and completion boundaries; observed model identity and input/cache/output usage; and source-dated API-equivalent cost separately from actual billing. Show the records in a header or footer, with clickable primary-screen Lighthouse snapshots, audit details and final measurement timestamps. Missing or unattributable records retain reasons and a shared bucket; never divide a total across apps to invent attribution.
+
+Start the [telemetry workflow](references/benchmark-telemetry.md) before generation. The active agent records observations; no hidden background observer or billing integration is installed. Historical gaps cannot be recovered by a template. Optional [Forma references](https://forma-design-wiki.potato93.chatgpt.site/references/) and [glossary](https://forma-design-wiki.potato93.chatgpt.site/glossary/) are first-consider visual/terminology aids when useful. Responsible official sources still establish factual claims.
 
 ## Personal design memory
 
