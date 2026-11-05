@@ -5,6 +5,10 @@ description: Design, implement, or refine a distinctive web application, dashboa
 
 # Design a Web Experience
 
+For a benchmark request, follow [mandatory telemetry](../../references/benchmark-telemetry.md)
+before the first planning step and retain per-artifact disclosure through completion. This applies
+without changing the product DNA or turning an ordinary non-benchmark refinement into a benchmark.
+
 For authorized personal learning, follow [personal insights](../../references/personal-insights.md):
 call `prepare_personal_design` before design choices and `capture_design_insight` after meaningful
 feedback or observed outcomes. Keep default project isolation, honor opt-out, and never import Codex

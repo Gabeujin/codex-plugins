@@ -193,5 +193,15 @@
   ],
   "criticalFailures": [],
   "limitations": [],
-  "permittedConclusion": null
+  "permittedConclusion": null,
+  "telemetry": {
+    "schemaVersion": "kgj-design-benchmark-telemetry-v1",
+    "captureMode": "active-agent-manual",
+    "artifacts": [],
+    "phaseEvents": [],
+    "usageEntries": [],
+    "priceRates": [],
+    "lighthouseSnapshots": [],
+    "unknownReason": "Not initialized. The active agent must declare every artifact and record observations from the start; no collection has occurred."
+  }
 }

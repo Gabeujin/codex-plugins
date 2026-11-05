@@ -5,6 +5,11 @@ description: Orchestrate a complete KGJ Design engagement for a new or existing 
 
 # KGJ Design Orchestrator
 
+When the user requests a benchmark, initialize [mandatory telemetry](../../references/benchmark-telemetry.md)
+before planning and route through `run-design-sample-benchmark`. Keep per-artifact observed time,
+model/usage, API-equivalent cost and primary-screen Lighthouse disclosure mandatory, including
+explicit null reasons where the surface cannot expose observations. There is no hidden collector.
+
 For authorized personal learning, follow [personal insights](../../references/personal-insights.md):
 call `prepare_personal_design` before design choices and `capture_design_insight` after meaningful
 feedback or observed outcomes. Keep default project isolation, honor opt-out, and never import Codex
