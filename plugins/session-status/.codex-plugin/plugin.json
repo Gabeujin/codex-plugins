@@ -1,0 +1,20 @@
+{
+  "name": "session-status",
+  "version": "0.1.0",
+  "description": "Evidence-based status prefixes for local Codex session titles, with a skill, MCP tools and lifecycle context hooks.",
+  "author": {"name": "Gabeujin"},
+  "license": "MIT",
+  "repository": "https://github.com/Gabeujin/codex-plugins",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "hooks": "./hooks/hooks.json",
+  "interface": {
+    "displayName": "Session Status",
+    "shortDescription": "Evidence-based chat status",
+    "longDescription": "Keep the current task state visible in a Codex chat title. Preview, read and update a status prefix while preserving the topic. Hooks remind the agent to choose labels from verified results.",
+    "developerName": "Gabeujin",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": "Use Session Status to keep this chat title aligned with the actual task state."
+  }
+}

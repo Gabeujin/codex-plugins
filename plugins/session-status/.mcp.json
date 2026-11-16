@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "session-status": {"command": "node", "args": ["./mcp/server.mjs"], "cwd": "."}
+  }
+}

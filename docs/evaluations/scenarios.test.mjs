@@ -20,7 +20,7 @@ function runFixture(transcripts){
  return {result,output};
 }
 
-test('four marketplace plugins each retain five positive and three negative fixtures',()=>{
+test('marketplace plugins each retain five positive and three negative fixtures',()=>{
  // 배포 목록의 플러그인이 평가 정의에서 빠지지 않도록 목록별 사례 수를 확인
  const names=marketplace.plugins.map(item=>item.name);
  assert.equal(fixture.status,'fixture-definition-only');
@@ -38,14 +38,14 @@ test('four marketplace plugins each retain five positive and three negative fixt
  }
 });
 
-test('legacy scenario identities and all four first-use rows remain available',()=>{
+test('legacy scenario identities and all first-use rows remain available',()=>{
  const ids=new Set(fixture.scenarios.map(item=>item.id));
  for(const prefix of ['radar','kgj','canvas']){
   for(let number=1;number<=5;number++)assert(ids.has(`${prefix}-p${number}`));
   for(let number=1;number<=3;number++)assert(ids.has(`${prefix}-n${number}`));
  }
  const guide=fs.readFileSync(new URL('../FIRST-USE.md',import.meta.url),'utf8');
- for(const name of ['K-Tech Radar','KGJ Design','Canvas Web Experiences','Codex Daily Check'])assert(guide.includes('| '+name+' |'));
+ for(const name of ['K-Tech Radar','KGJ Design','Canvas Web Experiences','Codex Daily Check','Session Status'])assert(guide.includes('| '+name+' |'));
  assert(guide.includes(`defines ${fixture.scenarios.length} routed fixtures`));
  assert.equal(fixture.overlapPrompts.length,4);
 });

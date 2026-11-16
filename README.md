@@ -14,8 +14,9 @@
 | 디자인 후보를 비교하고 화면·모션·한국어 문안을 다듬기 | [KGJ Design](plugins/kgj-design) | 1.9.0 |
 | 접근성과 대체 화면을 갖춘 2D·3D·지도 경험 만들기 | [Canvas Web Experiences](plugins/canvas-web-experiences) | 1.7.0 |
 | Codex의 브라우저·앱 조작·알림 기능을 점검하기 | [Codex Daily Check](plugins/codex-daily-check) | 0.6.0 |
+| 채팅 제목에 실제 작업 상태를 표시하기 | [Session Status](plugins/session-status) | 0.1.0 |
 
-네 플러그인은 각각 사용할 수 있습니다. 이번 릴리스 묶음은 **v0.13.0**입니다. [변경 내역](docs/RELEASE-NOTES-0.13.0.md)을 확인하세요.
+다섯 플러그인은 각각 사용할 수 있습니다. Session Status 0.1.0이 추가됐으며, 기존 태그의 릴리스 묶음은 **v0.13.0**입니다. [변경 내역](docs/RELEASE-NOTES-0.13.0.md)을 확인하세요.
 
 ## 설치
 
@@ -32,13 +33,14 @@ codex plugin add k-tech-radar@gabeujin-plugins
 codex plugin add kgj-design@gabeujin-plugins
 codex plugin add canvas-web-experiences@gabeujin-plugins
 codex plugin add codex-daily-check@gabeujin-plugins
+codex plugin add session-status@gabeujin-plugins
 ```
 
 설치 후 **새 Codex 작업**에서 사용하세요. CLI에 명령이 없다면 지원 버전으로 업데이트하거나 Plugins 화면을 확인하세요. 설치만으로 데모 서버나 정기 수집이 시작되지는 않습니다.
 
 | 실행 환경 | 필요한 경우 |
 | --- | --- |
-| Node.js 22 또는 24 | Radar·KGJ의 로컬 MCP 실행. Codex의 PATH에서 찾을 수 있어야 합니다. |
+| Node.js 22 또는 24 | Radar·KGJ·Session Status의 로컬 MCP 실행. Codex의 PATH에서 찾을 수 있어야 합니다. |
 | Python 3.12+ | Daily Check의 기본 진단, Python 예제·생성기·검증 스크립트 실행 |
 
 원격 MCP 구독·Docker·개발자 API 키는 필수가 아닙니다. Codex 이용 조건은 별도입니다. 자세한 조건은 [실행 환경 안내](docs/RUNTIME-SUPPORT.md)를 참고하세요.
@@ -78,6 +80,12 @@ UI/UX 참고 자료가 필요하면 [Forma 레퍼런스](https://forma-design-wi
 Windows 중심의 진단입니다. 5분은 목표이며 완료 시간을 보장하지 않습니다. 실제로 확인한 기능과 사용할 수 없거나 확인하지 못한 기능을 나눠 보고합니다. [검토 범위](docs/DAILY-CHECK-REVIEW.md)를 확인하세요.
 
 공유할 때는 선택형 `share` 명령으로 자유 입력·경로·시스템 정보가 빠진 별도 요약을 만드세요. 원본 보고서는 로컬에 유지합니다. [사용 방법](plugins/codex-daily-check/README.md)을 참고하세요.
+
+**Session Status — 제목에서 작업 상태 확인**
+
+> Session Status로 이 채팅의 상태를 제목에 표시해줘. 주제는 유지하고 완료 상태는 결과를 확인한 경우에만 붙여줘.
+
+Skill·MCP tool 3개·lifecycle hook 2개를 포함합니다. `/hooks` 또는 App의 hook 설정에서 검토·신뢰한 뒤 새 작업에서 사용하세요. Hook은 상태 규칙을 전달하고 에이전트가 제목을 갱신합니다. [기능·개인정보·지원 범위](plugins/session-status/README.md)를 확인하세요. 기존 전역 상태 hook은 자동으로 바꾸지 않습니다.
 
 명령별 예상 결과는 [첫 사용 가이드](docs/FIRST-USE.md), 문제 해결은 [SUPPORT.md](SUPPORT.md)에 정리했습니다.
 
@@ -126,4 +134,4 @@ node scripts/verify-release.mjs
 
 코드는 [MIT 라이선스](LICENSE)입니다. 외부 기사·이미지·브랜드의 권리는 각 출처의 고지를 따릅니다. 이 저장소는 GitHub 커뮤니티 배포 경로이며 OpenAI 공식 Directory 등록과는 별개입니다.
 
-English: Four independent MIT Codex plugins for Korean tech research, product design, accessible Canvas experiences, and Codex diagnostics. Install only what you need, start a fresh task, and follow the bilingual [first-use guide](docs/FIRST-USE.md). Back up external data before updating.
+English: Five independent MIT Codex plugins for Korean tech research, product design, accessible Canvas experiences, Codex diagnostics, and evidence-based chat status prefixes. Install only what you need, start a fresh task, and follow the bilingual [first-use guide](docs/FIRST-USE.md). Back up external data before updating.
