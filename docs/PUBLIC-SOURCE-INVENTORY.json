@@ -4,7 +4,7 @@
   "files": [
     {
       "path": ".agents/plugins/marketplace.json",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": ".gitattributes",
@@ -152,7 +152,7 @@
     },
     {
       "path": "docs/RUNTIME-SUPPORT.md",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": "docs/VALIDATION.md",
@@ -168,7 +168,7 @@
     },
     {
       "path": "docs/evaluations/scenarios.test.mjs",
-      "origin": "synthetic-fixture"
+      "origin": "public-repository-change"
     },
     {
       "path": "examples/form-ten/README.md",
@@ -1755,6 +1755,46 @@
       "origin": "existing-public-repository"
     },
     {
+      "path": "plugins/session-status/.codex-plugin/plugin.json",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/session-status/.mcp.json",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/session-status/README.md",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/session-status/hooks/context.mjs",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/session-status/hooks/hooks.json",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/session-status/lib/codex.mjs",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/session-status/lib/title.mjs",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/session-status/mcp/server.mjs",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/session-status/skills/session-status/SKILL.md",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/session-status/tests/status.test.mjs",
+      "origin": "synthetic-fixture"
+    },
+    {
       "path": "scripts/check-data-compatibility.py",
       "origin": "existing-public-repository"
     },
@@ -1780,7 +1820,7 @@
     },
     {
       "path": "scripts/package-release.py",
-      "origin": "existing-public-repository"
+      "origin": "public-repository-change"
     },
     {
       "path": "scripts/public-inventory.mjs",

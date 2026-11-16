@@ -7,6 +7,7 @@ const root=fileURLToPath(new URL('../',import.meta.url));
 const isolated=mkdtempSync(path.join(os.tmpdir(),'codex-public-verification-'));
 const environment={...process.env,KGJ_DESIGN_DATA_DIR:path.join(isolated,'kgj'),K_TECH_RADAR_DATA_DIR:path.join(isolated,'radar'),PYTHONUTF8:'1',PYTHONDONTWRITEBYTECODE:'1'};
 const steps=[
+ ['session-status','title-hook-and-mcp',process.execPath,['--test','tests/*.test.mjs'],'plugins/session-status'],
  ['codex-daily-check','offline-readiness-regressions','python',['-X','utf8','-B','-m','unittest','discover','-s','tests','-v'],'plugins/codex-daily-check'],
  ['common','source',process.execPath,['scripts/verify-public-source.mjs'],'.'],
  ['common','security-and-adapter',process.execPath,['--test','scripts/public-safety.test.mjs','scripts/public-inventory.test.mjs','scripts/doctor.test.mjs','docs/evaluations/scenarios.test.mjs','scripts/evidence-adapter.test.mjs'],'.'],
