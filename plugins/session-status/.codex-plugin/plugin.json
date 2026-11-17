@@ -1,6 +1,6 @@
 {
   "name": "session-status",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Task status and Hangul lineage, human Y/N model choices, conservative Astra use and verified parent-report workflows for Codex.",
   "author": {
     "name": "Gabeujin"

@@ -14,9 +14,9 @@
 | 디자인 후보를 비교하고 화면·모션·한국어 문안을 다듬기 | [KGJ Design](plugins/kgj-design) | 1.9.0 |
 | 접근성과 대체 화면을 갖춘 2D·3D·지도 경험 만들기 | [Canvas Web Experiences](plugins/canvas-web-experiences) | 1.7.0 |
 | Codex의 브라우저·앱 조작·알림 기능을 점검하기 | [Codex Daily Check](plugins/codex-daily-check) | 0.6.0 |
-| 채팅 제목에 실제 작업 상태를 표시하기 | [Session Status](plugins/session-status) | 0.3.0 |
+| 채팅 제목에 실제 작업 상태를 표시하기 | [Session Status](plugins/session-status) | 0.3.1 |
 
-다섯 플러그인은 각각 사용할 수 있습니다. Session Status 0.3.0은 추천 모델의 Y/N 선택과 작업 계층·모델 권고·부모 보고 흐름을 포함하며, 기존 태그의 릴리스 묶음은 **v0.13.0**입니다. [변경 내역](docs/RELEASE-NOTES-0.13.0.md)을 확인하세요.
+다섯 플러그인은 각각 사용할 수 있습니다. Session Status 0.3.1은 추천 모델의 Y/N 선택과 작업 계층·모델 권고·부모 보고 흐름을 포함하며, 기존 태그의 릴리스 묶음은 **v0.13.0**입니다. [변경 내역](docs/RELEASE-NOTES-0.13.0.md)을 확인하세요.
 
 ## 설치
 
