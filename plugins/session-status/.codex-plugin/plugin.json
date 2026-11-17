@@ -1,8 +1,10 @@
 {
   "name": "session-status",
-  "version": "0.1.0",
-  "description": "Evidence-based status prefixes for local Codex session titles, with a skill, MCP tools and lifecycle context hooks.",
-  "author": {"name": "Gabeujin"},
+  "version": "0.2.0",
+  "description": "Evidence-based status and Hangul lineage prefixes, task-specific model recommendations and verified parent-report workflows for local Codex.",
+  "author": {
+    "name": "Gabeujin"
+  },
   "license": "MIT",
   "repository": "https://github.com/Gabeujin/codex-plugins",
   "skills": "./skills/",
@@ -10,8 +12,8 @@
   "hooks": "./hooks/hooks.json",
   "interface": {
     "displayName": "Session Status",
-    "shortDescription": "Evidence-based chat status",
-    "longDescription": "Keep the current task state visible in a Codex chat title. Preview, read and update a status prefix while preserving the topic. Hooks remind the agent to choose labels from verified results.",
+    "shortDescription": "Chat status and task lineage",
+    "longDescription": "Keep task status and parent-child Hangul IDs visible. Recommend supported task models with conservative Astra escalation and prepare verified reports for authorized native delivery.",
     "developerName": "Gabeujin",
     "category": "Developer Tools",
     "capabilities": [],
