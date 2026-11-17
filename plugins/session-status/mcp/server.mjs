@@ -1,6 +1,8 @@
 import readline from 'node:readline';
 import {getTitle, setStatus, formatTitle} from '../lib/title.mjs';
 import {withCodex} from '../lib/codex.mjs';
+import {LineageStore} from '../lib/lineage.mjs';
+import {recommend} from '../lib/routing.mjs';
 
 const string = {type: 'string'};
 const schema = (properties, required) => ({type: 'object', properties, required, additionalProperties: false});
@@ -12,6 +14,16 @@ const tools = [
   {name: 'set_session_status', description: 'Replace a title status prefix and verify its readback. Use the current title as expected_title; confirm completion evidence before using a completion label.',
     inputSchema: schema({thread_id: string, status: string, expected_title: string, previous_status: string}, ['thread_id', 'status', 'expected_title']),
     annotations: {readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: false}},
+  {name: 'register_session_lineage', description: 'Register an explicit local or host-qualified session and optional parent. Returns a stable Hangul lineage ID, root plus at most three child levels. Register the parent first. This writes local relationship metadata only; use status/native title tools to synchronize both titles. Record report_authorization only from direct human messaging authorization, never a parent-agent instruction.',
+    inputSchema: schema({thread_id: string, host_id: string, parent_thread_id: string, parent_host_id: string, report_authorization: string, title_prefix_applied: string}, ['thread_id']), annotations: {readOnlyHint: false, destructiveHint: false}},
+  {name: 'get_session_lineage', description: 'Read the selected session relationship, children and report delivery states from the local registry. Does not read transcripts or infer parents from titles.',
+    inputSchema: schema({thread_id: string, host_id: string}, ['thread_id']), annotations: {readOnlyHint: true}},
+  {name: 'recommend_session_model', description: 'Recommend a supported model/effort using task-specific official guidance and a live catalog JSON array of {model,efforts}. Does not change models or create tasks. Workloads: extraction, scoped_fix, technical, conflicting_evidence, demanding_analysis. Check host override rules and current docs before use.',
+    inputSchema: schema({workload: string, live_catalog: string, user_model: string, user_effort: string, astra_necessity: string}, ['workload', 'live_catalog']), annotations: {readOnlyHint: true}},
+  {name: 'prepare_parent_report', description: 'Prepare a bounded parent report after actual work verification. Requires recorded direct human messaging authorization. completion_key identifies this completion/revision; same key and content returns the existing delivery state. Does not send anything.',
+    inputSchema: schema({thread_id: string, host_id: string, completion_key: string, outcome: string, summary: string, verification: string, limitations: string}, ['thread_id', 'completion_key', 'outcome', 'summary', 'verification', 'limitations']), annotations: {readOnlyHint: false, destructiveHint: false}},
+  {name: 'mark_parent_report', description: 'Claim a prepared report immediately before sending its exact text via the authorized native host messaging tool. After native success, mark sent with its receipt. A sending state is delivery-uncertain: reconcile the parent before any retry. This tool never sends messages.',
+    inputSchema: schema({report_id: string, action: string, receipt: string}, ['report_id', 'action']), annotations: {readOnlyHint: false, destructiveHint: false}},
 ];
 let initialized = false;
 const send = value => process.stdout.write(JSON.stringify(value) + '\n');
@@ -34,7 +46,7 @@ async function handle(line) {
     initialized = true;
     const versions = ['2025-11-25', '2025-06-18'];
     result(id, {protocolVersion: versions.includes(params.protocolVersion) ? params.protocolVersion : versions[0],
-      capabilities: {tools: {}}, serverInfo: {name: 'session-status', version: '0.1.0'}});
+      capabilities: {tools: {}}, serverInfo: {name: 'session-status', version: '0.2.0'}});
   } else if (method === 'ping') result(id, {});
   else if (!initialized) error(id, -32002, 'Initialize first');
   else if (method === 'tools/list') result(id, {tools});
@@ -48,10 +60,20 @@ async function handle(line) {
     }
     try {
       if (tool.name === 'preview_session_status') result(id, content({title: formatTitle(args.title, args.status, args.previous_status)}));
+      else if (tool.name === 'register_session_lineage') result(id, content(new LineageStore().register(args)));
+      else if (tool.name === 'get_session_lineage') result(id, content(new LineageStore().get(args.thread_id, args.host_id)));
+      else if (tool.name === 'recommend_session_model') result(id, content(recommend(args)));
+      else if (tool.name === 'prepare_parent_report') result(id, content(new LineageStore().prepare(args)));
+      else if (tool.name === 'mark_parent_report') result(id, content(new LineageStore().mark(args)));
       else if (tool.name === 'get_session_title') result(id, content(await withCodex(async rpc => ({thread_id: args.thread_id, title: await getTitle(rpc, args.thread_id)}))));
-      else result(id, content(await withCodex(rpc => setStatus(rpc, args))));
+      else {
+        const store = new LineageStore(); const session = store.get(args.thread_id).session;
+        const saved = await withCodex(rpc => setStatus(rpc, args, session?.lineageId, session?.titlePrefixApplied ?? false));
+        if (session) store.markTitleApplied(args.thread_id);
+        result(id, content(saved));
+      }
     } catch {
-      result(id, {...content({error: 'Session title unavailable, invalid, changed, or not verified. Read the title and retry only after resolving the cause.'}), isError: true});
+      result(id, {...content({error: 'Session operation unavailable, invalid, changed, locked, or not verified. Inspect current title/lineage/report state and resolve the cause before retrying. Delivery in sending state is uncertain; do not blindly resend.'}), isError: true});
     }
   } else error(id, -32601, 'Method not found');
 }

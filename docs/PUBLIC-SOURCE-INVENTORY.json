@@ -1779,6 +1779,14 @@
       "origin": "public-repository-change"
     },
     {
+      "path": "plugins/session-status/lib/lineage.mjs",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/session-status/lib/routing.mjs",
+      "origin": "public-repository-change"
+    },
+    {
       "path": "plugins/session-status/lib/title.mjs",
       "origin": "public-repository-change"
     },
@@ -1789,6 +1797,14 @@
     {
       "path": "plugins/session-status/skills/session-status/SKILL.md",
       "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/session-status/skills/session-status/references/model-selection.md",
+      "origin": "public-repository-change"
+    },
+    {
+      "path": "plugins/session-status/tests/lineage.test.mjs",
+      "origin": "synthetic-fixture"
     },
     {
       "path": "plugins/session-status/tests/status.test.mjs",
