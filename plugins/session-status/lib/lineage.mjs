@@ -96,6 +96,7 @@ export class LineageStore {
       reports: Object.values(value.reports).filter(item => item.source === own)};
   }
   register({thread_id, host_id = 'local', parent_thread_id, parent_host_id = host_id, report_authorization, title_prefix_applied}) {
+    // 실제 세션 ID에 발급한 계층을 고정하고 같은 세션의 재등록에는 기존 연결을 유지
     const own = key(thread_id, host_id);
     const parent = parent_thread_id ? key(parent_thread_id, parent_host_id) : null;
     if (own === parent) throw new Error('A session cannot parent itself');
@@ -117,6 +118,7 @@ export class LineageStore {
         if (parentRecord.depth >= 3) throw new Error('Maximum child depth is three');
       }
       const siblings = Object.values(value.sessions).filter(item => item.parent === parent);
+      // 같은 부모의 발급 순서를 사용하며 잠금 밖에서 새 번호를 계산하지 않음
       const segment = hangulId(siblings.length);
       const record = {threadId: threadId(thread_id), hostId: host_id, parent, lineageId: parent ? `${parentRecord.lineageId}-${segment}` : segment,
         depth: parent ? parentRecord.depth + 1 : 0, reportAuthorization: report_authorization || null, titlePrefixApplied: title_prefix_applied === 'verified'};
@@ -133,6 +135,7 @@ export class LineageStore {
     });
   }
   prepare({thread_id, host_id = 'local', completion_key, outcome, summary, verification, limitations}) {
+    // 같은 완료 revision의 보고는 다시 만들지 않고 이전 전송 상태를 반환
     const own = key(thread_id, host_id);
     for (const item of [completion_key, summary, verification, limitations]) safeText(item);
     if (!['completed', 'blocked', 'failed'].includes(outcome)) throw new Error('Invalid outcome');
@@ -143,6 +146,7 @@ export class LineageStore {
       const parent = value.sessions[session.parent];
       const message = `[${session.lineageId}] ${outcome}\n결과: ${summary}\n검증: ${verification}\n남은 제약: ${limitations}\n보고 ID: ${reportId}`;
       const existing = value.reports[reportId];
+      // 전송이 끊긴 보고도 보존해 문구를 바꾼 중복 발송을 방지
       if (existing) {
         if (existing.message !== message) throw new Error('Completion key reused with different content');
         return existing;
@@ -154,6 +158,7 @@ export class LineageStore {
     });
   }
   mark({report_id, action, receipt}) {
+    // 발송 직전 선점과 확인된 발송 결과를 구분하고 불확실한 선점은 자동 해제하지 않음
     if (!/^[a-f0-9]{64}$/.test(report_id)) throw new Error('Invalid report ID');
     if (!['claim', 'sent'].includes(action)) throw new Error('Invalid report action');
     if (action === 'sent') safeText(receipt, 1000);

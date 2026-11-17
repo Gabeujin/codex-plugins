@@ -10,6 +10,7 @@ const choices = {
   demanding_analysis: ['gpt-6.1-sol', 'high'],
 };
 export function recommend({workload, live_catalog, user_model, user_effort, astra_necessity}) {
+  // 공식 작업별 예시를 현재 host의 지원 조합과 대조하며 실제 모델 변경 권한은 부여하지 않음
   const choice = choices[workload];
   const catalog = JSON.parse(live_catalog);
   if (!choice || !Array.isArray(catalog) || !catalog.length || catalog.some(item => typeof item?.model !== 'string' || !Array.isArray(item.efforts) || item.efforts.some(e => typeof e !== 'string'))) throw new Error('Provide workload and current host catalog');

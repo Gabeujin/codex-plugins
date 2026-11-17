@@ -13,6 +13,7 @@ import {recommend} from '../lib/routing.mjs';
 const id = n => `00000000-0000-0000-0000-${String(n).padStart(12, '0')}`;
 const fixture = () => new LineageStore(fs.mkdtempSync(path.join(os.tmpdir(), 'lineage-fixture-')));
 test('stable siblings, Hangul order, restart and root plus three child levels', () => {
+  // 재개와 최대 깊이에서도 이미 발급한 연결과 형제 순서가 유지되는지 확인
   const store = fixture();
   assert.equal(store.register({thread_id: id(1)}).lineageId, '가');
   assert.equal(store.register({thread_id: id(2), parent_thread_id: id(1)}).lineageId, '가-가');
@@ -51,6 +52,7 @@ test('registered family prefix and custom status preserve project tags on update
   assert.equal(formatTitle(title, 'Working'), '[Working] [가-나] [Example] Sample');
 });
 test('lock contention and corrupt store fail closed without resetting metadata', () => {
+  // 잠금이나 손상된 JSON을 이유로 기존 데이터를 초기화하지 않는지 확인
   const store = fixture(); store.register({thread_id: id(1)});
   const before = fs.readFileSync(store.file, 'utf8');
   fs.writeFileSync(path.join(store.directory, 'write.lock'), 'fixture lock', 'utf8');
@@ -78,6 +80,7 @@ test('UUID case is normalized and first human authorization can be recorded late
   assert.throws(() => store.register({thread_id: id(1), parent_thread_id: mixed, report_authorization: 'Different authority'}));
 });
 test('independent processes allocate unique siblings through one registry lock', async () => {
+  // 서로 다른 프로세스가 하나의 저장소에 등록해도 같은 형제 ID를 받지 않는지 확인
   const store = fixture(); store.register({thread_id: id(1)});
   const worker = path.join(store.directory, 'worker.mjs');
   const library = new URL('../lib/lineage.mjs', import.meta.url).href;
@@ -93,6 +96,7 @@ for (let attempt=0; attempt<100; attempt++) {
   assert.deepEqual(new Set(store.get(id(1)).children.map(item => item.lineageId)), new Set(['가-가', '가-나', '가-다', '가-라']));
 });
 test('parent reports require human authority and verified fields, deduplicate and preserve uncertain delivery', () => {
+  // 문안 준비와 실제 발송 확인을 분리하고 재개 시에도 중복 전송을 막는지 확인
   const store = fixture(); store.register({thread_id: id(1)});
   store.register({thread_id: id(2), parent_thread_id: id(1)});
   const args = {thread_id: id(2), completion_key: 'revision-1', outcome: 'completed', summary: '합성 작업 완료', verification: '합성 검사 통과', limitations: '실제 환경 미검증'};
@@ -125,6 +129,7 @@ test('task-specific routing intersects live support, preserves explicit model an
   assert.deepEqual(recommend({workload: 'demanding_analysis', live_catalog: all, astra_necessity: 'Synthetic conflicting results remain after bounded Sol review.'}).recommendation, {model: 'gpt-6-astra', thinking: 'low'});
 });
 test('real MCP registry/report protocol persists separately from package and does not send messages', () => {
+  // 실제 stdio 경로로 등록·조회·보고 준비를 호출하되 native 메시지는 발송하지 않음
   const store = fixture();
   const request = (n, name, args) => ({jsonrpc: '2.0', id: n, method: 'tools/call', params: {name, arguments: args}});
   const messages = [{jsonrpc: '2.0', id: 1, method: 'initialize', params: {}},
