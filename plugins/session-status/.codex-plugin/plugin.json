@@ -1,7 +1,7 @@
 {
   "name": "session-status",
-  "version": "0.2.0",
-  "description": "Evidence-based status and Hangul lineage prefixes, task-specific model recommendations and verified parent-report workflows for local Codex.",
+  "version": "0.3.0",
+  "description": "Task status and Hangul lineage, human Y/N model choices, conservative Astra use and verified parent-report workflows for Codex.",
   "author": {
     "name": "Gabeujin"
   },
@@ -12,8 +12,8 @@
   "hooks": "./hooks/hooks.json",
   "interface": {
     "displayName": "Session Status",
-    "shortDescription": "Chat status and task lineage",
-    "longDescription": "Keep task status and parent-child Hangul IDs visible. Recommend supported task models with conservative Astra escalation and prepare verified reports for authorized native delivery.",
+    "shortDescription": "Task lineage and model choice",
+    "longDescription": "Keep task status and parent-child IDs visible. Ask a task-bound human Y/N before applying a named model recommendation; preserve defaults on N and wait on no response. Astra is exceptional and low only.",
     "developerName": "Gabeujin",
     "category": "Developer Tools",
     "capabilities": [],

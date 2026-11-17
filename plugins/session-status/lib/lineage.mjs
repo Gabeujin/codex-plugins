@@ -3,6 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {randomUUID, createHash} from 'node:crypto';
 import {threadId} from './title.mjs';
+import {validateModelChoices} from './model-choice.mjs';
 
 const alphabet = [];
 for (const vowel of [0, 2, 4, 6, 8, 12, 13, 17, 18, 20]) {
@@ -40,6 +41,7 @@ export class LineageStore {
   }
   validate(value) {
     if (value.schemaVersion !== 1 || !value.sessions || typeof value.sessions !== 'object' || !value.reports || typeof value.reports !== 'object' || Array.isArray(value.sessions) || Array.isArray(value.reports)) throw new Error('Unsupported lineage store');
+    validateModelChoices(value.modelChoices);
     const assigned = new Set();
     const groups = new Map();
     // 읽을 수 있는 JSON이어도 연결·깊이·발급 ID가 손상됐으면 덮어쓰지 않도록 검사

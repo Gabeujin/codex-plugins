@@ -84,7 +84,7 @@ export class CodexRpc {
 export async function withCodex(action, options) {
   const rpc = new CodexRpc(options);
   try {
-    await rpc.call('initialize', {clientInfo: {name: 'session-status', version: '0.2.0'}});
+    await rpc.call('initialize', {clientInfo: {name: 'session-status', version: '0.3.0'}});
     rpc.notify('initialized');
     return await action(rpc);
   } finally { rpc.close(); }

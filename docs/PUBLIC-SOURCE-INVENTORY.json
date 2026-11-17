@@ -1783,6 +1783,10 @@
       "origin": "public-repository-change"
     },
     {
+      "path": "plugins/session-status/lib/model-choice.mjs",
+      "origin": "public-repository-change"
+    },
+    {
       "path": "plugins/session-status/lib/routing.mjs",
       "origin": "public-repository-change"
     },
@@ -1804,6 +1808,10 @@
     },
     {
       "path": "plugins/session-status/tests/lineage.test.mjs",
+      "origin": "synthetic-fixture"
+    },
+    {
+      "path": "plugins/session-status/tests/model-choice.test.mjs",
       "origin": "synthetic-fixture"
     },
     {

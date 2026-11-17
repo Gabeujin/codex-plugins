@@ -98,7 +98,7 @@ test('MCP initialize/list/preview works offline and id-less mutation is ignored'
   ];
   const replies = runScript('mcp/server.mjs', messages.map(x => JSON.stringify(x)).join('\n') + '\n');
   assert.equal(replies[0].result.protocolVersion, '2025-11-25');
-  assert.equal(replies[1].result.tools.length, 8);
+  assert.equal(replies[1].result.tools.length, 11);
   assert.equal(JSON.parse(replies[2].result.content[0].text).title, '[Working] Sample');
   assert.equal(replies.length, 4);
   assert.equal(replies[3].error.code, -32602);
