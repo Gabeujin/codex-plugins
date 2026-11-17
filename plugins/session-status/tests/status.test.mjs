@@ -98,7 +98,7 @@ test('MCP initialize/list/preview works offline and id-less mutation is ignored'
   ];
   const replies = runScript('mcp/server.mjs', messages.map(x => JSON.stringify(x)).join('\n') + '\n');
   assert.equal(replies[0].result.protocolVersion, '2025-11-25');
-  assert.equal(replies[1].result.tools.length, 8);
+  assert.equal(replies[1].result.tools.length, 11);
   assert.equal(JSON.parse(replies[2].result.content[0].text).title, '[Working] Sample');
   assert.equal(replies.length, 4);
   assert.equal(replies[3].error.code, -32602);
@@ -134,4 +134,20 @@ readline.createInterface({input:process.stdin}).on('line',line=>{
 });`, 'utf8');
   const result = await withCodex(client => client.call('thread/read', {}), {command: process.execPath, args: [server]});
   assert.deepEqual(result, {ready: true});
+});
+
+test('MCP exposes exact title/report enums and rejects translated outcomes before mutation', () => {
+  const requests = [
+    {jsonrpc: '2.0', id: 1, method: 'initialize', params: {}},
+    {jsonrpc: '2.0', id: 2, method: 'tools/list'},
+    {jsonrpc: '2.0', id: 3, method: 'tools/call', params: {name: 'prepare_parent_report', arguments: {
+      thread_id: id, completion_key: 'synthetic', outcome: '완료', summary: 'Sample', verification: 'Sample', limitations: 'Sample'}}},
+  ];
+  const replies = runScript('mcp/server.mjs', requests.map(x => JSON.stringify(x)).join('\n') + '\n');
+  const tools = replies[1].result.tools;
+  const property = (name, field) => tools.find(x => x.name === name).inputSchema.properties[field];
+  assert.deepEqual(property('register_session_lineage', 'title_prefix_applied').enum, ['verified']);
+  assert.deepEqual(property('prepare_parent_report', 'outcome').enum, ['completed', 'blocked', 'failed']);
+  assert.deepEqual(property('mark_parent_report', 'action').enum, ['claim', 'sent']);
+  assert.equal(replies[2].error.code, -32602);
 });

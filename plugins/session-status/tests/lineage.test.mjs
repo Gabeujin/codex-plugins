@@ -117,16 +117,17 @@ test('parent reports require human authority and verified fields, deduplicate an
   assert.throws(() => store.mark({report_id: prepared.reportId, action: 'sent', receipt: 'second'}));
 });
 test('task-specific routing intersects live support, preserves explicit model and rejects malformed catalog', () => {
-  const live_catalog = JSON.stringify([{model: 'gpt-6-luna', efforts: ['low', 'high']}, {model: 'gpt-6.1-sol', efforts: ['medium', 'xhigh']}]);
+  const live_catalog = JSON.stringify([{model: 'gpt-6-luna', efforts: ['low', 'high']}, {model: 'gpt-6.1-sol', efforts: ['medium', 'high', 'xhigh']}]);
   assert.deepEqual(recommend({workload: 'extraction', live_catalog}).recommendation, {model: 'gpt-6-luna', thinking: 'low'});
-  assert.deepEqual(recommend({workload: 'conflicting_evidence', live_catalog}).recommendation, {model: 'gpt-6.1-sol', thinking: 'xhigh'});
-  assert.equal(recommend({workload: 'demanding_analysis', live_catalog}).preserve_default, true);
+  assert.deepEqual(recommend({workload: 'conflicting_evidence', live_catalog}).recommendation, {model: 'gpt-6.1-sol', thinking: 'high'});
+  assert.equal(recommend({workload: 'scoped_fix', live_catalog}).preserve_default, true);
   assert.deepEqual(recommend({workload: 'extraction', live_catalog, user_model: 'gpt-6.1-sol', user_effort: 'medium'}).recommendation, {model: 'gpt-6.1-sol', thinking: 'medium'});
   assert.throws(() => recommend({workload: 'technical', live_catalog: '{}'}));
   const all = JSON.stringify([{model: 'gpt-6.1-sol', efforts: ['high']}, {model: 'gpt-6-astra', efforts: ['low', 'xhigh']}]);
   assert.equal(recommend({workload: 'demanding_analysis', live_catalog: all}).recommendation.model, 'gpt-6.1-sol');
   assert.throws(() => recommend({workload: 'demanding_analysis', live_catalog: all, user_model: 'gpt-6-astra'}), /necessity/);
   assert.deepEqual(recommend({workload: 'demanding_analysis', live_catalog: all, astra_necessity: 'Synthetic conflicting results remain after bounded Sol review.'}).recommendation, {model: 'gpt-6-astra', thinking: 'low'});
+  assert.throws(() => recommend({workload: 'demanding_analysis', live_catalog: all, astra_necessity: 'Synthetic need', user_effort: 'xhigh'}), /remain low/);
 });
 test('real MCP registry/report protocol persists separately from package and does not send messages', () => {
   // 실제 stdio 경로로 등록·조회·보고 준비를 호출하되 native 메시지는 발송하지 않음
